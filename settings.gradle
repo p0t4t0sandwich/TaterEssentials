@@ -1,0 +1,60 @@
+pluginManagement {
+    repositories {
+        gradlePluginPortal()
+        mavenCentral()
+        mavenLocal()
+
+        // Fabric
+        maven {
+            name = 'Fabric'
+            url = 'https://maven.fabricmc.net/'
+        }
+
+        // Forge
+        maven {
+            name = 'Forge'
+            url = 'https://maven.minecraftforge.net/'
+        }
+
+        // NeoForge
+        maven {
+            name = 'NeoForge'
+            url 'https://maven.neoforged.net/releases'
+        }
+
+        // Parchment Mappings
+        maven {
+            name = 'ParchmentMC'
+            url = 'https://maven.parchmentmc.org'
+        }
+
+        // Sponge
+        maven {
+            name = 'Sponge'
+            url = 'https://repo.spongepowered.org/maven'
+        }
+
+        maven {
+            name = 'sponge-repo'
+            url = 'https://repo.spongepowered.org/repository/maven-public/'
+        }
+    }
+}
+
+plugins {
+    // Automatic toolchain provisioning
+    id("org.gradle.toolchains.foojay-resolver-convention") version("0.5.0")
+}
+
+rootProject.name = 'TaterUtils'
+
+include(
+        'bukkit',
+        'bungee',
+        'common',
+        'fabric-1.20.2',
+        'forge-1.20.2',
+        'neoforge-1.20.2',
+        'sponge8',
+        'velocity'
+)

@@ -13,8 +13,8 @@ public interface TaterUtilsPlugin extends Plugin {
      */
     default void pluginStart(Plugin plugin, AbstractLogger logger) {
         try {
-            TaterUtils.logger.info(Constants.PROJECT_NAME + " is running on " + TaterLib.serverType + " " + TaterLib.minecraftVersion + "!");
             TaterUtils.start(plugin, logger);
+            TaterUtils.logger.info(Constants.PROJECT_NAME + " is running on " + TaterLib.serverType + " " + TaterLib.minecraftVersion + "!");
         } catch (Exception e) {
             e.printStackTrace();
         }

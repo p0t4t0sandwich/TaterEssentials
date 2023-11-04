@@ -207,7 +207,7 @@ prepareFiles common
 # Copy common files
 mv ./common/$GROUP_ID/$PROJ_ID/common ./$PROJ_NAME-all/$GROUP_ID/$PROJ_ID
 mv ./common/$GROUP_ID/$PROJ_ID/lib ./$PROJ_NAME-all/$GROUP_ID/$PROJ_ID
-#cp ./common/config.yml ./$PROJ_NAME-all
+cp ./common/$PROJ_ID.config.yml ./$PROJ_NAME-all
 cp ../../LICENSE ./$PROJ_NAME-all
 cp ../../LICENSE-API ./$PROJ_NAME-all
 cp ../../README.md ./$PROJ_NAME-all
@@ -231,7 +231,7 @@ done
 
 # --------------------------- Prepare Forge --------------------------------
 
-FORGE_VERSIONS=(1.20.2)
+FORGE_VERSIONS=(1.13.2)
 for FORGE_VERSION in "${FORGE_VERSIONS[@]}"
 do
     prepareFiles forge-$FORGE_VERSION
@@ -248,7 +248,7 @@ done
 # --------------------------- Build 1.20.2 --------------------------------
 MC_VERSION=1.20.2
 FABRIC_VERSION=1.20.2
-FORGE_VERSION=1.20.2
+FORGE_VERSION=1.13.2
 NEOFORGE_VERSION=1.20.2
 SPONGE_VERSION=8
 OUT_FILE=$PROJ_NAME-$VERSION

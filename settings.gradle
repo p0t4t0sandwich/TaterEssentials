@@ -53,7 +53,7 @@ include(
         'bungee',
         'common',
         'fabric-1.20.2',
-        'forge-1.20.2',
+        'forge-1.13',
         'neoforge-1.20.2',
         'sponge8',
         'velocity'

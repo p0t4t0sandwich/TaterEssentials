@@ -18,12 +18,12 @@ public class TaterUtilsConfig {
      */
     public static void loadConfig(String configFolder) {
         try {
-            config = YamlDocument.create(new File("." + File.separator + configFolder + File.separator + Constants.PROJECT_NAME, Constants.PROJECT_ID + ".config.yml"),
-                    Objects.requireNonNull(TaterUtils.class.getClassLoader().getResourceAsStream(Constants.PROJECT_ID + ".config.yml"))
+            config = YamlDocument.create(new File("." + File.separator + configFolder + File.separator + TaterUtils.Constants.PROJECT_NAME, TaterUtils.Constants.PROJECT_ID + ".config.yml"),
+                    Objects.requireNonNull(TaterUtils.class.getClassLoader().getResourceAsStream(TaterUtils.Constants.PROJECT_ID + ".config.yml"))
             );
             config.reload();
         } catch (IOException | NullPointerException e) {
-            TaterUtils.logger.info("Failed to load " + Constants.PROJECT_ID + ".config.yml!\n" + e.getMessage());
+            TaterUtils.getLogger().info("Failed to load " + TaterUtils.Constants.PROJECT_ID + ".config.yml!\n" + e.getMessage());
             e.printStackTrace();
         }
     }
@@ -42,7 +42,7 @@ public class TaterUtilsConfig {
         try {
             config.save();
         } catch (IOException e) {
-            TaterUtils.logger.info("Failed to save " + Constants.PROJECT_ID + ".config.ymll!\n" + e.getMessage());
+            TaterUtils.getLogger().info("Failed to save " + TaterUtils.Constants.PROJECT_ID + ".config.ymll!\n" + e.getMessage());
         }
     }
 }

@@ -5,6 +5,9 @@ plugins {
 dependencies {
     // TaterLib
     compileOnly("dev.neuralnexus:TaterLib:${taterlib_version}")
+
+    // Brigadier
+    compileOnly('com.mojang:brigadier:1.0.18')
 }
 
 shadowJar {

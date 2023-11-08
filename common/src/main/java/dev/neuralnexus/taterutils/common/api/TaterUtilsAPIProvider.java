@@ -1,18 +1,16 @@
 package dev.neuralnexus.taterutils.common.api;
 
-import dev.neuralnexus.taterutils.common.TaterUtils;
-
 /**
- * TaterUtils API Provider
+ * API Provider
  */
 public class TaterUtilsAPIProvider {
-    private static TaterUtils instance = null;
+    private static TaterUtilsAPI instance = null;
 
     /**
-     * Get the instance of BeeNameGenerator
-     * @return The instance of BeeNameGenerator
+     * Get the instance of the API
+     * @return The instance of the API
      */
-    public static TaterUtils get() {
+    public static TaterUtilsAPI get() {
         if (instance == null) {
             throw new NotLoadedException();
         }
@@ -23,7 +21,10 @@ public class TaterUtilsAPIProvider {
      * DO NOT USE THIS METHOD, IT IS FOR INTERNAL USE ONLY
      * @param instance: The instance of TaterUtils
      */
-    public static void register(TaterUtils instance) {
+    public static void register(TaterUtilsAPI instance) {
+        if (TaterUtilsAPIProvider.instance != null) {
+            throw new IllegalStateException("TaterAPI has already been registered!");
+        }
         TaterUtilsAPIProvider.instance = instance;
     }
 

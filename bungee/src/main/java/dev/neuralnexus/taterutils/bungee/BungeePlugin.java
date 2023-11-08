@@ -1,6 +1,7 @@
 package dev.neuralnexus.taterutils.bungee;
 
 import dev.neuralnexus.taterlib.bungee.logger.BungeeLogger;
+import dev.neuralnexus.taterlib.common.event.api.ServerEvents;
 import dev.neuralnexus.taterutils.common.TaterUtilsPlugin;
 import net.md_5.bungee.api.plugin.Plugin;
 
@@ -8,13 +9,8 @@ import net.md_5.bungee.api.plugin.Plugin;
  * Bungee entry point.
  */
 public class BungeePlugin extends Plugin implements TaterUtilsPlugin {
-    @Override
-    public void onEnable() {
+    public BungeePlugin() {
+        ServerEvents.STOPPED.register(event -> pluginStop());
         pluginStart(this, new BungeeLogger(getLogger()));
-    }
-
-    @Override
-    public void onDisable() {
-        pluginStop();
     }
 }

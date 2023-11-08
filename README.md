@@ -1,12 +1,12 @@
 # TaterUtils
 
-[![License](https://img.shields.io/github/license/p0t4t0sandwich/TaterLib?color=blue)](https://img.shields.io/github/downloads/p0t4t0sandwich/TaterUtils/LICENSE)
+[![License](https://img.shields.io/github/license/p0t4t0sandwich/TaterUtils?color=blue)](https://img.shields.io/github/downloads/p0t4t0sandwich/TaterUtils/LICENSE)
 [![Github](https://img.shields.io/github/stars/p0t4t0sandwich/TaterUtils)](https://github.com/p0t4t0sandwich/TaterUtils)
 [![Github Issues](https://img.shields.io/github/issues/p0t4t0sandwich/TaterUtils?label=Issues)](https://github.com/p0t4t0sandwich/TaterUtils/issues)
 [![Discord](https://img.shields.io/discord/1067482396246683708?color=7289da&logo=discord&logoColor=white)](https://discord.neuralnexus.dev)
-[![wakatime](https://wakatime.com/badge/user/fc67ce74-ca69-40a4-912f-61b26dbe3068/project/ba087a5d-fd50-4b54-9723-3effbfda7567.svg)](https://wakatime.com/badge/user/fc67ce74-ca69-40a4-912f-61b26dbe3068/project/ba087a5d-fd50-4b54-9723-3effbfda7567)
+[![wakatime](https://wakatime.com/badge/github/p0t4t0sandwich/TaterUtils.svg)](https://wakatime.com/badge/github/p0t4t0sandwich/TaterUtils)
 
-An essential, cross API server utility plugin for Minecraft servers.
+An essential, cross API server utility plugin that doubles as a staging ground for new plugin ideas.
 
 Link to our support: [Discord](https://discord.neuralnexus.dev)
 

@@ -6,3 +6,8 @@ main: '${group_id}.${project_id}.bukkit.BukkitPlugin'
 depends: [TaterLib]
 softdepends: [LuckPerms]
 folia-supported: true
+commands:
+  home:
+    description: Teleport to your home
+    usage: /home [name|set|delete]
+    permission: taterlib.command.home

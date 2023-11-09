@@ -1,19 +1,22 @@
 package dev.neuralnexus.taterutils.common.api;
 
+import dev.neuralnexus.taterutils.common.api.modules.HomeAPI;
+
 /**
  * API wrapper class
  */
 public class TaterUtilsAPI {
-    private final Data data;
+    private final HomeAPI homeAPI;
 
     public TaterUtilsAPI() {
-        this.data = new Data();
+        this.homeAPI = new HomeAPI();
     }
 
     /**
-     * Data used throughout the plugin via the API.
+     * Get the home API.
+     * @return The home API.
      */
-    static class Data {
-        Data() {}
+    public HomeAPI getHomeAPI() {
+        return homeAPI;
     }
 }

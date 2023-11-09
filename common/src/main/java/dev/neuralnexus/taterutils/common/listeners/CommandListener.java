@@ -1,5 +1,6 @@
 package dev.neuralnexus.taterutils.common.listeners;
 
+import dev.neuralnexus.taterlib.common.api.TaterAPIProvider;
 import dev.neuralnexus.taterlib.common.event.command.CommandRegisterEvent;
 import dev.neuralnexus.taterutils.common.TaterUtils;
 import dev.neuralnexus.taterutils.common.commands.HomeCommand;
@@ -13,6 +14,8 @@ public class CommandListener {
      * @param event The event.
      */
     public static void onRegisterCommand(CommandRegisterEvent event) {
-        event.registerCommand(TaterUtils.getPlugin(), new HomeCommand());
+        if (!(TaterAPIProvider.get().serverType().isBungeeCordBased() || TaterAPIProvider.get().serverType().isVelocityBased())) {
+            event.registerCommand(TaterUtils.getPlugin(), new HomeCommand());
+        }
     }
 }

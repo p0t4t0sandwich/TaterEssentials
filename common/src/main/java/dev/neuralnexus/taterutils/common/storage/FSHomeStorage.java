@@ -11,12 +11,13 @@ import dev.neuralnexus.taterutils.common.api.modules.HomeAPI;
 import java.io.File;
 import java.io.IOException;
 import java.nio.file.Files;
+import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.Optional;
 import java.util.Set;
 
 public class FSHomeStorage extends Filesystem implements HomeStorage {
-    private Gson gson = new GsonBuilder().create();
+    private final Gson gson = new GsonBuilder().create();
     public FSHomeStorage(DatabaseConfig config) {
         super(config);
     }
@@ -28,8 +29,12 @@ public class FSHomeStorage extends Filesystem implements HomeStorage {
      */
     private String read(String uuid) {
         try {
-            String file = getConnection() + File.separator + getDatabase() + File.separator + uuid + ".json";
-            return new String(Files.readAllBytes(Paths.get(file)));
+            final Path path = Paths.get(getConnection() + File.separator + getDatabase() + File.separator + uuid + ".json");
+            if (!Files.exists(path)) {
+                Files.createDirectories(path.getParent());
+                Files.createFile(path);
+            }
+            return new String(Files.readAllBytes(path));
         } catch (IOException e) {
             e.printStackTrace();
             return null;
@@ -65,6 +70,9 @@ public class FSHomeStorage extends Filesystem implements HomeStorage {
     @Override
     public void setHome(Player player, String home, Location location) {
         Set<HomeAPI.PlayerHome> homes = getHomes(player);
+        if (homes.stream().anyMatch(h -> h.name.equals(home))) {
+            homes.removeIf(h -> h.name.equals(home));
+        }
         homes.add(new HomeAPI.PlayerHome(home, location.getWorld(), location.getX(), location.getY(), location.getZ(), location.getYaw(), location.getPitch()));
         String json = gson.toJson(homes);
         write(player.getUniqueId().toString(), json);

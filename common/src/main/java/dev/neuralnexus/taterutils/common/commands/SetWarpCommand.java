@@ -87,9 +87,11 @@ public class SetWarpCommand implements Command {
                         api.deleteWarp(args[1]);
                         player.sendMessage(PlaceholderParser.substituteSectionSign("&aDeleted the warp."));
                         return true;
+                    default:
+                        player.sendMessage(PlaceholderParser.substituteSectionSign("&cInvalid arguments."));
+                        return true;
                 }
             }
-        return true;
     }
 
 }

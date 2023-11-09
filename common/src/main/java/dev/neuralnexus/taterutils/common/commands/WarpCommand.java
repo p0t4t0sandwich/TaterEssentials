@@ -31,7 +31,7 @@ public class WarpCommand implements Command {
 
     @Override
     public String getUsage() {
-        return "/warp [list/location name]";
+        return "/warp [location name]";
     }
 
     @Override

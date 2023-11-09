@@ -24,7 +24,7 @@ public class WarpAPI {
 
     /**
      * Get a player's home.
-     * @param warp   The name of the home.
+     * @param warp   The name of the warp.
      */
     public Optional<WarpAPI.WarpLocation> getWarp(String warp) {
         return this.database.getWarp(warp);
@@ -33,7 +33,7 @@ public class WarpAPI {
     /**
      * Set a Warp.
      * @param player   The player.
-     * @param location The location of the home.
+     * @param location The location of the warp.
      */
     public void setWarp(Player player, String warp, Location location) {
         this.database.setWarp(player, warp, location);
@@ -41,7 +41,7 @@ public class WarpAPI {
 
     /**
      * Delete a Warp.
-     * @param warp   The name of the home.
+     * @param warp  The name of the warp.
      */
     public void deleteWarp(String warp) {
         this.database.deleteWarp(warp);
@@ -57,6 +57,7 @@ public class WarpAPI {
     /**
      * Teleport a player to a Warp.
      * @param player The player.
+     * @param warp the warp name.
      */
     public boolean teleportWarp(Player player, String warp) {
         return this.database.teleportWarp(player, warp);

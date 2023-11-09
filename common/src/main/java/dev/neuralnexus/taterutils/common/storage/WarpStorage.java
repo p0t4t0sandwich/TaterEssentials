@@ -34,10 +34,10 @@ public interface WarpStorage {
 
     /**
      * Get all of the warps.
-     * @param warp The warp.
+
      */
 
-    Set<WarpAPI.WarpLocation> getWarps(String warp);
+    Set<WarpAPI.WarpLocation> getWarps();
 
     /**
      * Teleport a player to a warp.

@@ -24,12 +24,12 @@ public class FSWarpStorage extends Filesystem implements WarpStorage {
 
     /**
      * Read a file.
-     * @param uuid The UUID of the player.
      * @return The contents of the file.
      */
-    private String read(String uuid) {
+
+    private String read() {
         try {
-            String file = getConnection() + File.separator + getDatabase() + File.separator + uuid + ".json";
+            String file = getConnection() + File.separator + getDatabase() + File.separator + "warps" + ".json";
             return new String(Files.readAllBytes(Paths.get(file)));
         } catch (IOException e) {
             e.printStackTrace();
@@ -38,13 +38,12 @@ public class FSWarpStorage extends Filesystem implements WarpStorage {
     }
 
     /**
-     * Write to a file.
-     * @param name The name of the warp.
+     * Write to a file..
      * @param json The contents of the file.
      */
-    private void write(String name, String json) {
+    private void write( String json) {
         try {
-            String file = getConnection() + File.separator + getDatabase() + File.separator + name + ".json";
+            String file = getConnection() + File.separator + getDatabase() + File.separator + "warps" + ".json";
             Files.write(Paths.get(file), json.getBytes());
         } catch (IOException e) {
             e.printStackTrace();
@@ -56,38 +55,41 @@ public class FSWarpStorage extends Filesystem implements WarpStorage {
      */
     @Override
     public Optional<WarpAPI.WarpLocation> getWarp(String warp) {
-        Set<WarpAPI.WarpLocation> homes = getWarps(warp);
-        return homes.stream().filter(h -> h.name.equals(warp)).findFirst();
+        Set<WarpAPI.WarpLocation> warps = getWarps();
+        return warps.stream().filter(h -> h.name.equals(warp)).findFirst();
     }
 
     /**
      * {@inheritDoc}
      */
+
     @Override
     public void setWarp(Player player, String warp, Location location) {
-        Set<WarpAPI.WarpLocation> warps = getWarps(warp);
+        Set<WarpAPI.WarpLocation> warps = getWarps();
         warps.add(new WarpAPI.WarpLocation(warp, location.getWorld(), location.getX(), location.getY(), location.getZ(), location.getYaw(), location.getPitch()));
         String json = gson.toJson(warps);
-        write(warp, json);
+        write(json);
     }
 
     /**
      * {@inheritDoc}
      */
+
     @Override
     public void deleteWarp(String warp) {
-        Set<WarpAPI.WarpLocation> homes = getWarps(warp);
-        homes.removeIf(h -> h.name.equals(warp));
-        String json = gson.toJson(homes);
-        write(warp, json);
+        Set<WarpAPI.WarpLocation> warps = getWarps();
+        warps.removeIf(h -> h.name.equals(warp));
+        String json = gson.toJson(warps);
+        write(json);
     }
 
     /**
      * {@inheritDoc}
      */
+
     @Override
-    public Set<WarpAPI.WarpLocation> getWarps(String warp) {
-        String json = read(warp.toLowerCase(Locale.ROOT));
+    public Set<WarpAPI.WarpLocation> getWarps() {
+        String json = read();
         java.lang.reflect.Type type = new TypeToken<Set<WarpAPI.WarpLocation>>(){}.getType();
         Set<WarpAPI.WarpLocation> warps = gson.fromJson(json, type);
         return warps == null ? new java.util.HashSet<>() : warps;

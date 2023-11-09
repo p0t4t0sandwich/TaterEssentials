@@ -2,9 +2,11 @@ package dev.neuralnexus.taterutils.common.commands;
 
 import dev.neuralnexus.taterlib.common.command.Command;
 import dev.neuralnexus.taterlib.common.command.Sender;
-
+/**
+ * SetWarp Command.
+ */
 public class SetWarpCommand implements Command {
-    private String name = "warp";
+    private String name = "setwarp";
 
     @Override
     public void setName(String name) {

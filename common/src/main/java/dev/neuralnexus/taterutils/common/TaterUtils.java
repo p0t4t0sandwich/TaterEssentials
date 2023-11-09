@@ -3,6 +3,8 @@ package dev.neuralnexus.taterutils.common;
 import dev.neuralnexus.taterlib.common.api.TaterAPIProvider;
 import dev.neuralnexus.taterlib.common.event.api.CommandEvents;
 import dev.neuralnexus.taterlib.common.logger.AbstractLogger;
+import dev.neuralnexus.taterutils.common.api.TaterUtilsAPI;
+import dev.neuralnexus.taterutils.common.api.TaterUtilsAPIProvider;
 import dev.neuralnexus.taterutils.common.listeners.CommandListener;
 
 /**
@@ -79,6 +81,8 @@ public class TaterUtils {
         }
 
         logger.info(Constants.PROJECT_NAME + " has been started!");
+
+        TaterUtilsAPIProvider.register(new TaterUtilsAPI());
     }
 
     /**
@@ -102,6 +106,7 @@ public class TaterUtils {
         TaterUtilsConfig.unloadConfig();
 
         instance.logger.info(Constants.PROJECT_NAME + " has been stopped!");
+        TaterUtilsAPIProvider.unregister();
     }
 
     /**

@@ -7,7 +7,9 @@ import dev.neuralnexus.taterutils.common.api.modules.WarpAPI;
 
 import java.util.Optional;
 import java.util.Set;
-
+/**
+ * Storage API for the warp module.
+ */
 public interface WarpStorage {
     /**
      * Get a Warp.

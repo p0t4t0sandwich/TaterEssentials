@@ -2,7 +2,9 @@ package dev.neuralnexus.taterutils.common.commands;
 
 import dev.neuralnexus.taterlib.common.command.Command;
 import dev.neuralnexus.taterlib.common.command.Sender;
-
+/**
+ * Tpa Command.
+ */
 public class TpaCommand implements Command {
     private String name = "tpa";
 

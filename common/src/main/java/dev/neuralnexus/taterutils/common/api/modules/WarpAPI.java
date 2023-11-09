@@ -14,7 +14,7 @@ import java.util.Optional;
 import java.util.Set;
 
 public class WarpAPI {
-    private final HomeAPI.Data data;
+    private final WarpAPI.Data data;
     private final WarpStorage database;
 
     public WarpAPI() {

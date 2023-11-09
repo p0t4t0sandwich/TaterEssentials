@@ -14,8 +14,8 @@ commands:
   setwarp:
     description: Set or delete a warp locatioon
     usage: /setwarp [set|delete] [name]
-    permission: taterutils.command.setwarp
+    permission: taterlib.command.setwarp
   warp:
     description: Allows players to Send a teleport request to another player!
-    usage: /warp [location name]
-    permission: taterutils.command.warp
+    usage: /warp [name]
+    permission: taterlib.command.warp

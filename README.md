@@ -10,6 +10,10 @@ An essential, cross API server utility plugin that doubles as a staging ground f
 
 Link to our support: [Discord](https://discord.neuralnexus.dev)
 
+## Usage
+
+- [Commands and Permissions](https://github.com/p0t4t0sandwich/TaterUtils/wiki/Commands-and-Permissions)
+
 ## Download
 
 [![Github Releases](https://img.shields.io/github/downloads/p0t4t0sandwich/TaterUtils/total?label=Github&logo=github&color=181717)](https://github.com/p0t4t0sandwich/TaterUtils/releases)
@@ -39,11 +43,5 @@ TaterUtils supports: Bukkit, BungeeCord, Fabric, Forge, Sponge, and Velocity
 |----------------------|----------|-----------------------------------|
 | All 1.13 and up      | 1.13+    | `TaterUtils-<version>.jar`        |
 | All 1.12.2 and below | 1.12.2-  | `TaterUtils-legacy-<version>.jar` |
-
-## Commands and Permissions
-
-| Command                        | Permission           | Description             |
-|--------------------------------|----------------------|-------------------------|
-| `/taterutils <version/reload>` | `taterutils.command` | Root TaterUtils Command |
 
 ## Release Notes

@@ -1,12 +1,11 @@
-package dev.neuralnexus.taterutils.common.storage;
+package dev.neuralnexus.taterutils.common.storage.home;
 
 import dev.neuralnexus.taterlib.common.player.Player;
 import dev.neuralnexus.taterlib.common.storage.Filesystem;
 import dev.neuralnexus.taterlib.common.utils.Location;
 import dev.neuralnexus.taterlib.lib.gson.Gson;
 import dev.neuralnexus.taterlib.lib.gson.GsonBuilder;
-import dev.neuralnexus.taterlib.lib.gson.reflect.TypeToken;
-import dev.neuralnexus.taterutils.common.api.modules.HomeAPI;
+import dev.neuralnexus.taterutils.common.api.modules.NamedLocation;
 
 import java.io.File;
 import java.io.IOException;
@@ -16,8 +15,12 @@ import java.nio.file.Paths;
 import java.util.Optional;
 import java.util.Set;
 
+
+/**
+ * Filesystem implementation of the home storage.
+ */
 public class FSHomeStorage extends Filesystem implements HomeStorage {
-    private final Gson gson = new GsonBuilder().create();
+    private final Gson gson = new GsonBuilder().setPrettyPrinting().create();
     public FSHomeStorage(DatabaseConfig config) {
         super(config);
     }
@@ -59,9 +62,9 @@ public class FSHomeStorage extends Filesystem implements HomeStorage {
      * {@inheritDoc}
      */
     @Override
-    public Optional<HomeAPI.PlayerHome> getHome(Player player, String home) {
-        Set<HomeAPI.PlayerHome> homes = getHomes(player);
-        return homes.stream().filter(h -> h.name.equals(home)).findFirst();
+    public Optional<NamedLocation> getHome(Player player, String home) {
+        Set<NamedLocation> homes = getHomes(player);
+        return homes.stream().filter(h -> h.getName().equals(home)).findFirst();
     }
 
     /**
@@ -69,11 +72,11 @@ public class FSHomeStorage extends Filesystem implements HomeStorage {
      */
     @Override
     public void setHome(Player player, String home, Location location) {
-        Set<HomeAPI.PlayerHome> homes = getHomes(player);
-        if (homes.stream().anyMatch(h -> h.name.equals(home))) {
-            homes.removeIf(h -> h.name.equals(home));
+        Set<NamedLocation> homes = getHomes(player);
+        if (homes.stream().anyMatch(h -> h.getName().equals(home))) {
+            homes.removeIf(h -> h.getName().equals(home));
         }
-        homes.add(new HomeAPI.PlayerHome(home, location.getWorld(), location.getX(), location.getY(), location.getZ(), location.getYaw(), location.getPitch()));
+        homes.add(new NamedLocation(home, location.getWorld(), location.getX(), location.getY(), location.getZ(), location.getYaw(), location.getPitch()));
         String json = gson.toJson(homes);
         write(player.getUniqueId().toString(), json);
     }
@@ -83,8 +86,8 @@ public class FSHomeStorage extends Filesystem implements HomeStorage {
      */
     @Override
     public void deleteHome(Player player, String home) {
-        Set<HomeAPI.PlayerHome> homes = getHomes(player);
-        homes.removeIf(h -> h.name.equals(home));
+        Set<NamedLocation> homes = getHomes(player);
+        homes.removeIf(h -> h.getName().equals(home));
         String json = gson.toJson(homes);
         write(player.getUniqueId().toString(), json);
     }
@@ -93,10 +96,9 @@ public class FSHomeStorage extends Filesystem implements HomeStorage {
      * {@inheritDoc}
      */
     @Override
-    public Set<HomeAPI.PlayerHome> getHomes(Player player) {
+    public Set<NamedLocation> getHomes(Player player) {
         String json = read(player.getUniqueId().toString());
-        java.lang.reflect.Type type = new TypeToken<Set<HomeAPI.PlayerHome>>(){}.getType();
-        Set<HomeAPI.PlayerHome> homes = gson.fromJson(json, type);
+        Set<NamedLocation> homes = gson.fromJson(json, NamedLocation.getType());
         return homes == null ? new java.util.HashSet<>() : homes;
     }
 
@@ -105,7 +107,7 @@ public class FSHomeStorage extends Filesystem implements HomeStorage {
      */
     @Override
     public boolean teleportHome(Player player, String home) {
-        HomeAPI.PlayerHome playerHome = getHome(player, home).orElse(null);
+        NamedLocation playerHome = getHome(player, home).orElse(null);
         if (playerHome == null) {
             return false;
         } else {

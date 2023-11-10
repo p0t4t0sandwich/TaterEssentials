@@ -23,6 +23,10 @@ public class AbstractLocation implements Location {
         this.pitch = pitch;
     }
 
+    public AbstractLocation(Location location) {
+        this(location.getWorld(), location.getX(), location.getY(), location.getZ(), location.getYaw(), location.getPitch());
+    }
+
     /**
      * {@inheritDoc}
      */

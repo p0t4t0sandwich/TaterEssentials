@@ -1,23 +1,21 @@
-package dev.neuralnexus.taterutils.common.storage;
+package dev.neuralnexus.taterutils.common.storage.warp;
 
 import dev.neuralnexus.taterlib.common.player.Player;
 import dev.neuralnexus.taterlib.common.storage.Filesystem;
 import dev.neuralnexus.taterlib.common.utils.Location;
 import dev.neuralnexus.taterlib.lib.gson.Gson;
 import dev.neuralnexus.taterlib.lib.gson.GsonBuilder;
-import dev.neuralnexus.taterlib.lib.gson.reflect.TypeToken;
-import dev.neuralnexus.taterutils.common.api.modules.WarpAPI;
+import dev.neuralnexus.taterutils.common.api.modules.NamedLocation;
 
 import java.io.File;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
-import java.util.Locale;
 import java.util.Optional;
 import java.util.Set;
 
 public class FSWarpStorage extends Filesystem implements WarpStorage {
-    private Gson gson = new GsonBuilder().create();
+    private final Gson gson = new GsonBuilder().setPrettyPrinting().create();
     public FSWarpStorage(DatabaseConfig config) {
         super(config);
     }
@@ -26,7 +24,6 @@ public class FSWarpStorage extends Filesystem implements WarpStorage {
      * Read a file.
      * @return The contents of the file.
      */
-
     private String read() {
         try {
             String file = getConnection() + File.separator + getDatabase() + File.separator + "warps" + ".json";
@@ -38,7 +35,7 @@ public class FSWarpStorage extends Filesystem implements WarpStorage {
     }
 
     /**
-     * Write to a file..
+     * Write to a file.
      * @param json The contents of the file.
      */
     private void write( String json) {
@@ -54,19 +51,18 @@ public class FSWarpStorage extends Filesystem implements WarpStorage {
      * {@inheritDoc}
      */
     @Override
-    public Optional<WarpAPI.WarpLocation> getWarp(String warp) {
-        Set<WarpAPI.WarpLocation> warps = getWarps();
-        return warps.stream().filter(h -> h.name.equals(warp)).findFirst();
+    public Optional<NamedLocation> getWarp(String warp) {
+        Set<NamedLocation> warps = getWarps();
+        return warps.stream().filter(h -> h.getName().equals(warp)).findFirst();
     }
 
     /**
      * {@inheritDoc}
      */
-
     @Override
-    public void setWarp(Player player, String warp, Location location) {
-        Set<WarpAPI.WarpLocation> warps = getWarps();
-        warps.add(new WarpAPI.WarpLocation(warp, location.getWorld(), location.getX(), location.getY(), location.getZ(), location.getYaw(), location.getPitch()));
+    public void setWarp(String warp, Location location) {
+        Set<NamedLocation> warps = getWarps();
+        warps.add(new NamedLocation(warp, location.getWorld(), location.getX(), location.getY(), location.getZ(), location.getYaw(), location.getPitch()));
         String json = gson.toJson(warps);
         write(json);
     }
@@ -74,11 +70,10 @@ public class FSWarpStorage extends Filesystem implements WarpStorage {
     /**
      * {@inheritDoc}
      */
-
     @Override
     public void deleteWarp(String warp) {
-        Set<WarpAPI.WarpLocation> warps = getWarps();
-        warps.removeIf(h -> h.name.equals(warp));
+        Set<NamedLocation> warps = getWarps();
+        warps.removeIf(h -> h.getName().equals(warp));
         String json = gson.toJson(warps);
         write(json);
     }
@@ -86,12 +81,10 @@ public class FSWarpStorage extends Filesystem implements WarpStorage {
     /**
      * {@inheritDoc}
      */
-
     @Override
-    public Set<WarpAPI.WarpLocation> getWarps() {
+    public Set<NamedLocation> getWarps() {
         String json = read();
-        java.lang.reflect.Type type = new TypeToken<Set<WarpAPI.WarpLocation>>(){}.getType();
-        Set<WarpAPI.WarpLocation> warps = gson.fromJson(json, type);
+        Set<NamedLocation> warps = gson.fromJson(json, NamedLocation.getType());
         return warps == null ? new java.util.HashSet<>() : warps;
     }
 
@@ -99,12 +92,12 @@ public class FSWarpStorage extends Filesystem implements WarpStorage {
      * {@inheritDoc}
      */
     @Override
-    public boolean teleportWarp(Player player, String warp) {
-        WarpAPI.WarpLocation warps = getWarp(warp).orElse(null);
-        if (warps == null) {
+    public boolean teleportWarp(Player player, String warpName) {
+        NamedLocation warp = getWarp(warpName).orElse(null);
+        if (warp == null) {
             return false;
         } else {
-            player.teleport(warps.getLocation());
+            player.teleport(warp.getLocation());
             return true;
         }
     }

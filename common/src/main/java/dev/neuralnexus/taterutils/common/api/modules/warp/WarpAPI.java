@@ -67,6 +67,7 @@ public class WarpAPI {
     public Set<String> getInvalidWarpNames() {
         Set<String> invalidWarps = new HashSet<>();
         invalidWarps.add("add");
+        invalidWarps.add("create");
         invalidWarps.add("set");
         invalidWarps.add("rm");
         invalidWarps.add("remove");

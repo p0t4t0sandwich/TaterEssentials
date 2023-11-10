@@ -1,6 +1,5 @@
 package dev.neuralnexus.taterutils.common.commands.home;
 
-import dev.neuralnexus.taterlib.common.Utils;
 import dev.neuralnexus.taterlib.common.command.Command;
 import dev.neuralnexus.taterlib.common.command.Sender;
 import dev.neuralnexus.taterlib.common.player.Player;
@@ -53,14 +52,14 @@ public class SetHomeCommand implements Command {
         HomeAPI api = TaterUtilsAPIProvider.get().getHomeAPI();
 
         if (args.length == 0) {
-            player.sendMessage(Utils.substituteSectionSign("&aPlease provide a Home name!"));
+            CommandUtils.sendMessage(player, "&aPlease provide a Home name!");
         } else {
             if (api.getInvalidHomeNames().contains(args[1])) {
-                player.sendMessage(Utils.substituteSectionSign("&cInvalid home name."));
+                CommandUtils.sendMessage(player, "&cInvalid home name.");
                 return true;
             }
             api.setHome(player, args[0], player.getLocation());
-            player.sendMessage(Utils.substituteSectionSign("&aSet home &e" + args[0] + "&a."));
+            CommandUtils.sendMessage(player, "&aSet home &e" + args[0] + "&a.");
         }
         return true;
     }

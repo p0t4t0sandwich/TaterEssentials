@@ -1,17 +1,17 @@
-package dev.neuralnexus.taterutils.common.commands.home;
+package dev.neuralnexus.taterutils.common.commands.spawn;
 
 import dev.neuralnexus.taterlib.common.command.Command;
 import dev.neuralnexus.taterlib.common.command.Sender;
 import dev.neuralnexus.taterlib.common.player.Player;
 import dev.neuralnexus.taterutils.common.api.TaterUtilsAPIProvider;
-import dev.neuralnexus.taterutils.common.api.modules.home.HomeAPI;
+import dev.neuralnexus.taterutils.common.api.modules.spawn.SpawnAPI;
 import dev.neuralnexus.taterutils.common.commands.CommandUtils;
 
 /**
- * DelHome Command.
+ * Spawn Command.
  */
-public class DelHomeCommand implements Command {
-    private String name = "delhome";
+public class SpawnCommand implements Command {
+    private String name = "spawn";
 
     @Override
     public void setName(String name) {
@@ -25,17 +25,17 @@ public class DelHomeCommand implements Command {
 
     @Override
     public String getDescription() {
-        return "Allows players to delete a home.";
+        return "Teleports you to spawn.";
     }
 
     @Override
     public String getUsage() {
-        return "/delhome <name>";
+        return "/spawn";
     }
 
     @Override
     public String getPermission() {
-        return "taterutils.command.delhome";
+        return "taterutils.command.spawn";
     }
 
     @Override
@@ -49,14 +49,15 @@ public class DelHomeCommand implements Command {
             return true;
         }
         Player player = (Player) sender;
-        HomeAPI api = TaterUtilsAPIProvider.get().getHomeAPI();
+        SpawnAPI api = TaterUtilsAPIProvider.get().getSpawnAPI();
 
-        if (args.length == 0) {
-            CommandUtils.sendMessage(player, "&aPlease provide a Home name!");
+        String message;
+        if (!api.teleportSpawn(player)) {
+            message = "&cSpawn has not been set.";
         } else {
-            api.setHome(player, args[0], player.getLocation());
-            CommandUtils.sendMessage(player, "&aDeleted home &e" + args[0] + "&a.");
+            message = "&aTeleported to spawn.";
         }
+        CommandUtils.sendMessage(player, message);
         return true;
     }
 }

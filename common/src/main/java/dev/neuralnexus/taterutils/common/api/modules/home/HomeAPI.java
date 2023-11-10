@@ -72,6 +72,7 @@ public class HomeAPI {
     public Set<String> getInvalidHomeNames() {
         Set<String> invalidHomeNames = new java.util.HashSet<>();
         invalidHomeNames.add("add");
+        invalidHomeNames.add("create");
         invalidHomeNames.add("set");
         invalidHomeNames.add("rm");
         invalidHomeNames.add("remove");

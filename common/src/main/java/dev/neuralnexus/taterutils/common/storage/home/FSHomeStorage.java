@@ -15,6 +15,10 @@ import java.nio.file.Paths;
 import java.util.Optional;
 import java.util.Set;
 
+
+/**
+ * Filesystem implementation of the home storage.
+ */
 public class FSHomeStorage extends Filesystem implements HomeStorage {
     private final Gson gson = new GsonBuilder().setPrettyPrinting().create();
     public FSHomeStorage(DatabaseConfig config) {

@@ -6,6 +6,7 @@ import dev.neuralnexus.taterutils.common.api.modules.NamedLocation;
 
 import java.util.Optional;
 import java.util.Set;
+
 /**
  * Storage API for the warp module.
  */

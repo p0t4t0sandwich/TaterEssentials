@@ -1,6 +1,5 @@
 package dev.neuralnexus.taterutils.common.commands.home;
 
-import dev.neuralnexus.taterlib.common.Utils;
 import dev.neuralnexus.taterlib.common.command.Command;
 import dev.neuralnexus.taterlib.common.command.Sender;
 import dev.neuralnexus.taterlib.common.player.Player;
@@ -54,28 +53,29 @@ public class HomeCommand implements Command {
 
         if (args.length == 0) {
             if (!api.teleportHome(player, "home")) {
-                player.sendMessage(Utils.substituteSectionSign("&cYou do not have a home set."));
+                CommandUtils.sendMessage(player, "&cYou do not have a home set.");
                 return true;
             }
-            player.sendMessage(Utils.substituteSectionSign("&aTeleported to your home."));
+            CommandUtils.sendMessage(player, "&aTeleported to your home.");
             return true;
         } else {
             switch (args[0]) {
                 case "add":
+                case "create":
                 case "set":
                     if (!CommandUtils.playerHasPermission(player, "taterutils.command.sethome")) {
                         return true;
                     }
                     if (args.length == 1) {
-                        player.sendMessage(Utils.substituteSectionSign("&cInvalid arguments."));
+                        CommandUtils.sendMessage(player, "&cInvalid arguments.");
                         return true;
                     }
                     if (api.getInvalidHomeNames().contains(args[1])) {
-                        player.sendMessage(Utils.substituteSectionSign("&cInvalid home name."));
+                        CommandUtils.sendMessage(player, "&cInvalid home name.");
                         return true;
                     }
                     api.setHome(player, args[1], player.getLocation());
-                    player.sendMessage(Utils.substituteSectionSign("&aSet your home."));
+                    CommandUtils.sendMessage(player, "&aSet home &e" + args[1] + "&a.");
                     return true;
                 case "rm":
                 case "remove":
@@ -85,23 +85,23 @@ public class HomeCommand implements Command {
                         return true;
                     }
                     if (args.length == 1) {
-                        player.sendMessage(Utils.substituteSectionSign("&cInvalid arguments."));
+                        CommandUtils.sendMessage(player, "&cInvalid arguments.");
                         return true;
                     }
                     api.deleteHome(player, args[1]);
-                    player.sendMessage(Utils.substituteSectionSign("&aDeleted your home."));
+                    CommandUtils.sendMessage(player, "&aDeleted home &e" + args[1] + "&a.");
                     return true;
                 case "list":
                     if (!CommandUtils.playerHasPermission(player, "taterutils.command.home.list")) {
                         return true;
                     }
-                    player.sendMessage(Utils.substituteSectionSign("&aAvailable Homes: &e" + api.getHomes(player).toString()));
+                    CommandUtils.sendMessage(player, "&aAvailable Homes: &e" + api.getHomes(player).toString());
                 default:
                     if (!api.teleportHome(player, args[0])) {
-                        player.sendMessage(Utils.substituteSectionSign("&cYou do not have home &e" + args[0] + " &cset."));
+                        CommandUtils.sendMessage(player, "&cYou do not have home &e" + args[0] + " &cset.");
                         return true;
                     }
-                    player.sendMessage(Utils.substituteSectionSign("&aTeleported to home &e" + args[0] + "&a."));
+                    CommandUtils.sendMessage(player, "&aTeleported to home &e" + args[0] + "&a.");
                     return true;
             }
         }

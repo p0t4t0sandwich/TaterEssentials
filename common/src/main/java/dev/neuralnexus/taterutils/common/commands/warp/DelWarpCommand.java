@@ -1,6 +1,5 @@
 package dev.neuralnexus.taterutils.common.commands.warp;
 
-import dev.neuralnexus.taterlib.common.Utils;
 import dev.neuralnexus.taterlib.common.command.Command;
 import dev.neuralnexus.taterlib.common.command.Sender;
 import dev.neuralnexus.taterlib.common.player.Player;
@@ -53,10 +52,10 @@ public class DelWarpCommand implements Command {
         WarpAPI api = TaterUtilsAPIProvider.get().getWarpAPI();
 
         if (args.length == 0) {
-            player.sendMessage(Utils.substituteSectionSign("&aPlease Provide a Warp Name!"));
+            CommandUtils.sendMessage(player, "&aPlease provide a Warp name!");
         } else {
             api.deleteWarp(args[0]);
-            player.sendMessage(Utils.substituteSectionSign("&aDeleted warp &e" + args[0] + "&a."));
+            CommandUtils.sendMessage(player, "&aDeleted warp &e" + args[0] + "&a.");
         }
         return true;
     }

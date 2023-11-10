@@ -1,6 +1,5 @@
 package dev.neuralnexus.taterutils.common.commands.warp;
 
-import dev.neuralnexus.taterlib.common.Utils;
 import dev.neuralnexus.taterlib.common.command.Command;
 import dev.neuralnexus.taterlib.common.command.Sender;
 import dev.neuralnexus.taterlib.common.player.Player;
@@ -52,21 +51,21 @@ public class WarpCommand implements Command {
         WarpAPI api = TaterUtilsAPIProvider.get().getWarpAPI();
 
         if (args.length == 0) {
-            player.sendMessage(Utils.substituteSectionSign("&aAvailable Warps: &e" + api.getWarps().toString()));
+            CommandUtils.sendMessage(player, "&Available Warps: &e" + api.getWarps().toString());
         } else {
-            if (!CommandUtils.playerHasPermission(player, "taterutils.command.warp." + args[0])) {
-                player.sendMessage(Utils.substituteSectionSign("&cYou do not have permission to warp to " + args[0] + "."));
+            if (!player.hasPermission("taterutils.command.warp." + args[0])) {
+                CommandUtils.sendMessage(player, "&cYou do not have permission to warp to " + args[0] + ".");
                 return true;
             }
             if (args[0].equalsIgnoreCase("list")) {
-                player.sendMessage(Utils.substituteSectionSign("&aAvailable Warps: &e" + api.getWarps().toString()));
+                CommandUtils.sendMessage(player, "&aAvailable Warps: &e" + api.getWarps().toString());
                 return true;
             }
             if (!api.teleportWarp(player, args[0])) {
-                player.sendMessage(Utils.substituteSectionSign("&cWarp " + args[0] + " does not exist."));
+                CommandUtils.sendMessage(player, "&cWarp " + args[0] + " does not exist.");
                 return true;
             }
-            player.sendMessage(Utils.substituteSectionSign("&aTeleported to warp location: &e" + args[0] + "&a."));
+            CommandUtils.sendMessage(player, "&aWarped to &e" + args[0] + "&a.");
         }
         return true;
     }

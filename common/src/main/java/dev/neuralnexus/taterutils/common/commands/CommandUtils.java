@@ -9,13 +9,22 @@ import dev.neuralnexus.taterlib.common.player.Player;
  */
 public class CommandUtils {
     /**
+     * Send a message to the sender.
+     * @param sender The sender.
+     * @param message The message.
+     */
+    public static void sendMessage(Sender sender, String message) {
+        sender.sendMessage(Utils.substituteSectionSign(message));
+    }
+
+    /**
      * Checks if the sender is a player.
      * @param sender The sender.
      * @return True if the sender is a player.
      */
     public static boolean senderIsPlayer(Sender sender) {
         if (!(sender instanceof Player)) {
-            sender.sendMessage(Utils.substituteSectionSign("&cOnly players can use this command."));
+            sendMessage(sender, "&cOnly players can use this command.");
             return false;
         }
         return true;
@@ -29,7 +38,7 @@ public class CommandUtils {
      */
     public static boolean playerHasPermission(Player player, String permission) {
         if (!player.hasPermission(permission)) {
-            player.sendMessage(Utils.substituteSectionSign("&cYou do not have permission to use this command."));
+            sendMessage(player, "&cYou do not have permission to use this command.");
             return false;
         }
         return true;

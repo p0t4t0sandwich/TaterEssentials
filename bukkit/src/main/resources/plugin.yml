@@ -11,3 +11,11 @@ commands:
     description: Teleport to your home
     usage: /home [name|set|delete]
     permission: taterlib.command.home
+  setwarp:
+    description: Set or delete a warp locatioon
+    usage: /setwarp [set|delete] [name]
+    permission: taterlib.command.setwarp
+  warp:
+    description: Allows players to Send a teleport request to another player!
+    usage: /warp [name]
+    permission: taterlib.command.warp

@@ -1,7 +1,7 @@
 package dev.neuralnexus.taterutils.common.api;
 
-import dev.neuralnexus.taterutils.common.api.modules.HomeAPI;
-import dev.neuralnexus.taterutils.common.api.modules.WarpAPI;
+import dev.neuralnexus.taterutils.common.api.modules.home.HomeAPI;
+import dev.neuralnexus.taterutils.common.api.modules.warp.WarpAPI;
 
 /**
  * API wrapper class

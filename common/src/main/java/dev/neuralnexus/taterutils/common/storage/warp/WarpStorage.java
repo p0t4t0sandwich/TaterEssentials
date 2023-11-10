@@ -1,9 +1,8 @@
-package dev.neuralnexus.taterutils.common.storage;
+package dev.neuralnexus.taterutils.common.storage.warp;
 
 import dev.neuralnexus.taterlib.common.player.Player;
 import dev.neuralnexus.taterlib.common.utils.Location;
-import dev.neuralnexus.taterutils.common.api.modules.HomeAPI;
-import dev.neuralnexus.taterutils.common.api.modules.WarpAPI;
+import dev.neuralnexus.taterutils.common.api.modules.NamedLocation;
 
 import java.util.Optional;
 import java.util.Set;
@@ -15,16 +14,14 @@ public interface WarpStorage {
      * Get a Warp.
      * @param warp The name of the warp.
      */
-    Optional<WarpAPI.WarpLocation> getWarp(String warp);
-
+    Optional<NamedLocation> getWarp(String warp);
 
     /**
      * Set a warp.
-     * @param player The player.
      * @param warp The name of the warp.
      * @param location The location of the warp.
      */
-    void setWarp(Player player, String warp, Location location);
+    void setWarp(String warp, Location location);
 
     /**
      * Delete a warp.
@@ -33,11 +30,10 @@ public interface WarpStorage {
     void deleteWarp(String warp);
 
     /**
-     * Get all of the warps.
-
+     * Get all warps.
+     * @return All warps.
      */
-
-    Set<WarpAPI.WarpLocation> getWarps();
+    Set<NamedLocation> getWarps();
 
     /**
      * Teleport a player to a warp.

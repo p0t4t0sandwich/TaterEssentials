@@ -8,14 +8,26 @@ softdepends: [LuckPerms]
 folia-supported: true
 commands:
   home:
-    description: Teleport to your home
-    usage: /home [name|set|delete]
+    description: Teleport to a home
+    usage: /home [name | del | set | list] [name]
     permission: taterlib.command.home
+  sethome:
+    description: Set a home
+    usage: /sethome [name]
+    permission: taterlib.command.sethome
+  delhome:
+    description: Delete a home
+    usage: /delhome [name]
+    permission: taterlib.command.delhome
+  warp:
+    description: Warp to a location
+    usage: /warp [name | list]
+    permission: taterlib.command.warp
   setwarp:
     description: Set or delete a warp locatioon
-    usage: /setwarp [set|delete] [name]
+    usage: /setwarp <name>
     permission: taterlib.command.setwarp
-  warp:
-    description: Allows players to Send a teleport request to another player!
-    usage: /warp [name]
-    permission: taterlib.command.warp
+  delwarp:
+    description: Delete a warp location
+    usage: /delwarp <name>
+    permission: taterlib.command.delwarp

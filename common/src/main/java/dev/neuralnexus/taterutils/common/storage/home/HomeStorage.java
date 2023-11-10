@@ -1,8 +1,8 @@
-package dev.neuralnexus.taterutils.common.storage;
+package dev.neuralnexus.taterutils.common.storage.home;
 
 import dev.neuralnexus.taterlib.common.player.Player;
 import dev.neuralnexus.taterlib.common.utils.Location;
-import dev.neuralnexus.taterutils.common.api.modules.HomeAPI;
+import dev.neuralnexus.taterutils.common.api.modules.NamedLocation;
 
 import java.util.Optional;
 import java.util.Set;
@@ -16,7 +16,7 @@ public interface HomeStorage {
      * @param player The player.
      * @param home The name of the home.
      */
-    Optional<HomeAPI.PlayerHome> getHome(Player player, String home);
+    Optional<NamedLocation> getHome(Player player, String home);
 
     /**
      * Set a player's home.
@@ -37,7 +37,7 @@ public interface HomeStorage {
      * Get all of a player's homes.
      * @param player The player.
      */
-    Set<HomeAPI.PlayerHome> getHomes(Player player);
+    Set<NamedLocation> getHomes(Player player);
 
     /**
      * Teleport a player to their home.

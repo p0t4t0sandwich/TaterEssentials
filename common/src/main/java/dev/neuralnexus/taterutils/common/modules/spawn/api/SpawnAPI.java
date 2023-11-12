@@ -1,4 +1,4 @@
-package dev.neuralnexus.taterutils.common.api.modules.spawn;
+package dev.neuralnexus.taterutils.common.modules.spawn.api;
 
 import dev.neuralnexus.taterlib.common.player.Player;
 import dev.neuralnexus.taterlib.common.storage.Database;

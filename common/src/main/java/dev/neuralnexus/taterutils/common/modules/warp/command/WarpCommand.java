@@ -1,11 +1,11 @@
-package dev.neuralnexus.taterutils.common.commands.warp;
+package dev.neuralnexus.taterutils.common.modules.warp.command;
 
 import dev.neuralnexus.taterlib.common.command.Command;
 import dev.neuralnexus.taterlib.common.command.Sender;
 import dev.neuralnexus.taterlib.common.player.Player;
 import dev.neuralnexus.taterutils.common.api.TaterUtilsAPIProvider;
-import dev.neuralnexus.taterutils.common.api.modules.warp.WarpAPI;
-import dev.neuralnexus.taterutils.common.commands.CommandUtils;
+import dev.neuralnexus.taterutils.common.modules.warp.api.WarpAPI;
+import dev.neuralnexus.taterutils.common.api.CommandUtils;
 
 /**
  * Warp Command.

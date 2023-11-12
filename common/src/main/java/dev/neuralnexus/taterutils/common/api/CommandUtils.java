@@ -1,4 +1,4 @@
-package dev.neuralnexus.taterutils.common.commands;
+package dev.neuralnexus.taterutils.common.api;
 
 import dev.neuralnexus.taterlib.common.Utils;
 import dev.neuralnexus.taterlib.common.command.Sender;

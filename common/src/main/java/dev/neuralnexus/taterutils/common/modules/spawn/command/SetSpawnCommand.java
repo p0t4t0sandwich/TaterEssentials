@@ -1,11 +1,11 @@
-package dev.neuralnexus.taterutils.common.commands.spawn;
+package dev.neuralnexus.taterutils.common.modules.spawn.command;
 
 import dev.neuralnexus.taterlib.common.command.Command;
 import dev.neuralnexus.taterlib.common.command.Sender;
 import dev.neuralnexus.taterlib.common.player.Player;
 import dev.neuralnexus.taterutils.common.api.TaterUtilsAPIProvider;
-import dev.neuralnexus.taterutils.common.api.modules.spawn.SpawnAPI;
-import dev.neuralnexus.taterutils.common.commands.CommandUtils;
+import dev.neuralnexus.taterutils.common.modules.spawn.api.SpawnAPI;
+import dev.neuralnexus.taterutils.common.api.CommandUtils;
 
 /**
  * SetSpawn Command.

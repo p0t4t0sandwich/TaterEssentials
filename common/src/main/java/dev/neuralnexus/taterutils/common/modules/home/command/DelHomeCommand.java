@@ -1,17 +1,17 @@
-package dev.neuralnexus.taterutils.common.commands.warp;
+package dev.neuralnexus.taterutils.common.modules.home.command;
 
 import dev.neuralnexus.taterlib.common.command.Command;
 import dev.neuralnexus.taterlib.common.command.Sender;
 import dev.neuralnexus.taterlib.common.player.Player;
 import dev.neuralnexus.taterutils.common.api.TaterUtilsAPIProvider;
-import dev.neuralnexus.taterutils.common.api.modules.warp.WarpAPI;
-import dev.neuralnexus.taterutils.common.commands.CommandUtils;
+import dev.neuralnexus.taterutils.common.modules.home.api.HomeAPI;
+import dev.neuralnexus.taterutils.common.api.CommandUtils;
 
 /**
- * SetWarp Command.
+ * DelHome Command.
  */
-public class DelWarpCommand implements Command {
-    private String name = "delwarp";
+public class DelHomeCommand implements Command {
+    private String name = "delhome";
 
     @Override
     public void setName(String name) {
@@ -25,17 +25,17 @@ public class DelWarpCommand implements Command {
 
     @Override
     public String getDescription() {
-        return "Deletes a warp location!";
+        return "Allows players to delete a home.";
     }
 
     @Override
     public String getUsage() {
-        return "/delwarp <name>";
+        return "/delhome <name>";
     }
 
     @Override
     public String getPermission() {
-        return "taterutils.command.delwarp";
+        return "taterutils.command.delhome";
     }
 
     @Override
@@ -49,13 +49,13 @@ public class DelWarpCommand implements Command {
             return true;
         }
         Player player = (Player) sender;
-        WarpAPI api = TaterUtilsAPIProvider.get().getWarpAPI();
+        HomeAPI api = TaterUtilsAPIProvider.get().getHomeAPI();
 
         if (args.length == 0) {
-            CommandUtils.sendMessage(player, "&aPlease provide a Warp name!");
+            CommandUtils.sendMessage(player, "&aPlease provide a Home name!");
         } else {
-            api.deleteWarp(args[0]);
-            CommandUtils.sendMessage(player, "&aDeleted warp &e" + args[0] + "&a.");
+            api.setHome(player, args[0], player.getLocation());
+            CommandUtils.sendMessage(player, "&aDeleted home &e" + args[0] + "&a.");
         }
         return true;
     }

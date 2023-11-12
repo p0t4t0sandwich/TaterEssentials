@@ -1,11 +1,9 @@
 package dev.neuralnexus.taterutils.common;
 
 import dev.neuralnexus.taterlib.common.api.TaterAPIProvider;
-import dev.neuralnexus.taterlib.common.event.api.CommandEvents;
 import dev.neuralnexus.taterlib.common.logger.AbstractLogger;
 import dev.neuralnexus.taterutils.common.api.TaterUtilsAPI;
 import dev.neuralnexus.taterutils.common.api.TaterUtilsAPIProvider;
-import dev.neuralnexus.taterutils.common.listeners.CommandListener;
 
 /**
  * Main class for the plugin.
@@ -75,10 +73,8 @@ public class TaterUtils {
         }
         STARTED = true;
 
-        if (!RELOADED) {
-            // Register commands
-            CommandEvents.REGISTER_COMMAND.register(CommandListener::onRegisterCommand);
-        }
+        // Start modules
+        TaterUtilsModuleLoader.startModules();
 
         logger.info(Constants.PROJECT_NAME + " has been started!");
 
@@ -101,6 +97,9 @@ public class TaterUtils {
             return;
         }
         STARTED = false;
+
+        // Stop modules
+        TaterUtilsModuleLoader.stopModules();
 
         // Remove references to objects
         TaterUtilsConfig.unloadConfig();

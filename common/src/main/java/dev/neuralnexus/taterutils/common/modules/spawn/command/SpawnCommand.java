@@ -1,17 +1,17 @@
-package dev.neuralnexus.taterutils.common.commands.spawn;
+package dev.neuralnexus.taterutils.common.modules.spawn.command;
 
 import dev.neuralnexus.taterlib.common.command.Command;
 import dev.neuralnexus.taterlib.common.command.Sender;
 import dev.neuralnexus.taterlib.common.player.Player;
 import dev.neuralnexus.taterutils.common.api.TaterUtilsAPIProvider;
-import dev.neuralnexus.taterutils.common.api.modules.spawn.SpawnAPI;
-import dev.neuralnexus.taterutils.common.commands.CommandUtils;
+import dev.neuralnexus.taterutils.common.modules.spawn.api.SpawnAPI;
+import dev.neuralnexus.taterutils.common.api.CommandUtils;
 
 /**
- * DelSpawn Command.
+ * Spawn Command.
  */
-public class DelSpawnCommand implements Command {
-    private String name = "delspawn";
+public class SpawnCommand implements Command {
+    private String name = "spawn";
 
     @Override
     public void setName(String name) {
@@ -25,17 +25,17 @@ public class DelSpawnCommand implements Command {
 
     @Override
     public String getDescription() {
-        return "Deletes the spawn location!";
+        return "Teleports you to spawn.";
     }
 
     @Override
     public String getUsage() {
-        return "/delspawn";
+        return "/spawn";
     }
 
     @Override
     public String getPermission() {
-        return "taterutils.command.delspawn";
+        return "taterutils.command.spawn";
     }
 
     @Override
@@ -50,8 +50,14 @@ public class DelSpawnCommand implements Command {
         }
         Player player = (Player) sender;
         SpawnAPI api = TaterUtilsAPIProvider.get().getSpawnAPI();
-        api.deleteSpawn();
-        CommandUtils.sendMessage(player, "&aDeleted spawn location.");
+
+        String message;
+        if (!api.teleportSpawn(player)) {
+            message = "&cSpawn has not been set.";
+        } else {
+            message = "&aTeleported to spawn.";
+        }
+        CommandUtils.sendMessage(player, message);
         return true;
     }
 }

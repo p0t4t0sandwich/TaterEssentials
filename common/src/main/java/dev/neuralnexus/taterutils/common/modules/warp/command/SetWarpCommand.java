@@ -1,17 +1,17 @@
-package dev.neuralnexus.taterutils.common.commands.home;
+package dev.neuralnexus.taterutils.common.modules.warp.command;
 
 import dev.neuralnexus.taterlib.common.command.Command;
 import dev.neuralnexus.taterlib.common.command.Sender;
 import dev.neuralnexus.taterlib.common.player.Player;
 import dev.neuralnexus.taterutils.common.api.TaterUtilsAPIProvider;
-import dev.neuralnexus.taterutils.common.api.modules.home.HomeAPI;
-import dev.neuralnexus.taterutils.common.commands.CommandUtils;
+import dev.neuralnexus.taterutils.common.modules.warp.api.WarpAPI;
+import dev.neuralnexus.taterutils.common.api.CommandUtils;
 
 /**
- * DelHome Command.
+ * SetWarp Command.
  */
-public class DelHomeCommand implements Command {
-    private String name = "delhome";
+public class SetWarpCommand implements Command {
+    private String name = "setwarp";
 
     @Override
     public void setName(String name) {
@@ -25,17 +25,17 @@ public class DelHomeCommand implements Command {
 
     @Override
     public String getDescription() {
-        return "Allows players to delete a home.";
+        return "Sets a warp location!";
     }
 
     @Override
     public String getUsage() {
-        return "/delhome <name>";
+        return "/setwarp <name>";
     }
 
     @Override
     public String getPermission() {
-        return "taterutils.command.delhome";
+        return "taterutils.command.setwarp";
     }
 
     @Override
@@ -49,13 +49,17 @@ public class DelHomeCommand implements Command {
             return true;
         }
         Player player = (Player) sender;
-        HomeAPI api = TaterUtilsAPIProvider.get().getHomeAPI();
+        WarpAPI api = TaterUtilsAPIProvider.get().getWarpAPI();
 
         if (args.length == 0) {
-            CommandUtils.sendMessage(player, "&aPlease provide a Home name!");
+            CommandUtils.sendMessage(player, "&aPlease provide a Warp name!");
         } else {
-            api.setHome(player, args[0], player.getLocation());
-            CommandUtils.sendMessage(player, "&aDeleted home &e" + args[0] + "&a.");
+            if (api.getInvalidWarpNames().contains(args[0])) {
+                CommandUtils.sendMessage(player, "&cInvalid warp name.");
+                return true;
+            }
+            api.setWarp(args[0], player.getLocation());
+            CommandUtils.sendMessage(player, "&aSet warp &e" + args[0] + "&a.");
         }
         return true;
     }

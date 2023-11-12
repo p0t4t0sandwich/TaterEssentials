@@ -2,7 +2,7 @@ package dev.neuralnexus.taterutils.common.storage.warp;
 
 import dev.neuralnexus.taterlib.common.player.Player;
 import dev.neuralnexus.taterlib.common.utils.Location;
-import dev.neuralnexus.taterutils.common.api.modules.NamedLocation;
+import dev.neuralnexus.taterutils.common.api.NamedLocation;
 
 import java.util.Optional;
 import java.util.Set;

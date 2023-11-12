@@ -1,17 +1,17 @@
-package dev.neuralnexus.taterutils.common.commands.spawn;
+package dev.neuralnexus.taterutils.common.modules.home.command;
 
 import dev.neuralnexus.taterlib.common.command.Command;
 import dev.neuralnexus.taterlib.common.command.Sender;
 import dev.neuralnexus.taterlib.common.player.Player;
 import dev.neuralnexus.taterutils.common.api.TaterUtilsAPIProvider;
-import dev.neuralnexus.taterutils.common.api.modules.spawn.SpawnAPI;
-import dev.neuralnexus.taterutils.common.commands.CommandUtils;
+import dev.neuralnexus.taterutils.common.modules.home.api.HomeAPI;
+import dev.neuralnexus.taterutils.common.api.CommandUtils;
 
 /**
- * Spawn Command.
+ * SetHome Command.
  */
-public class SpawnCommand implements Command {
-    private String name = "spawn";
+public class SetHomeCommand implements Command {
+    private String name = "sethome";
 
     @Override
     public void setName(String name) {
@@ -25,17 +25,17 @@ public class SpawnCommand implements Command {
 
     @Override
     public String getDescription() {
-        return "Teleports you to spawn.";
+        return "Allows players to set a home.";
     }
 
     @Override
     public String getUsage() {
-        return "/spawn";
+        return "/sethome <name>";
     }
 
     @Override
     public String getPermission() {
-        return "taterutils.command.spawn";
+        return "taterutils.command.sethome";
     }
 
     @Override
@@ -49,15 +49,18 @@ public class SpawnCommand implements Command {
             return true;
         }
         Player player = (Player) sender;
-        SpawnAPI api = TaterUtilsAPIProvider.get().getSpawnAPI();
+        HomeAPI api = TaterUtilsAPIProvider.get().getHomeAPI();
 
-        String message;
-        if (!api.teleportSpawn(player)) {
-            message = "&cSpawn has not been set.";
+        if (args.length == 0) {
+            CommandUtils.sendMessage(player, "&aPlease provide a Home name!");
         } else {
-            message = "&aTeleported to spawn.";
+            if (api.getInvalidHomeNames().contains(args[1])) {
+                CommandUtils.sendMessage(player, "&cInvalid home name.");
+                return true;
+            }
+            api.setHome(player, args[0], player.getLocation());
+            CommandUtils.sendMessage(player, "&aSet home &e" + args[0] + "&a.");
         }
-        CommandUtils.sendMessage(player, message);
         return true;
     }
 }

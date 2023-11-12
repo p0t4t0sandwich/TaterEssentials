@@ -1,10 +1,10 @@
-package dev.neuralnexus.taterutils.common.api.modules.warp;
+package dev.neuralnexus.taterutils.common.modules.warp.api;
 
 import dev.neuralnexus.taterlib.common.player.Player;
 import dev.neuralnexus.taterlib.common.storage.Database;
 import dev.neuralnexus.taterlib.common.utils.Location;
 import dev.neuralnexus.taterutils.common.TaterUtils;
-import dev.neuralnexus.taterutils.common.api.modules.NamedLocation;
+import dev.neuralnexus.taterutils.common.api.NamedLocation;
 import dev.neuralnexus.taterutils.common.storage.warp.FSWarpStorage;
 import dev.neuralnexus.taterutils.common.storage.warp.WarpStorage;
 

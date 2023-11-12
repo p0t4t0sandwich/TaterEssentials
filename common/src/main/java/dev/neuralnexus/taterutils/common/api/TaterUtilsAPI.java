@@ -1,8 +1,8 @@
 package dev.neuralnexus.taterutils.common.api;
 
-import dev.neuralnexus.taterutils.common.api.modules.home.HomeAPI;
-import dev.neuralnexus.taterutils.common.api.modules.spawn.SpawnAPI;
-import dev.neuralnexus.taterutils.common.api.modules.warp.WarpAPI;
+import dev.neuralnexus.taterutils.common.modules.home.api.HomeAPI;
+import dev.neuralnexus.taterutils.common.modules.spawn.api.SpawnAPI;
+import dev.neuralnexus.taterutils.common.modules.warp.api.WarpAPI;
 
 /**
  * API wrapper class
@@ -11,6 +11,7 @@ public class TaterUtilsAPI {
     private final HomeAPI homeAPI;
     private final SpawnAPI spawnAPI;
     private final WarpAPI warpAPI;
+
     public TaterUtilsAPI() {
         this.homeAPI = new HomeAPI();
         this.spawnAPI = new SpawnAPI();

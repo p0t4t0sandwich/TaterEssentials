@@ -5,7 +5,7 @@ import dev.neuralnexus.taterlib.common.storage.Filesystem;
 import dev.neuralnexus.taterlib.common.utils.Location;
 import dev.neuralnexus.taterlib.lib.gson.Gson;
 import dev.neuralnexus.taterlib.lib.gson.GsonBuilder;
-import dev.neuralnexus.taterutils.common.api.modules.AbstractLocation;
+import dev.neuralnexus.taterutils.common.api.AbstractLocation;
 
 import java.io.File;
 import java.io.IOException;

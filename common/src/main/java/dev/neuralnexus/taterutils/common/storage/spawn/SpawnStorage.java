@@ -2,7 +2,6 @@ package dev.neuralnexus.taterutils.common.storage.spawn;
 
 import dev.neuralnexus.taterlib.common.player.Player;
 import dev.neuralnexus.taterlib.common.utils.Location;
-import dev.neuralnexus.taterutils.common.api.modules.AbstractLocation;
 
 import java.util.Optional;
 

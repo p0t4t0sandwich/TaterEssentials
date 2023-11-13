@@ -45,4 +45,12 @@ public class TaterUtilsConfig {
             TaterUtils.getLogger().info("Failed to save " + TaterUtils.Constants.PROJECT_ID + ".config.ymll!\n" + e.getMessage());
         }
     }
+
+    /**
+     * Check to see if a module is enabled
+     * @param module The module
+     */
+    public static boolean isModuleEnabled(String module) {
+        return config.getBoolean("modules" + module + ".enabled");
+    }
 }

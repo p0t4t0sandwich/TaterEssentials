@@ -78,10 +78,18 @@ public class TaterUtils {
         STARTED = true;
 
         // Register modules
-        TaterUtilsModuleLoader.registerModule(new HomeModule());
-        TaterUtilsModuleLoader.registerModule(new SpawnModule());
-        TaterUtilsModuleLoader.registerModule(new TpaModule());
-        TaterUtilsModuleLoader.registerModule(new WarpModule());
+        if (TaterUtilsConfig.isModuleEnabled("home")) {
+            TaterUtilsModuleLoader.registerModule(new HomeModule());
+        }
+        if (TaterUtilsConfig.isModuleEnabled("spawn")) {
+            TaterUtilsModuleLoader.registerModule(new SpawnModule());
+        }
+        if (TaterUtilsConfig.isModuleEnabled("tpa")) {
+            TaterUtilsModuleLoader.registerModule(new TpaModule());
+        }
+        if (TaterUtilsConfig.isModuleEnabled("warp")) {
+            TaterUtilsModuleLoader.registerModule(new WarpModule());
+        }
 
         // Start modules
         TaterUtilsModuleLoader.startModules();

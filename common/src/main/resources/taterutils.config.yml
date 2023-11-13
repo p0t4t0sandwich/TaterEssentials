@@ -1,2 +1,12 @@
 ---
 version: 1
+
+modules:
+  home:
+    enabled: true
+  spawn:
+    enabled: true
+  tpa:
+    enabled: true
+  warp:
+    enabled: true

@@ -2,6 +2,7 @@ package dev.neuralnexus.taterutils.common.api;
 
 import dev.neuralnexus.taterutils.common.modules.alert.api.AlertAPI;
 import dev.neuralnexus.taterutils.common.modules.home.api.HomeAPI;
+import dev.neuralnexus.taterutils.common.modules.orewatcher.api.OreWatcherAPI;
 import dev.neuralnexus.taterutils.common.modules.send.api.SendAPI;
 import dev.neuralnexus.taterutils.common.modules.spawn.api.SpawnAPI;
 import dev.neuralnexus.taterutils.common.modules.tpa.api.TpaAPI;
@@ -13,6 +14,7 @@ import dev.neuralnexus.taterutils.common.modules.warp.api.WarpAPI;
 public class TaterUtilsAPI {
     private final AlertAPI alertAPI;
     private final HomeAPI homeAPI;
+    private final OreWatcherAPI oreWatcherAPI;
     private final SendAPI sendAPI;
     private final SpawnAPI spawnAPI;
     private final TpaAPI tpaAPI;
@@ -21,6 +23,7 @@ public class TaterUtilsAPI {
     public TaterUtilsAPI() {
         this.alertAPI = new AlertAPI();
         this.homeAPI = new HomeAPI();
+        this.oreWatcherAPI = new OreWatcherAPI();
         this.sendAPI = new SendAPI();
         this.spawnAPI = new SpawnAPI();
         this.tpaAPI = new TpaAPI();
@@ -41,6 +44,14 @@ public class TaterUtilsAPI {
      */
     public HomeAPI getHomeAPI() {
         return homeAPI;
+    }
+
+    /**
+     * Get the ore watcher API.
+     * @return The ore watcher API.
+     */
+    public OreWatcherAPI getOreWatcherAPI() {
+        return oreWatcherAPI;
     }
 
     /**

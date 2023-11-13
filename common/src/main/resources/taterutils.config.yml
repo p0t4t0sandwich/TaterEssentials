@@ -6,6 +6,8 @@ modules:
     enabled: true
   home:
     enabled: true
+  orewatcher:
+    enabled: true
   send:
     enabled: true
   spawn:

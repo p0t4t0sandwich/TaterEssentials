@@ -4,6 +4,8 @@ version: 1
 modules:
   home:
     enabled: true
+  send:
+    enabled: true
   spawn:
     enabled: true
   tpa:

@@ -9,10 +9,10 @@ import dev.neuralnexus.taterutils.common.api.TaterUtilsAPIProvider;
 import dev.neuralnexus.taterutils.common.modules.tpa.api.TpaAPI;
 
 /**
- * Tpa Command.
+ * TpHere Command.
  */
-public class TpaCommand implements Command {
-    private String name = "tpa";
+public class TpHereCommand implements Command {
+    private String name = "tphere";
 
     @Override
     public void setName(String name) {
@@ -26,17 +26,17 @@ public class TpaCommand implements Command {
 
     @Override
     public String getDescription() {
-        return "Allows players to Send a teleport request to another player!";
+        return "Allows players to request another player to teleport to them!";
     }
 
     @Override
     public String getUsage() {
-        return "/tpa <player>";
+        return "/tphere <player>";
     }
 
     @Override
     public String getPermission() {
-        return "taterutils.command.tpa";
+        return "taterutils.command.tphere";
     }
 
     @Override
@@ -57,11 +57,11 @@ public class TpaCommand implements Command {
         } else {
             Player target = TaterAPIProvider.get().getServer().getOnlinePlayers().stream()
                     .filter(p -> p.getName().equalsIgnoreCase(args[0])).findFirst().orElse(null);
-            if (target != null && !api.hasPendingRequest(target)) {
+            if (target != null && !api.hasPendingRequest(player)) {
                 api.addRequest(player, target);
-                CommandUtils.sendMessage(player, "&aYou have sent a teleport request to &e" + target.getName() + "&a!");
+                CommandUtils.sendMessage(player, "&aYou have requested &e" + target.getName() + " &ato teleport to you!");
             } else {
-                CommandUtils.sendMessage(player, "&cThat player is not online or already has a request!");
+                CommandUtils.sendMessage(player, "&cThat player is not online or you already have an active request!");
             }
         }
         return true;

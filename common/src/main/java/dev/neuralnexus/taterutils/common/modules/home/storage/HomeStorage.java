@@ -1,4 +1,4 @@
-package dev.neuralnexus.taterutils.common.storage.home;
+package dev.neuralnexus.taterutils.common.modules.home.storage;
 
 import dev.neuralnexus.taterlib.common.player.Player;
 import dev.neuralnexus.taterlib.common.utils.Location;

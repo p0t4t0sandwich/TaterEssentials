@@ -4,6 +4,10 @@ import dev.neuralnexus.taterlib.common.api.TaterAPIProvider;
 import dev.neuralnexus.taterlib.common.logger.AbstractLogger;
 import dev.neuralnexus.taterutils.common.api.TaterUtilsAPI;
 import dev.neuralnexus.taterutils.common.api.TaterUtilsAPIProvider;
+import dev.neuralnexus.taterutils.common.modules.home.HomeModule;
+import dev.neuralnexus.taterutils.common.modules.spawn.SpawnModule;
+import dev.neuralnexus.taterutils.common.modules.tpa.TpaModule;
+import dev.neuralnexus.taterutils.common.modules.warp.WarpModule;
 
 /**
  * Main class for the plugin.
@@ -72,6 +76,12 @@ public class TaterUtils {
             return;
         }
         STARTED = true;
+
+        // Register modules
+        TaterUtilsModuleLoader.registerModule(new HomeModule());
+        TaterUtilsModuleLoader.registerModule(new SpawnModule());
+        TaterUtilsModuleLoader.registerModule(new TpaModule());
+        TaterUtilsModuleLoader.registerModule(new WarpModule());
 
         // Start modules
         TaterUtilsModuleLoader.startModules();

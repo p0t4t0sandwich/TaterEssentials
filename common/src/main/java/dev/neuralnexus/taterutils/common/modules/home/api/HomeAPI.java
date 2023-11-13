@@ -5,8 +5,8 @@ import dev.neuralnexus.taterlib.common.storage.Database;
 import dev.neuralnexus.taterlib.common.utils.Location;
 import dev.neuralnexus.taterutils.common.TaterUtils;
 import dev.neuralnexus.taterutils.common.api.NamedLocation;
-import dev.neuralnexus.taterutils.common.storage.home.FSHomeStorage;
-import dev.neuralnexus.taterutils.common.storage.home.HomeStorage;
+import dev.neuralnexus.taterutils.common.modules.home.storage.FSHomeStorage;
+import dev.neuralnexus.taterutils.common.modules.home.storage.HomeStorage;
 
 import java.util.Optional;
 import java.util.Set;

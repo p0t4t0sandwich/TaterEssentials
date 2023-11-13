@@ -2,6 +2,7 @@ package dev.neuralnexus.taterutils.common.api;
 
 import dev.neuralnexus.taterutils.common.modules.home.api.HomeAPI;
 import dev.neuralnexus.taterutils.common.modules.spawn.api.SpawnAPI;
+import dev.neuralnexus.taterutils.common.modules.tpa.api.TpaAPI;
 import dev.neuralnexus.taterutils.common.modules.warp.api.WarpAPI;
 
 /**
@@ -10,11 +11,13 @@ import dev.neuralnexus.taterutils.common.modules.warp.api.WarpAPI;
 public class TaterUtilsAPI {
     private final HomeAPI homeAPI;
     private final SpawnAPI spawnAPI;
+    private final TpaAPI tpaAPI;
     private final WarpAPI warpAPI;
 
     public TaterUtilsAPI() {
         this.homeAPI = new HomeAPI();
         this.spawnAPI = new SpawnAPI();
+        this.tpaAPI = new TpaAPI();
         this.warpAPI = new WarpAPI();
     }
 
@@ -32,6 +35,14 @@ public class TaterUtilsAPI {
      */
     public SpawnAPI getSpawnAPI() {
         return spawnAPI;
+    }
+
+    /**
+     * Get the tpa API.
+     * @return The tpa API.
+     */
+    public TpaAPI getTpaAPI() {
+        return tpaAPI;
     }
 
     /**

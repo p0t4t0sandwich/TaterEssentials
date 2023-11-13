@@ -7,6 +7,10 @@ depends: [TaterLib]
 softdepends: [LuckPerms]
 folia-supported: true
 commands:
+  alert:
+    description: Send an alert to all players
+    usage: /alert <message>
+    permission: taterlib.command.alert
   home:
     description: Teleport to a home
     usage: /home [name | del | set | list] [name]

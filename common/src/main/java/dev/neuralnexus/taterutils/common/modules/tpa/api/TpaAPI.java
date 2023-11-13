@@ -35,10 +35,11 @@ public class TpaAPI {
 
     /**
      * Adds a request.
-     * @param request The request.
+     * @param player The player.
+     * @param target The target.
      */
-    public void addRequest(TPRequest request) {
-        data.addRequest(request);
+    public void addRequest(Player player, Player target) {
+        data.addRequest(new TpaAPI.TPRequest(player, target));
     }
 
     /**
@@ -54,7 +55,7 @@ public class TpaAPI {
      * @param player The player.
      * @return If the player has a request.
      */
-    public boolean hasRequest(Player player) {
+    public boolean hasPendingRequest(Player player) {
         return data.getRequests().stream().anyMatch(request -> request.getSender().equals(player));
     }
 
@@ -75,8 +76,7 @@ public class TpaAPI {
      */
     public void denyRequest(Player player) {
         data.getRequests().stream().filter(request -> request.getReceiver().equals(player)).findFirst().ifPresent(request -> {
-            player.sendMessage(Utils.substituteSectionSign("&aYou have denied the teleport request from &e" + request.getSender().getName() + "&a."));
-            request.getSender().sendMessage(Utils.substituteSectionSign("&e" + player.getName() + " &ahas denied your teleport request."));
+            request.deny();
             data.removeRequest(request);
         });
     }
@@ -126,14 +126,6 @@ public class TpaAPI {
         }
 
         /**
-         * Gets the timestamp.
-         * @return The timestamp.
-         */
-        public long getTimestamp() {
-            return timestamp;
-        }
-
-        /**
          * Checks if the request is expired.
          * @return If the request is expired.
          */
@@ -155,6 +147,14 @@ public class TpaAPI {
             sender.teleport(receiver);
             sender.sendMessage(Utils.substituteSectionSign("&aYou have accepted the teleport request from &e" + receiver.getName() + "&a."));
             receiver.sendMessage(Utils.substituteSectionSign("&e" + sender.getName() + " &ahas accepted your teleport request."));
+        }
+
+        /**
+         * Denies the request.
+         */
+        public void deny() {
+            sender.sendMessage(Utils.substituteSectionSign("&aYou have denied the teleport request from &e" + receiver.getName() + "&a."));
+            receiver.sendMessage(Utils.substituteSectionSign("&e" + sender.getName() + " &ahas denied your teleport request."));
         }
     }
 

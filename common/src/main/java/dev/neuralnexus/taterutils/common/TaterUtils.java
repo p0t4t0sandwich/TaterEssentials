@@ -4,6 +4,12 @@ import dev.neuralnexus.taterlib.common.api.TaterAPIProvider;
 import dev.neuralnexus.taterlib.common.logger.AbstractLogger;
 import dev.neuralnexus.taterutils.common.api.TaterUtilsAPI;
 import dev.neuralnexus.taterutils.common.api.TaterUtilsAPIProvider;
+import dev.neuralnexus.taterutils.common.modules.home.HomeModule;
+import dev.neuralnexus.taterutils.common.modules.orewatcher.OreWatcherModule;
+import dev.neuralnexus.taterutils.common.modules.send.SendModule;
+import dev.neuralnexus.taterutils.common.modules.spawn.SpawnModule;
+import dev.neuralnexus.taterutils.common.modules.tpa.TpaModule;
+import dev.neuralnexus.taterutils.common.modules.warp.WarpModule;
 
 /**
  * Main class for the plugin.
@@ -73,6 +79,26 @@ public class TaterUtils {
         }
         STARTED = true;
 
+        // Register modules
+        if (TaterUtilsConfig.isModuleEnabled("home")) {
+            TaterUtilsModuleLoader.registerModule(new HomeModule());
+        }
+        if (TaterUtilsConfig.isModuleEnabled("orewatcher")) {
+            TaterUtilsModuleLoader.registerModule(new OreWatcherModule());
+        }
+        if (TaterUtilsConfig.isModuleEnabled("send")) {
+            TaterUtilsModuleLoader.registerModule(new SendModule());
+        }
+        if (TaterUtilsConfig.isModuleEnabled("spawn")) {
+            TaterUtilsModuleLoader.registerModule(new SpawnModule());
+        }
+        if (TaterUtilsConfig.isModuleEnabled("tpa")) {
+            TaterUtilsModuleLoader.registerModule(new TpaModule());
+        }
+        if (TaterUtilsConfig.isModuleEnabled("warp")) {
+            TaterUtilsModuleLoader.registerModule(new WarpModule());
+        }
+
         // Start modules
         TaterUtilsModuleLoader.startModules();
 
@@ -134,7 +160,7 @@ public class TaterUtils {
         public static final String PROJECT_NAME = "TaterUtils";
         public static final String PROJECT_ID = "taterutils";
         public static final String PROJECT_VERSION = "0.1.0-R0.1-SNAPSHOT";
-        public static final String PROJECT_AUTHORS = "p0t4t0sandwich";
+        public static final String PROJECT_AUTHORS = "p0t4t0sandwich, DJjewl";
         public static final String PROJECT_DESCRIPTION = "An essential, cross API server utility plugin that doubles as a staging ground for new plugin ideas.";
         public static final String PROJECT_URL = "https://github.com/p0t4t0sandwich/TaterUtils";
     }

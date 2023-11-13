@@ -4,8 +4,8 @@ import dev.neuralnexus.taterlib.common.player.Player;
 import dev.neuralnexus.taterlib.common.storage.Database;
 import dev.neuralnexus.taterlib.common.utils.Location;
 import dev.neuralnexus.taterutils.common.TaterUtils;
-import dev.neuralnexus.taterutils.common.storage.spawn.FSSpawnStorage;
-import dev.neuralnexus.taterutils.common.storage.spawn.SpawnStorage;
+import dev.neuralnexus.taterutils.common.modules.spawn.storage.FSSpawnStorage;
+import dev.neuralnexus.taterutils.common.modules.spawn.storage.SpawnStorage;
 
 import java.util.Optional;
 

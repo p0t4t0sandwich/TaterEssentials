@@ -1,2 +1,18 @@
 ---
 version: 1
+
+modules:
+  alert:
+    enabled: true
+  home:
+    enabled: true
+  orewatcher:
+    enabled: true
+  send:
+    enabled: true
+  spawn:
+    enabled: true
+  tpa:
+    enabled: true
+  warp:
+    enabled: true

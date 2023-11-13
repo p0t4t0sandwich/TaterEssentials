@@ -1,6 +1,5 @@
 package dev.neuralnexus.taterutils.common.modules.tpa.command;
 
-import dev.neuralnexus.taterlib.common.api.TaterAPIProvider;
 import dev.neuralnexus.taterlib.common.command.Command;
 import dev.neuralnexus.taterlib.common.command.Sender;
 import dev.neuralnexus.taterlib.common.player.Player;
@@ -9,10 +8,10 @@ import dev.neuralnexus.taterutils.common.api.TaterUtilsAPIProvider;
 import dev.neuralnexus.taterutils.common.modules.tpa.api.TpaAPI;
 
 /**
- * Tpa Command.
+ * TpAccept Command.
  */
-public class TpaCommand implements Command {
-    private String name = "tpa";
+public class TpAcceptCommand implements Command {
+    private String name = "tpaccept";
 
     @Override
     public void setName(String name) {
@@ -26,17 +25,17 @@ public class TpaCommand implements Command {
 
     @Override
     public String getDescription() {
-        return "Allows players to Send a teleport request to another player!";
+        return "Allows players to accept a teleport request!";
     }
 
     @Override
     public String getUsage() {
-        return "/tpa <player>";
+        return "/tpaccept";
     }
 
     @Override
     public String getPermission() {
-        return "taterutils.command.tpa";
+        return "taterutils.command.tpaccept";
     }
 
     @Override
@@ -52,17 +51,10 @@ public class TpaCommand implements Command {
         Player player = (Player) sender;
         TpaAPI api = TaterUtilsAPIProvider.get().getTpaAPI();
 
-        if (args.length == 0) {
-            CommandUtils.sendMessage(player, "&aPlease provide a player name!");
+        if (api.hasPendingRequest(player)) {
+            api.acceptRequest(player);
         } else {
-            Player target = TaterAPIProvider.get().getServer().getOnlinePlayers().stream()
-                    .filter(p -> p.getName().equalsIgnoreCase(args[0])).findFirst().orElse(null);
-            if (target != null && !api.hasPendingRequest(target)) {
-                api.addRequest(player, target);
-                CommandUtils.sendMessage(player, "&aYou have sent a teleport request to &e" + target.getName() + "&a!");
-            } else {
-                CommandUtils.sendMessage(player, "&cThat player is not online or already has a request!");
-            }
+            CommandUtils.sendMessage(player, "&cYou do not have any pending requests.");
         }
         return true;
     }

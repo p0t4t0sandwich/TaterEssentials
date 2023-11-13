@@ -7,6 +7,10 @@ depends: [TaterLib]
 softdepends: [LuckPerms]
 folia-supported: true
 commands:
+  alert:
+    description: Send an alert to all players
+    usage: /alert <message>
+    permission: taterlib.command.alert
   home:
     description: Teleport to a home
     usage: /home [name | del | set | list] [name]
@@ -35,6 +39,23 @@ commands:
     usage: /delspawn
     permission: taterlib.command.delspawn
     aliases: [deletespawn, rmspawn, removespawn]
+  tpa:
+    description: Request to teleport to a player
+    usage: /tpa <player>
+    permission: taterlib.command.tpa
+  tphere:
+    description: Request to teleport a player to you
+    usage: /tphere <player>
+    permission: taterlib.command.tphere
+    aliases: [tpahere]
+  tpaccept:
+    description: Accept a teleport request
+    usage: /tpaccept
+    permission: taterlib.command.tpaccept
+  tpdeny:
+    description: Deny a teleport request
+    usage: /tpdeny
+    permission: taterlib.command.tpdeny
   warp:
     description: Warp to a location
     usage: /warp [name | list]

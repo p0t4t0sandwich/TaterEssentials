@@ -2,6 +2,8 @@
 version: 1
 
 modules:
+  alert:
+    enabled: true
   home:
     enabled: true
   send:

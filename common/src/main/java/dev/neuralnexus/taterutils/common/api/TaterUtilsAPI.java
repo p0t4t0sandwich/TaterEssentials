@@ -1,5 +1,6 @@
 package dev.neuralnexus.taterutils.common.api;
 
+import dev.neuralnexus.taterutils.common.modules.alert.api.AlertAPI;
 import dev.neuralnexus.taterutils.common.modules.home.api.HomeAPI;
 import dev.neuralnexus.taterutils.common.modules.send.api.SendAPI;
 import dev.neuralnexus.taterutils.common.modules.spawn.api.SpawnAPI;
@@ -10,6 +11,7 @@ import dev.neuralnexus.taterutils.common.modules.warp.api.WarpAPI;
  * API wrapper class
  */
 public class TaterUtilsAPI {
+    private final AlertAPI alertAPI;
     private final HomeAPI homeAPI;
     private final SendAPI sendAPI;
     private final SpawnAPI spawnAPI;
@@ -17,11 +19,20 @@ public class TaterUtilsAPI {
     private final WarpAPI warpAPI;
 
     public TaterUtilsAPI() {
+        this.alertAPI = new AlertAPI();
         this.homeAPI = new HomeAPI();
         this.sendAPI = new SendAPI();
         this.spawnAPI = new SpawnAPI();
         this.tpaAPI = new TpaAPI();
         this.warpAPI = new WarpAPI();
+    }
+
+    /**
+     * Get the alert API.
+     * @return The alert API.
+     */
+    public AlertAPI getAlertAPI() {
+        return alertAPI;
     }
 
     /**

@@ -48,12 +48,19 @@ public class OreWatcherAPI {
     }
 
     /**
+     * Resets the average per minute.
+     */
+    public void resetAveragePerMinute() {
+        data.resetAveragePerMinute();
+    }
+
+    /**
      * Class representing the ore the player has mined in a given period of time.
      */
     public static class OreMined {
         private final Player player;
         private int amount;
-        private final long firstMined = System.currentTimeMillis();
+        private long firstMined = System.currentTimeMillis();
         private long lastMined = System.currentTimeMillis();
 
         /**
@@ -84,11 +91,19 @@ public class OreWatcherAPI {
         }
 
         /**
+         * Get the time delta between the first and last time the player mined ore.
+         * @return The time delta between the first and last time the player mined ore.
+         */
+        public long getTimeDelta() {
+            return lastMined - firstMined;
+        }
+
+        /**
          * Get the average amount of ore mined per minute.
          * @return The average amount of ore mined per minute.
          */
         public double getAveragePerMinute() {
-            return (double) amount / ((double) (lastMined - firstMined) / 60000);
+            return (double) amount / getTimeDelta() / 60000;
         }
     }
 
@@ -121,6 +136,17 @@ public class OreWatcherAPI {
          */
         public Optional<OreMined> getOreMined(Player player) {
             return oreMined.stream().filter(oreMined -> oreMined.getPlayer().equals(player)).findFirst();
+        }
+
+        /**
+         * Resets the average per minute.
+         */
+        public void resetAveragePerMinute() {
+            oreMined.forEach(oreMined -> {
+                oreMined.firstMined = System.currentTimeMillis();
+                oreMined.lastMined = System.currentTimeMillis();
+                oreMined.amount = 0;
+            });
         }
     }
 }

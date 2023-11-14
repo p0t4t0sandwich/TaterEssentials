@@ -36,7 +36,7 @@ public class CommandUtils {
      * @param permission The permission.
      * @return True if the player has permission.
      */
-    public static boolean playerHasPermission(Player player, String permission) {
+    public static boolean senderHasPermission(Sender player, String permission) {
         if (!player.hasPermission(permission)) {
             sendMessage(player, "&cYou do not have permission to use this command.");
             return false;
@@ -53,9 +53,6 @@ public class CommandUtils {
         if (!senderIsPlayer(sender)) {
             return false;
         }
-        if (!playerHasPermission((Player) sender, permission)) {
-            return false;
-        }
-        return true;
+        return senderHasPermission(sender, permission);
     }
 }

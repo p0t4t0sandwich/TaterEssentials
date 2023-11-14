@@ -6,8 +6,38 @@ modules:
     enabled: true
   home:
     enabled: true
-  orewatcher:
+    messages:
+      # Available message placeholders:
+      # %home% - The name of the home
+      home:
+        homeNotSet: "&cYou do not have home &e%home%&c set!"
+        teleportedToHome: "&aTeleporting to home &e%home%&a!"
+        invalidArguments: "&cInvalid arguments!"
+        invalidHomeName: "&cInvalid home name!"
+        noName: "&aPlease provide a Home name!"
+        availableHomes: "&aAvailable homes: &e%homes%"
+      setHome:
+        success: "&aSet home &e%home%&a!"
+      deleteHome:
+        success: "&aDeleted home &e%home%&a!"
+
+  oreWatcher:
     enabled: true
+    # Available message placeholders:
+    # %playername% - The name of the player
+    # %blockname% - The name of the block being mined
+    # %oreperminute% - The amount of ore mined per minute
+
+    # The amount of ore mined per minute to trigger an alert
+    alertThreshold: 30
+    # Whether to cancel the mining event if the alert threshold is exceeded
+    cancelMinedOverThreshold: false
+    # The message to send to any admins with the permission taterutils.module.orewatcher.admin when the alert threshold is exceeded
+    adminAlertEnabled: true
+    adminAlertMessage: "&c%playername% &7is mining &c %blockname% §7at a rate of &c %oreperminute% &7per minute!"
+    # The message to send to the player when the alert threshold is exceeded
+    playerAlertEnabled: false
+    playerAlertMessage: "&cYou are mining ore a bit too fast there, buddy!"
   send:
     enabled: true
   spawn:

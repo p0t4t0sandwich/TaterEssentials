@@ -2,7 +2,9 @@ package dev.neuralnexus.taterutils.common.modules.home.command;
 
 import dev.neuralnexus.taterlib.common.command.Command;
 import dev.neuralnexus.taterlib.common.command.Sender;
+import dev.neuralnexus.taterlib.common.placeholder.PlaceholderParser;
 import dev.neuralnexus.taterlib.common.player.Player;
+import dev.neuralnexus.taterutils.common.TaterUtilsConfig;
 import dev.neuralnexus.taterutils.common.api.TaterUtilsAPIProvider;
 import dev.neuralnexus.taterutils.common.modules.home.api.HomeAPI;
 import dev.neuralnexus.taterutils.common.api.CommandUtils;
@@ -51,59 +53,68 @@ public class HomeCommand implements Command {
         Player player = (Player) sender;
         HomeAPI api = TaterUtilsAPIProvider.get().getHomeAPI();
 
+        String message = "";
         if (args.length == 0) {
             if (!api.teleportHome(player, "home")) {
-                CommandUtils.sendMessage(player, "&cYou do not have a home set.");
-                return true;
+                message = TaterUtilsConfig.HomeConfig.getMessage("home.homeNotSet");
+            } else {
+                message = new PlaceholderParser(TaterUtilsConfig.HomeConfig.getMessage("home.teleportedToHome"))
+                        .parseString("home", "home").getResult();
             }
-            CommandUtils.sendMessage(player, "&aTeleported to your home.");
-            return true;
         } else {
             switch (args[0]) {
                 case "add":
                 case "create":
                 case "set":
-                    if (!CommandUtils.playerHasPermission(player, "taterutils.command.sethome")) {
-                        return true;
+                    if (!CommandUtils.senderHasPermission(player, "taterutils.command.sethome")) {
+                        break;
                     }
                     if (args.length == 1) {
-                        CommandUtils.sendMessage(player, "&cInvalid arguments.");
-                        return true;
+                        message = TaterUtilsConfig.HomeConfig.getMessage("home.invalidArguments");
+                        break;
                     }
                     if (api.getInvalidHomeNames().contains(args[1])) {
-                        CommandUtils.sendMessage(player, "&cInvalid home name.");
-                        return true;
+                        message = TaterUtilsConfig.HomeConfig.getMessage("home.invalidHomeName");
+                        break;
                     }
                     api.setHome(player, args[1], player.getLocation());
-                    CommandUtils.sendMessage(player, "&aSet home &e" + args[1] + "&a.");
-                    return true;
+                    message = new PlaceholderParser(TaterUtilsConfig.HomeConfig.getMessage("setHome.success"))
+                            .parseString("home", args[1]).getResult();
+                    break;
                 case "rm":
                 case "remove":
                 case "del":
                 case "delete":
-                    if (!CommandUtils.playerHasPermission(player, "taterutils.command.delhome")) {
-                        return true;
+                    if (!CommandUtils.senderHasPermission(player, "taterutils.command.delhome")) {
+                        break;
                     }
                     if (args.length == 1) {
-                        CommandUtils.sendMessage(player, "&cInvalid arguments.");
-                        return true;
+                        message = TaterUtilsConfig.HomeConfig.getMessage("home.noName");
+                        break;
                     }
                     api.deleteHome(player, args[1]);
-                    CommandUtils.sendMessage(player, "&aDeleted home &e" + args[1] + "&a.");
-                    return true;
+                    message = new PlaceholderParser(TaterUtilsConfig.HomeConfig.getMessage("delhome.success"))
+                            .parseString("home", args[1]).getResult();
+                    break;
                 case "list":
-                    if (!CommandUtils.playerHasPermission(player, "taterutils.command.home.list")) {
-                        return true;
+                    if (!CommandUtils.senderHasPermission(player, "taterutils.command.home.list")) {
+                        break;
                     }
-                    CommandUtils.sendMessage(player, "&aAvailable Homes: &e" + api.getHomes(player).toString());
+                    message = new PlaceholderParser(TaterUtilsConfig.HomeConfig.getMessage("home.availableHomes"))
+                            .parseString("homes", api.getHomes(player).toString()).getResult();
+                    break;
                 default:
                     if (!api.teleportHome(player, args[0])) {
-                        CommandUtils.sendMessage(player, "&cYou do not have home &e" + args[0] + " &cset.");
-                        return true;
+                        message = new PlaceholderParser(TaterUtilsConfig.HomeConfig.getMessage("home.homeNotSet"))
+                                .parseString("home", "home").getResult();
+                        break;
                     }
-                    CommandUtils.sendMessage(player, "&aTeleported to home &e" + args[0] + "&a.");
-                    return true;
+                    message = new PlaceholderParser(TaterUtilsConfig.HomeConfig.getMessage("home.teleportedToHome"))
+                            .parseString("home", args[0]).getResult();
+                    break;
             }
         }
+        CommandUtils.sendMessage(player, message);
+        return true;
     }
 }

@@ -6,7 +6,6 @@ import dev.neuralnexus.taterlib.common.player.Player;
 import dev.neuralnexus.taterutils.common.api.CommandUtils;
 import dev.neuralnexus.taterutils.common.api.TaterUtilsAPIProvider;
 import dev.neuralnexus.taterutils.common.modules.send.api.SendAPI;
-import dev.neuralnexus.taterutils.common.modules.tpa.api.TpaAPI;
 
 /**
  * TpAccept Command.
@@ -46,7 +45,7 @@ public class SendCommand implements Command {
 
     @Override
     public boolean execute(Sender sender, String label, String[] args) {
-        if (!CommandUtils.senderIsPlayerAndHasPermission(sender, getPermission())) {
+        if (!CommandUtils.senderHasPermission(sender, getPermission())) {
             return true;
         }
         Player player = (Player) sender;

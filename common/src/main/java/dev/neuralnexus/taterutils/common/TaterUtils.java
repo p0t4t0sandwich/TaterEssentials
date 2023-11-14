@@ -83,7 +83,7 @@ public class TaterUtils {
         if (TaterUtilsConfig.isModuleEnabled("home")) {
             TaterUtilsModuleLoader.registerModule(new HomeModule());
         }
-        if (TaterUtilsConfig.isModuleEnabled("orewatcher")) {
+        if (TaterUtilsConfig.isModuleEnabled("oreWatcher")) {
             TaterUtilsModuleLoader.registerModule(new OreWatcherModule());
         }
         if (TaterUtilsConfig.isModuleEnabled("send")) {

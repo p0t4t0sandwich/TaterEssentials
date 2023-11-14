@@ -4,9 +4,9 @@ import dev.neuralnexus.taterlib.common.api.TaterAPIProvider;
 import dev.neuralnexus.taterlib.common.event.api.CommandEvents;
 import dev.neuralnexus.taterutils.common.TaterUtils;
 import dev.neuralnexus.taterutils.common.modules.Module;
+import dev.neuralnexus.taterutils.common.modules.home.command.DelHomeCommand;
 import dev.neuralnexus.taterutils.common.modules.home.command.HomeCommand;
 import dev.neuralnexus.taterutils.common.modules.home.command.SetHomeCommand;
-import dev.neuralnexus.taterutils.common.modules.warp.command.DelWarpCommand;
 
 /**
  * Home module.
@@ -34,7 +34,7 @@ public class HomeModule implements Module {
                 if (!TaterAPIProvider.get().serverType().isProxy()) {
                     event.registerCommand(TaterUtils.getPlugin(), new HomeCommand());
                     event.registerCommand(TaterUtils.getPlugin(), new SetHomeCommand(), "addhome", "createhome");
-                    event.registerCommand(TaterUtils.getPlugin(), new DelWarpCommand(), "deletehome", "removehome", "rmhome");
+                    event.registerCommand(TaterUtils.getPlugin(), new DelHomeCommand(), "deletehome", "removehome", "rmhome");
                 }
             }));
         }

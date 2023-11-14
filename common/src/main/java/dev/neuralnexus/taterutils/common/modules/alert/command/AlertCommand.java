@@ -3,7 +3,6 @@ package dev.neuralnexus.taterutils.common.modules.alert.command;
 import dev.neuralnexus.taterlib.common.Utils;
 import dev.neuralnexus.taterlib.common.command.Command;
 import dev.neuralnexus.taterlib.common.command.Sender;
-import dev.neuralnexus.taterlib.common.player.Player;
 import dev.neuralnexus.taterutils.common.api.CommandUtils;
 import dev.neuralnexus.taterutils.common.api.TaterUtilsAPIProvider;
 import dev.neuralnexus.taterutils.common.modules.alert.api.AlertAPI;
@@ -46,10 +45,9 @@ public class AlertCommand implements Command {
 
     @Override
     public boolean execute(Sender sender, String label, String[] args) {
-        if (!CommandUtils.senderIsPlayerAndHasPermission(sender, getPermission())) {
+        if (!CommandUtils.senderHasPermission(sender, getPermission())) {
             return true;
         }
-        Player player = (Player) sender;
         AlertAPI api = TaterUtilsAPIProvider.get().getAlertAPI();
 
         api.broadcast(Utils.substituteSectionSign("&4" + String.join(" ", args)));

@@ -55,6 +55,19 @@ public class TaterUtilsConfig {
     }
 
     /**
+     * Home config.
+     */
+    public static class HomeConfig {
+        /**
+         * Get a message from the config.
+         * @param path The path to the message.
+         */
+        public static String getMessage(String path) {
+            return config.getString("modules.home.messages." + path);
+        }
+    }
+
+    /**
      * OreWatcher config.
      */
     public static class OreWatcherConfig {

@@ -6,6 +6,21 @@ modules:
     enabled: true
   home:
     enabled: true
+    messages:
+      # Available message placeholders:
+      # %home% - The name of the home
+      home:
+        homeNotSet: "&cYou do not have home &e%home%&c set!"
+        teleportedToHome: "&aTeleporting to home &e%home%&a!"
+        invalidArguments: "&cInvalid arguments!"
+        invalidHomeName: "&cInvalid home name!"
+        noName: "&aPlease provide a Home name!"
+        availableHomes: "&aAvailable homes: &e%homes%"
+      setHome:
+        success: "&aSet home &e%home%&a!"
+      deleteHome:
+        success: "&aDeleted home &e%home%&a!"
+
   oreWatcher:
     enabled: true
     # Available message placeholders:

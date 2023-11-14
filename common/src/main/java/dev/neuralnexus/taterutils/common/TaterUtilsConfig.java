@@ -53,4 +53,57 @@ public class TaterUtilsConfig {
     public static boolean isModuleEnabled(String module) {
         return config.getBoolean("modules" + module + ".enabled");
     }
+
+    /**
+     * OreWatcher config.
+     */
+    public static class OreWatcherConfig {
+        /**
+         * Get the alert threshold.
+         * @return The alert threshold.
+         */
+        public static int getAlertThreshold() {
+            return config.getInt("modules.oreWatcher.alertThreshold");
+        }
+
+        /**
+         * Get whether to cancel the event if the threshold is met.
+         * @return Whether to cancel the event if the threshold is met.
+         */
+        public static boolean getCancelMinedOverThreshold() {
+            return config.getBoolean("modules.oreWatcher.cancelMinedOverThreshold");
+        }
+
+        /**
+         * Get whether to send an alert to admins.
+         * @return Whether to send an alert to admins.
+         */
+        public static boolean getAdminAlertEnabled() {
+            return config.getBoolean("modules.oreWatcher.adminAlertEnabled");
+        }
+
+        /**
+         * Get the admin alert message.
+         * @return The admin alert message.
+         */
+        public static String getAdminAlertMessage() {
+            return config.getString("modules.oreWatcher.adminAlertMessage");
+        }
+
+        /**
+         * Get whether to send an alert to the player.
+         * @return Whether to send an alert to the player.
+         */
+        public static boolean getPlayerAlertEnabled() {
+            return config.getBoolean("modules.oreWatcher.playerAlertEnabled");
+        }
+
+        /**
+         * Get the player alert message.
+         * @return The player alert message.
+         */
+        public static String getPlayerAlertMessage() {
+            return config.getString("modules.oreWatcher.playerAlertMessage");
+        }
+    }
 }

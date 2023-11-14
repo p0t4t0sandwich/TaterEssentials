@@ -1,10 +1,15 @@
 package dev.neuralnexus.taterutils.common.modules.orewatcher;
 
+import dev.neuralnexus.taterlib.common.Utils;
 import dev.neuralnexus.taterlib.common.api.TaterAPIProvider;
 import dev.neuralnexus.taterlib.common.event.api.BlockEvents;
+import dev.neuralnexus.taterlib.common.placeholder.PlaceholderParser;
 import dev.neuralnexus.taterutils.common.TaterUtils;
+import dev.neuralnexus.taterutils.common.TaterUtilsConfig;
 import dev.neuralnexus.taterutils.common.api.TaterUtilsAPIProvider;
 import dev.neuralnexus.taterutils.common.modules.Module;
+import dev.neuralnexus.taterutils.common.modules.orewatcher.api.OreWatcherAPI;
+import dev.neuralnexus.taterutils.common.modules.orewatcher.listeners.OreWatcherBlockListener;
 
 /**
  * OreWatcher module.
@@ -28,11 +33,11 @@ public class OreWatcherModule implements Module {
 
         if (!RELOADED) {
             // Register block events
-            BlockEvents.BLOCK_BREAK.register((event) -> {
-//                TaterUtilsAPIProvider.get().getOreWatcherAPI().addOreMined();
-            });
-        }
+            BlockEvents.BLOCK_BREAK.register(OreWatcherBlockListener::onBlockBreak);
 
+            // Reset the average per minute every 30 minutes
+            Utils.repeatTaskAsync(() -> TaterUtilsAPIProvider.get().getOreWatcherAPI().resetAveragePerMinute(), 0L, 36000L);
+        }
         TaterUtils.getLogger().info("Submodule " + getName() + " has been started!");
     }
 

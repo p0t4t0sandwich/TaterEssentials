@@ -119,4 +119,17 @@ public class TaterUtilsConfig {
             return config.getString("modules.oreWatcher.playerAlertMessage");
         }
     }
+
+    /**
+     * Spawn config.
+     */
+    public static class SpawnConfig {
+        /**
+         * Get a message from the config.
+         * @param path The path to the message.
+         */
+        public static String getMessage(String path) {
+            return config.getString("modules.spawn.messages." + path);
+        }
+    }
 }

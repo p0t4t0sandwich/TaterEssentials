@@ -3,6 +3,7 @@ package dev.neuralnexus.taterutils.common.modules.spawn.command;
 import dev.neuralnexus.taterlib.common.command.Command;
 import dev.neuralnexus.taterlib.common.command.Sender;
 import dev.neuralnexus.taterlib.common.player.Player;
+import dev.neuralnexus.taterutils.common.TaterUtilsConfig;
 import dev.neuralnexus.taterutils.common.api.TaterUtilsAPIProvider;
 import dev.neuralnexus.taterutils.common.modules.spawn.api.SpawnAPI;
 import dev.neuralnexus.taterutils.common.api.CommandUtils;
@@ -53,9 +54,9 @@ public class SpawnCommand implements Command {
 
         String message;
         if (!api.teleportSpawn(player)) {
-            message = "&cSpawn has not been set.";
+            message = TaterUtilsConfig.SpawnConfig.getMessage("spawnNotSet");
         } else {
-            message = "&aTeleported to spawn.";
+            message = TaterUtilsConfig.SpawnConfig.getMessage("teleportedToSpawn");
         }
         CommandUtils.sendMessage(player, message);
         return true;

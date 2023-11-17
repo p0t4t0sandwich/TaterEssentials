@@ -31,7 +31,7 @@ public class OreWatcherBlockListener {
                     }
 
                     // Log the event to the console
-                    String adminAlertMessage = new PlaceholderParser("[" + TaterUtils.Constants.PROJECT_NAME + "->OreWatcher]" + TaterUtilsConfig.OreWatcherConfig.getAdminAlertMessage())
+                    String adminAlertMessage = new PlaceholderParser("[" + TaterUtils.Constants.PROJECT_NAME + "->OreWatcher]" + TaterUtilsConfig.OreWatcherConfig.getMessage("adminAlertMessage"))
                             .parseString("playername", event.getPlayer().getName())
                             .parseString("blockname", event.getBlock().getType())
                             .parseString("oreperminute", String.valueOf(oreMined.getAveragePerMinute()))
@@ -48,7 +48,7 @@ public class OreWatcherBlockListener {
 
                     // Send the message to the player
                     if (TaterUtilsConfig.OreWatcherConfig.getPlayerAlertEnabled()) {
-                        String playerAlertMessage = new PlaceholderParser("[" + TaterUtils.Constants.PROJECT_NAME + "->OreWatcher]" + TaterUtilsConfig.OreWatcherConfig.getPlayerAlertMessage())
+                        String playerAlertMessage = new PlaceholderParser("[" + TaterUtils.Constants.PROJECT_NAME + "->OreWatcher]" + TaterUtilsConfig.OreWatcherConfig.getMessage("playerAlertMessage"))
                                 .parseString("playername", event.getPlayer().getName())
                                 .parseString("blockname", event.getBlock().getType())
                                 .parseString("oreperminute", String.valueOf(oreMined.getAveragePerMinute()))

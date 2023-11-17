@@ -72,6 +72,14 @@ public class TaterUtilsConfig {
      */
     public static class OreWatcherConfig {
         /**
+         * Get a message from the config.
+         * @param path The path to the message.
+         */
+        public static String getMessage(String path) {
+            return config.getString("modules.oreWatcher.messages." + path);
+        }
+
+        /**
          * Get the alert threshold.
          * @return The alert threshold.
          */
@@ -96,27 +104,24 @@ public class TaterUtilsConfig {
         }
 
         /**
-         * Get the admin alert message.
-         * @return The admin alert message.
-         */
-        public static String getAdminAlertMessage() {
-            return config.getString("modules.oreWatcher.adminAlertMessage");
-        }
-
-        /**
          * Get whether to send an alert to the player.
          * @return Whether to send an alert to the player.
          */
         public static boolean getPlayerAlertEnabled() {
             return config.getBoolean("modules.oreWatcher.playerAlertEnabled");
         }
+    }
 
+    /**
+     * Spawn config.
+     */
+    public static class SpawnConfig {
         /**
-         * Get the player alert message.
-         * @return The player alert message.
+         * Get a message from the config.
+         * @param path The path to the message.
          */
-        public static String getPlayerAlertMessage() {
-            return config.getString("modules.oreWatcher.playerAlertMessage");
+        public static String getMessage(String path) {
+            return config.getString("modules.spawn.messages." + path);
         }
     }
 }

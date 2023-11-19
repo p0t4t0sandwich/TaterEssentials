@@ -8,9 +8,7 @@ import dev.neuralnexus.taterutils.common.modules.home.command.DelHomeCommand;
 import dev.neuralnexus.taterutils.common.modules.home.command.HomeCommand;
 import dev.neuralnexus.taterutils.common.modules.home.command.SetHomeCommand;
 
-/**
- * Home module.
- */
+/** Home module. */
 public class HomeModule implements Module {
     private static boolean STARTED = false;
     private static boolean RELOADED = false;
@@ -30,13 +28,23 @@ public class HomeModule implements Module {
 
         if (!RELOADED) {
             // Register commands
-            CommandEvents.REGISTER_COMMAND.register((event -> {
-                if (!TaterAPIProvider.get().serverType().isProxy()) {
-                    event.registerCommand(TaterUtils.getPlugin(), new HomeCommand());
-                    event.registerCommand(TaterUtils.getPlugin(), new SetHomeCommand(), "addhome", "createhome");
-                    event.registerCommand(TaterUtils.getPlugin(), new DelHomeCommand(), "deletehome", "removehome", "rmhome");
-                }
-            }));
+            CommandEvents.REGISTER_COMMAND.register(
+                    (event -> {
+                        if (!TaterAPIProvider.get().serverType().isProxy()) {
+                            event.registerCommand(TaterUtils.getPlugin(), new HomeCommand());
+                            event.registerCommand(
+                                    TaterUtils.getPlugin(),
+                                    new SetHomeCommand(),
+                                    "addhome",
+                                    "createhome");
+                            event.registerCommand(
+                                    TaterUtils.getPlugin(),
+                                    new DelHomeCommand(),
+                                    "deletehome",
+                                    "removehome",
+                                    "rmhome");
+                        }
+                    }));
         }
 
         TaterUtils.getLogger().info("Submodule " + getName() + " has been started!");
@@ -49,6 +57,7 @@ public class HomeModule implements Module {
             return;
         }
         STARTED = false;
+        RELOADED = true;
 
         // Remove references to objects
 

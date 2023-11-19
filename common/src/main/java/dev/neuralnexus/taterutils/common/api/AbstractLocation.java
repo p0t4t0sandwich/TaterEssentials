@@ -3,9 +3,7 @@ package dev.neuralnexus.taterutils.common.api;
 import dev.neuralnexus.taterlib.common.utils.Location;
 import dev.neuralnexus.taterlib.common.utils.Position;
 
-/**
- * Implementation of {@link Location}.
- */
+/** Implementation of {@link Location}. */
 public class AbstractLocation implements Location {
     private String world;
     private double x;
@@ -24,134 +22,108 @@ public class AbstractLocation implements Location {
     }
 
     public AbstractLocation(Location location) {
-        this(location.getWorld(), location.getX(), location.getY(), location.getZ(), location.getYaw(), location.getPitch());
+        this(
+                location.getWorld(),
+                location.getX(),
+                location.getY(),
+                location.getZ(),
+                location.getYaw(),
+                location.getPitch());
     }
 
-    /**
-     * {@inheritDoc}
-     */
-    @Override
-    public void setX(double x) {
-        this.x = x;
-    }
-
-    /**
-     * {@inheritDoc}
-     */
+    /** {@inheritDoc} */
     @Override
     public double getX() {
         return x;
     }
 
-    /**
-     * {@inheritDoc}
-     */
+    /** {@inheritDoc} */
+    @Override
+    public void setX(double x) {
+        this.x = x;
+    }
+
+    /** {@inheritDoc} */
     @Override
     public double getBlockX() {
         return Math.floor(x);
     }
 
-    /**
-     * {@inheritDoc}
-     */
-    @Override
-    public void setY(double y) {
-        this.y = y;
-    }
-
-    /**
-     * {@inheritDoc}
-     */
+    /** {@inheritDoc} */
     @Override
     public double getY() {
         return y;
     }
 
-    /**
-     * {@inheritDoc}
-     */
+    /** {@inheritDoc} */
+    @Override
+    public void setY(double y) {
+        this.y = y;
+    }
+
+    /** {@inheritDoc} */
     @Override
     public double getBlockY() {
         return Math.floor(y);
     }
 
-    /**
-     * {@inheritDoc}
-     */
-    @Override
-    public void setZ(double z) {
-        this.z = z;
-    }
-
-    /**
-     * {@inheritDoc}
-     */
+    /** {@inheritDoc} */
     @Override
     public double getZ() {
         return z;
     }
 
-    /**
-     * {@inheritDoc}
-     */
+    /** {@inheritDoc} */
+    @Override
+    public void setZ(double z) {
+        this.z = z;
+    }
+
+    /** {@inheritDoc} */
     @Override
     public double getBlockZ() {
         return Math.floor(z);
     }
 
-    /**
-     * {@inheritDoc}
-     */
-    @Override
-    public void setYaw(float yaw) {
-        this.yaw = yaw;
-    }
-
-    /**
-     * {@inheritDoc}
-     */
+    /** {@inheritDoc} */
     @Override
     public float getYaw() {
         return yaw;
     }
 
-    /**
-     * {@inheritDoc}
-     */
+    /** {@inheritDoc} */
     @Override
-    public void setPitch(float pitch) {
-        this.pitch = pitch;
+    public void setYaw(float yaw) {
+        this.yaw = yaw;
     }
 
-    /**
-     * {@inheritDoc}
-     */
+    /** {@inheritDoc} */
     @Override
     public float getPitch() {
         return pitch;
     }
 
-    /**
-     * {@inheritDoc}
-     */
+    /** {@inheritDoc} */
+    @Override
+    public void setPitch(float pitch) {
+        this.pitch = pitch;
+    }
+
+    /** {@inheritDoc} */
     @Override
     public Position getBlockPosition() {
         return new Position(getBlockX(), getBlockY(), getBlockZ());
     }
 
-    /**
-     * {@inheritDoc}
-     */
-    @Override
-    public void setWorld(String world) {
-        this.world = world;
-    }
-
-    /**
-     * {@inheritDoc}
-     */
+    /** {@inheritDoc} */
     @Override
     public String getWorld() {
         return world;
+    }
+
+    /** {@inheritDoc} */
+    @Override
+    public void setWorld(String world) {
+        this.world = world;
     }
 }

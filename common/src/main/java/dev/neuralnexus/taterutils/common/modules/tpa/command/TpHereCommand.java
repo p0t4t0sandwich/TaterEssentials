@@ -8,20 +8,18 @@ import dev.neuralnexus.taterutils.common.api.CommandUtils;
 import dev.neuralnexus.taterutils.common.api.TaterUtilsAPIProvider;
 import dev.neuralnexus.taterutils.common.modules.tpa.api.TpaAPI;
 
-/**
- * TpHere Command.
- */
+/** TpHere Command. */
 public class TpHereCommand implements Command {
     private String name = "tphere";
 
     @Override
-    public void setName(String name) {
-        this.name = name;
+    public String getName() {
+        return name;
     }
 
     @Override
-    public String getName() {
-        return name;
+    public void setName(String name) {
+        this.name = name;
     }
 
     @Override
@@ -55,13 +53,20 @@ public class TpHereCommand implements Command {
         if (args.length == 0) {
             CommandUtils.sendMessage(player, "&aPlease provide a player name!");
         } else {
-            Player target = TaterAPIProvider.get().getServer().getOnlinePlayers().stream()
-                    .filter(p -> p.getName().equalsIgnoreCase(args[0])).findFirst().orElse(null);
+            Player target =
+                    TaterAPIProvider.get().getServer().getOnlinePlayers().stream()
+                            .filter(p -> p.getName().equalsIgnoreCase(args[0]))
+                            .findFirst()
+                            .orElse(null);
             if (target != null && !api.hasPendingRequest(player)) {
                 api.addRequest(player, target);
-                CommandUtils.sendMessage(player, "&aYou have requested &e" + target.getName() + " &ato teleport to you!");
+                CommandUtils.sendMessage(
+                        player,
+                        "&aYou have requested &e" + target.getName() + " &ato teleport to you!");
             } else {
-                CommandUtils.sendMessage(player, "&cThat player is not online or you already have an active request!");
+                CommandUtils.sendMessage(
+                        player,
+                        "&cThat player is not online or you already have an active request!");
             }
         }
         return true;

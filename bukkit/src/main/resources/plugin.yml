@@ -3,8 +3,8 @@ version: '${version}'
 author: '${authors}'
 description: '${project_description}'
 main: '${group_id}.${project_id}.bukkit.BukkitPlugin'
-depends: [TaterLib]
-softdepends: [LuckPerms]
+depends: [ TaterLib ]
+softdepends: [ LuckPerms ]
 folia-supported: true
 commands:
   alert:
@@ -19,12 +19,12 @@ commands:
     description: Set a home
     usage: /sethome [name]
     permission: taterlib.command.sethome
-    aliases: [addhome, createhome]
+    aliases: [ addhome, createhome ]
   delhome:
     description: Delete a home
     usage: /delhome [name]
     permission: taterlib.command.delhome
-    aliases: [deletehome, rmhome, removehome]
+    aliases: [ deletehome, rmhome, removehome ]
   spawn:
     description: Teleport to spawn
     usage: /spawn
@@ -33,12 +33,12 @@ commands:
     description: Set the spawn
     usage: /setspawn
     permission: taterlib.command.setspawn
-    aliases: [addspawn, createspawn]
+    aliases: [ addspawn, createspawn ]
   delspawn:
     description: Delete the spawn
     usage: /delspawn
     permission: taterlib.command.delspawn
-    aliases: [deletespawn, rmspawn, removespawn]
+    aliases: [ deletespawn, rmspawn, removespawn ]
   tpa:
     description: Request to teleport to a player
     usage: /tpa <player>
@@ -47,7 +47,7 @@ commands:
     description: Request to teleport a player to you
     usage: /tphere <player>
     permission: taterlib.command.tphere
-    aliases: [tpahere]
+    aliases: [ tpahere ]
   tpaccept:
     description: Accept a teleport request
     usage: /tpaccept
@@ -60,14 +60,14 @@ commands:
     description: Warp to a location
     usage: /warp [name | list]
     permission: taterlib.command.warp
-    aliases: [warps]
+    aliases: [ warps ]
   setwarp:
     description: Set or delete a warp locatioon
     usage: /setwarp <name>
     permission: taterlib.command.setwarp
-    aliases: [addwarp, createwarp]
+    aliases: [ addwarp, createwarp ]
   delwarp:
     description: Delete a warp location
     usage: /delwarp <name>
     permission: taterlib.command.delwarp
-    aliases: [deletewarp, rmwarp, removewarp]
+    aliases: [ deletewarp, rmwarp, removewarp ]

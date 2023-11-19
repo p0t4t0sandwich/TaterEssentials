@@ -4,12 +4,11 @@ import dev.neuralnexus.taterlib.common.Utils;
 import dev.neuralnexus.taterlib.common.command.Sender;
 import dev.neuralnexus.taterlib.common.player.Player;
 
-/**
- * General command utilities.
- */
+/** General command utilities. */
 public class CommandUtils {
     /**
      * Send a message to the sender.
+     *
      * @param sender The sender.
      * @param message The message.
      */
@@ -19,6 +18,7 @@ public class CommandUtils {
 
     /**
      * Checks if the sender is a player.
+     *
      * @param sender The sender.
      * @return True if the sender is a player.
      */
@@ -32,6 +32,7 @@ public class CommandUtils {
 
     /**
      * Checks if the player has permission.
+     *
      * @param player The player.
      * @param permission The permission.
      * @return True if the player has permission.
@@ -46,6 +47,7 @@ public class CommandUtils {
 
     /**
      * Checks if the sender is a player and has permission.
+     *
      * @param sender The sender.
      * @param permission The permission.
      */

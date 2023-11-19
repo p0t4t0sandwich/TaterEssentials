@@ -13,11 +13,15 @@ public class SpawnAPI {
     private final SpawnStorage database;
 
     public SpawnAPI() {
-        this.database = new FSSpawnStorage(new Database.DatabaseConfig(TaterUtils.Constants.PROJECT_NAME, 0, "warpData", "", ""));
+        this.database =
+                new FSSpawnStorage(
+                        new Database.DatabaseConfig(
+                                TaterUtils.Constants.PROJECT_NAME, 0, "warpData", "", ""));
     }
 
     /**
      * Get the spawn.
+     *
      * @return The spawn.
      */
     public Optional<Location> getSpawn() {
@@ -26,21 +30,21 @@ public class SpawnAPI {
 
     /**
      * Sets the spawn.
+     *
      * @param location The location of the spawn.
      */
     public void setSpawn(Location location) {
         this.database.setSpawn(location);
     }
 
-    /**
-     * Delete the spawn.
-     */
+    /** Delete the spawn. */
     public void deleteSpawn() {
         this.database.deleteSpawn();
     }
 
     /**
      * Teleport a player to the spawn.
+     *
      * @param player The player.
      */
     public boolean teleportSpawn(Player player) {

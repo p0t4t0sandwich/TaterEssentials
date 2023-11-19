@@ -8,9 +8,7 @@ import dev.neuralnexus.taterutils.common.modules.warp.command.DelWarpCommand;
 import dev.neuralnexus.taterutils.common.modules.warp.command.SetWarpCommand;
 import dev.neuralnexus.taterutils.common.modules.warp.command.WarpCommand;
 
-/**
- * Warp module.
- */
+/** Warp module. */
 public class WarpModule implements Module {
     private static boolean STARTED = false;
     private static boolean RELOADED = false;
@@ -30,13 +28,24 @@ public class WarpModule implements Module {
 
         if (!RELOADED) {
             // Register commands
-            CommandEvents.REGISTER_COMMAND.register((event -> {
-                if (!TaterAPIProvider.get().serverType().isProxy()) {
-                    event.registerCommand(TaterUtils.getPlugin(), new WarpCommand(), "warps");
-                    event.registerCommand(TaterUtils.getPlugin(), new SetWarpCommand(), "addwarp", "createwarp");
-                    event.registerCommand(TaterUtils.getPlugin(), new DelWarpCommand(), "deletewarp", "removewarp", "rmwarp");
-                }
-            }));
+            CommandEvents.REGISTER_COMMAND.register(
+                    (event -> {
+                        if (!TaterAPIProvider.get().serverType().isProxy()) {
+                            event.registerCommand(
+                                    TaterUtils.getPlugin(), new WarpCommand(), "warps");
+                            event.registerCommand(
+                                    TaterUtils.getPlugin(),
+                                    new SetWarpCommand(),
+                                    "addwarp",
+                                    "createwarp");
+                            event.registerCommand(
+                                    TaterUtils.getPlugin(),
+                                    new DelWarpCommand(),
+                                    "deletewarp",
+                                    "removewarp",
+                                    "rmwarp");
+                        }
+                    }));
         }
 
         TaterUtils.getLogger().info("Submodule " + getName() + " has been started!");
@@ -49,6 +58,7 @@ public class WarpModule implements Module {
             return;
         }
         STARTED = false;
+        RELOADED = true;
 
         // Remove references to objects
 

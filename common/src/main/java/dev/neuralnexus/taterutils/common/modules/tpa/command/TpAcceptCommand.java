@@ -7,20 +7,18 @@ import dev.neuralnexus.taterutils.common.api.CommandUtils;
 import dev.neuralnexus.taterutils.common.api.TaterUtilsAPIProvider;
 import dev.neuralnexus.taterutils.common.modules.tpa.api.TpaAPI;
 
-/**
- * TpAccept Command.
- */
+/** TpAccept Command. */
 public class TpAcceptCommand implements Command {
     private String name = "tpaccept";
 
     @Override
-    public void setName(String name) {
-        this.name = name;
+    public String getName() {
+        return name;
     }
 
     @Override
-    public String getName() {
-        return name;
+    public void setName(String name) {
+        this.name = name;
     }
 
     @Override

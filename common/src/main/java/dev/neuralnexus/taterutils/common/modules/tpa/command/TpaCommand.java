@@ -8,20 +8,18 @@ import dev.neuralnexus.taterutils.common.api.CommandUtils;
 import dev.neuralnexus.taterutils.common.api.TaterUtilsAPIProvider;
 import dev.neuralnexus.taterutils.common.modules.tpa.api.TpaAPI;
 
-/**
- * Tpa Command.
- */
+/** Tpa Command. */
 public class TpaCommand implements Command {
     private String name = "tpa";
 
     @Override
-    public void setName(String name) {
-        this.name = name;
+    public String getName() {
+        return name;
     }
 
     @Override
-    public String getName() {
-        return name;
+    public void setName(String name) {
+        this.name = name;
     }
 
     @Override
@@ -55,13 +53,19 @@ public class TpaCommand implements Command {
         if (args.length == 0) {
             CommandUtils.sendMessage(player, "&aPlease provide a player name!");
         } else {
-            Player target = TaterAPIProvider.get().getServer().getOnlinePlayers().stream()
-                    .filter(p -> p.getName().equalsIgnoreCase(args[0])).findFirst().orElse(null);
+            Player target =
+                    TaterAPIProvider.get().getServer().getOnlinePlayers().stream()
+                            .filter(p -> p.getName().equalsIgnoreCase(args[0]))
+                            .findFirst()
+                            .orElse(null);
             if (target != null && !api.hasPendingRequest(target)) {
                 api.addRequest(player, target);
-                CommandUtils.sendMessage(player, "&aYou have sent a teleport request to &e" + target.getName() + "&a!");
+                CommandUtils.sendMessage(
+                        player,
+                        "&aYou have sent a teleport request to &e" + target.getName() + "&a!");
             } else {
-                CommandUtils.sendMessage(player, "&cThat player is not online or already has a request!");
+                CommandUtils.sendMessage(
+                        player, "&cThat player is not online or already has a request!");
             }
         }
         return true;

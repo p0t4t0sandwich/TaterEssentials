@@ -7,9 +7,7 @@ import dev.neuralnexus.taterutils.common.TaterUtils;
 import dev.neuralnexus.taterutils.common.TaterUtilsPlugin;
 import net.neoforged.fml.common.Mod;
 
-/**
- * NeoForge entry point.
- */
+/** NeoForge entry point. */
 @Mod(TaterUtils.Constants.PROJECT_ID)
 public class NeoForgePlugin implements TaterUtilsPlugin {
     public NeoForgePlugin() {

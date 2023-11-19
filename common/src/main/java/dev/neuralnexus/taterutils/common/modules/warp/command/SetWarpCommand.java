@@ -7,20 +7,18 @@ import dev.neuralnexus.taterutils.common.api.TaterUtilsAPIProvider;
 import dev.neuralnexus.taterutils.common.modules.warp.api.WarpAPI;
 import dev.neuralnexus.taterutils.common.api.CommandUtils;
 
-/**
- * SetWarp Command.
- */
+/** SetWarp Command. */
 public class SetWarpCommand implements Command {
     private String name = "setwarp";
 
     @Override
-    public void setName(String name) {
-        this.name = name;
+    public String getName() {
+        return name;
     }
 
     @Override
-    public String getName() {
-        return name;
+    public void setName(String name) {
+        this.name = name;
     }
 
     @Override

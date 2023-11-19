@@ -1,65 +1,81 @@
 package dev.neuralnexus.taterutils.common;
 
 import dev.neuralnexus.taterlib.lib.dejvokep.boostedyaml.YamlDocument;
-
 import java.io.File;
 import java.io.IOException;
 import java.util.Objects;
 
-/**
- * Config handler.
- */
+/** Config handler. */
 public class TaterUtilsConfig {
     private static YamlDocument config;
 
     /**
      * Load the config
+     *
      * @param configFolder The path to the config file
      */
     public static void loadConfig(String configFolder) {
         try {
-            config = YamlDocument.create(new File("." + File.separator + configFolder + File.separator + TaterUtils.Constants.PROJECT_NAME, TaterUtils.Constants.PROJECT_ID + ".config.yml"),
-                    Objects.requireNonNull(TaterUtils.class.getClassLoader().getResourceAsStream(TaterUtils.Constants.PROJECT_ID + ".config.yml"))
-            );
+            config =
+                    YamlDocument.create(
+                            new File(
+                                    "."
+                                            + File.separator
+                                            + configFolder
+                                            + File.separator
+                                            + TaterUtils.Constants.PROJECT_NAME,
+                                    TaterUtils.Constants.PROJECT_ID + ".config.yml"),
+                            Objects.requireNonNull(
+                                    TaterUtils.class
+                                            .getClassLoader()
+                                            .getResourceAsStream(
+                                                    TaterUtils.Constants.PROJECT_ID
+                                                            + ".config.yml")));
             config.reload();
         } catch (IOException | NullPointerException e) {
-            TaterUtils.getLogger().info("Failed to load " + TaterUtils.Constants.PROJECT_ID + ".config.yml!\n" + e.getMessage());
+            TaterUtils.getLogger()
+                    .info(
+                            "Failed to load "
+                                    + TaterUtils.Constants.PROJECT_ID
+                                    + ".config.yml!\n"
+                                    + e.getMessage());
             e.printStackTrace();
         }
     }
 
-    /**
-     * Unload the config
-     */
+    /** Unload the config */
     public static void unloadConfig() {
         config = null;
     }
 
-    /**
-     * Save the config
-     */
+    /** Save the config */
     public static void saveConfig() {
         try {
             config.save();
         } catch (IOException e) {
-            TaterUtils.getLogger().info("Failed to save " + TaterUtils.Constants.PROJECT_ID + ".config.ymll!\n" + e.getMessage());
+            TaterUtils.getLogger()
+                    .info(
+                            "Failed to save "
+                                    + TaterUtils.Constants.PROJECT_ID
+                                    + ".config.ymll!\n"
+                                    + e.getMessage());
         }
     }
 
     /**
      * Check to see if a module is enabled
+     *
      * @param module The module
      */
     public static boolean isModuleEnabled(String module) {
         return config.getBoolean("modules" + module + ".enabled");
     }
 
-    /**
-     * Home config.
-     */
+    /** Home config. */
     public static class HomeConfig {
         /**
          * Get a message from the config.
+         *
          * @param path The path to the message.
          */
         public static String getMessage(String path) {
@@ -67,12 +83,11 @@ public class TaterUtilsConfig {
         }
     }
 
-    /**
-     * OreWatcher config.
-     */
+    /** OreWatcher config. */
     public static class OreWatcherConfig {
         /**
          * Get a message from the config.
+         *
          * @param path The path to the message.
          */
         public static String getMessage(String path) {
@@ -81,6 +96,7 @@ public class TaterUtilsConfig {
 
         /**
          * Get the alert threshold.
+         *
          * @return The alert threshold.
          */
         public static int getAlertThreshold() {
@@ -89,6 +105,7 @@ public class TaterUtilsConfig {
 
         /**
          * Get whether to cancel the event if the threshold is met.
+         *
          * @return Whether to cancel the event if the threshold is met.
          */
         public static boolean getCancelMinedOverThreshold() {
@@ -97,6 +114,7 @@ public class TaterUtilsConfig {
 
         /**
          * Get whether to send an alert to admins.
+         *
          * @return Whether to send an alert to admins.
          */
         public static boolean getAdminAlertEnabled() {
@@ -105,6 +123,7 @@ public class TaterUtilsConfig {
 
         /**
          * Get whether to send an alert to the player.
+         *
          * @return Whether to send an alert to the player.
          */
         public static boolean getPlayerAlertEnabled() {
@@ -112,12 +131,11 @@ public class TaterUtilsConfig {
         }
     }
 
-    /**
-     * Spawn config.
-     */
+    /** Spawn config. */
     public static class SpawnConfig {
         /**
          * Get a message from the config.
+         *
          * @param path The path to the message.
          */
         public static String getMessage(String path) {

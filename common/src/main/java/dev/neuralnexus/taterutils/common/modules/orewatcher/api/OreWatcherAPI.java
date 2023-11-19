@@ -6,9 +6,7 @@ import java.util.HashSet;
 import java.util.Optional;
 import java.util.Set;
 
-/**
- * API for the OreWatcher module.
- */
+/** API for the OreWatcher module. */
 public class OreWatcherAPI {
     private final Data data;
 
@@ -18,6 +16,7 @@ public class OreWatcherAPI {
 
     /**
      * Adds ore mined.
+     *
      * @param player The player.
      * @param amount The amount of ore mined.
      */
@@ -32,6 +31,7 @@ public class OreWatcherAPI {
 
     /**
      * Get ore mined.
+     *
      * @param player The player.
      * @return The ore mined.
      */
@@ -41,22 +41,19 @@ public class OreWatcherAPI {
 
     /**
      * Get all ore mined.
+     *
      * @return All ore mined.
      */
     public Set<OreMined> getOreMined() {
         return data.getOreMined();
     }
 
-    /**
-     * Resets the average per minute.
-     */
+    /** Resets the average per minute. */
     public void resetAveragePerMinute() {
         data.resetAveragePerMinute();
     }
 
-    /**
-     * Class representing the ore the player has mined in a given period of time.
-     */
+    /** Class representing the ore the player has mined in a given period of time. */
     public static class OreMined {
         private final Player player;
         private int amount;
@@ -65,6 +62,7 @@ public class OreWatcherAPI {
 
         /**
          * Creates a new OreMined.
+         *
          * @param player The player.
          * @param amount The amount of ore mined.
          */
@@ -75,6 +73,7 @@ public class OreWatcherAPI {
 
         /**
          * Gets the player.
+         *
          * @return The player.
          */
         public Player getPlayer() {
@@ -83,6 +82,7 @@ public class OreWatcherAPI {
 
         /**
          * Adds to the amount of ore mined.
+         *
          * @param amount The amount to add.
          */
         public void addAmount(int amount) {
@@ -92,6 +92,7 @@ public class OreWatcherAPI {
 
         /**
          * Get the time delta between the first and last time the player mined ore.
+         *
          * @return The time delta between the first and last time the player mined ore.
          */
         public long getTimeDelta() {
@@ -100,6 +101,7 @@ public class OreWatcherAPI {
 
         /**
          * Get the average amount of ore mined per minute.
+         *
          * @return The average amount of ore mined per minute.
          */
         public double getAveragePerMinute() {
@@ -107,14 +109,13 @@ public class OreWatcherAPI {
         }
     }
 
-    /**
-     * The data for the API.
-     */
+    /** The data for the API. */
     static class Data {
         private final Set<OreMined> oreMined = new HashSet<>();
 
         /**
          * Adds ore mined.
+         *
          * @param oreMined The ore mined.
          */
         public void addOreMined(OreMined oreMined) {
@@ -123,6 +124,7 @@ public class OreWatcherAPI {
 
         /**
          * Gets the ore mined.
+         *
          * @return The ore mined.
          */
         public Set<OreMined> getOreMined() {
@@ -131,22 +133,24 @@ public class OreWatcherAPI {
 
         /**
          * Gets the ore mined by a player.
+         *
          * @param player The player.
          * @return The ore mined.
          */
         public Optional<OreMined> getOreMined(Player player) {
-            return oreMined.stream().filter(oreMined -> oreMined.getPlayer().equals(player)).findFirst();
+            return oreMined.stream()
+                    .filter(oreMined -> oreMined.getPlayer().equals(player))
+                    .findFirst();
         }
 
-        /**
-         * Resets the average per minute.
-         */
+        /** Resets the average per minute. */
         public void resetAveragePerMinute() {
-            oreMined.forEach(oreMined -> {
-                oreMined.firstMined = System.currentTimeMillis();
-                oreMined.lastMined = System.currentTimeMillis();
-                oreMined.amount = 0;
-            });
+            oreMined.forEach(
+                    oreMined -> {
+                        oreMined.firstMined = System.currentTimeMillis();
+                        oreMined.lastMined = System.currentTimeMillis();
+                        oreMined.amount = 0;
+                    });
         }
     }
 }

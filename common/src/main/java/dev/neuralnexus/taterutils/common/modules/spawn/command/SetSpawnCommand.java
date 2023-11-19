@@ -8,20 +8,18 @@ import dev.neuralnexus.taterutils.common.api.TaterUtilsAPIProvider;
 import dev.neuralnexus.taterutils.common.modules.spawn.api.SpawnAPI;
 import dev.neuralnexus.taterutils.common.api.CommandUtils;
 
-/**
- * SetSpawn Command.
- */
+/** SetSpawn Command. */
 public class SetSpawnCommand implements Command {
     private String name = "setspawn";
 
     @Override
-    public void setName(String name) {
-        this.name = name;
+    public String getName() {
+        return name;
     }
 
     @Override
-    public String getName() {
-        return name;
+    public void setName(String name) {
+        this.name = name;
     }
 
     @Override
@@ -52,7 +50,8 @@ public class SetSpawnCommand implements Command {
         Player player = (Player) sender;
         SpawnAPI api = TaterUtilsAPIProvider.get().getSpawnAPI();
         api.setSpawn(player.getLocation());
-        CommandUtils.sendMessage(player, TaterUtilsConfig.SpawnConfig.getMessage("setSpawn.success"));
+        CommandUtils.sendMessage(
+                player, TaterUtilsConfig.SpawnConfig.getMessage("setSpawn.success"));
         return true;
     }
 }

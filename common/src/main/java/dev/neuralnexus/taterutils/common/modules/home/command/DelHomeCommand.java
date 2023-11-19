@@ -9,20 +9,18 @@ import dev.neuralnexus.taterutils.common.api.TaterUtilsAPIProvider;
 import dev.neuralnexus.taterutils.common.modules.home.api.HomeAPI;
 import dev.neuralnexus.taterutils.common.api.CommandUtils;
 
-/**
- * DelHome Command.
- */
+/** DelHome Command. */
 public class DelHomeCommand implements Command {
     private String name = "delhome";
 
     @Override
-    public void setName(String name) {
-        this.name = name;
+    public String getName() {
+        return name;
     }
 
     @Override
-    public String getName() {
-        return name;
+    public void setName(String name) {
+        this.name = name;
     }
 
     @Override
@@ -58,8 +56,10 @@ public class DelHomeCommand implements Command {
             message = TaterUtilsConfig.HomeConfig.getMessage("home.noName");
         } else {
             api.setHome(player, args[0], player.getLocation());
-            message = new PlaceholderParser(TaterUtilsConfig.HomeConfig.getMessage("delhome.success"))
-                    .parseString("home", args[0]).getResult();
+            message =
+                    new PlaceholderParser(TaterUtilsConfig.HomeConfig.getMessage("delhome.success"))
+                            .parseString("home", args[0])
+                            .getResult();
         }
         player.sendMessage(message);
         return true;

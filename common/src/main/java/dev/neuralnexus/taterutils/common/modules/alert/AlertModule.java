@@ -6,9 +6,7 @@ import dev.neuralnexus.taterutils.common.TaterUtils;
 import dev.neuralnexus.taterutils.common.modules.Module;
 import dev.neuralnexus.taterutils.common.modules.alert.command.AlertCommand;
 
-/**
- * Alert module.
- */
+/** Alert module. */
 public class AlertModule implements Module {
     private static boolean STARTED = false;
     private static boolean RELOADED = false;
@@ -28,11 +26,12 @@ public class AlertModule implements Module {
 
         if (!RELOADED) {
             // Register commands
-            CommandEvents.REGISTER_COMMAND.register((event -> {
-                if (!TaterAPIProvider.get().serverType().isBungeeCordBased()) {
-                    event.registerCommand(TaterUtils.getPlugin(), new AlertCommand());
-                }
-            }));
+            CommandEvents.REGISTER_COMMAND.register(
+                    (event -> {
+                        if (!TaterAPIProvider.get().serverType().isBungeeCordBased()) {
+                            event.registerCommand(TaterUtils.getPlugin(), new AlertCommand());
+                        }
+                    }));
         }
 
         TaterUtils.getLogger().info("Submodule " + getName() + " has been started!");

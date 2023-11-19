@@ -7,20 +7,18 @@ import dev.neuralnexus.taterutils.common.api.TaterUtilsAPIProvider;
 import dev.neuralnexus.taterutils.common.modules.warp.api.WarpAPI;
 import dev.neuralnexus.taterutils.common.api.CommandUtils;
 
-/**
- * Warp Command.
- */
+/** Warp Command. */
 public class WarpCommand implements Command {
     private String name = "warp";
 
     @Override
-    public void setName(String name) {
-        this.name = name;
+    public String getName() {
+        return name;
     }
 
     @Override
-    public String getName() {
-        return name;
+    public void setName(String name) {
+        this.name = name;
     }
 
     @Override
@@ -42,6 +40,7 @@ public class WarpCommand implements Command {
     public String execute(String[] args) {
         return null;
     }
+
     @Override
     public boolean execute(Sender sender, String label, String[] args) {
         if (!CommandUtils.senderIsPlayerAndHasPermission(sender, getPermission())) {
@@ -54,11 +53,13 @@ public class WarpCommand implements Command {
             CommandUtils.sendMessage(player, "&Available Warps: &e" + api.getWarps().toString());
         } else {
             if (!player.hasPermission("taterutils.command.warp." + args[0])) {
-                CommandUtils.sendMessage(player, "&cYou do not have permission to warp to " + args[0] + ".");
+                CommandUtils.sendMessage(
+                        player, "&cYou do not have permission to warp to " + args[0] + ".");
                 return true;
             }
             if (args[0].equalsIgnoreCase("list")) {
-                CommandUtils.sendMessage(player, "&aAvailable Warps: &e" + api.getWarps().toString());
+                CommandUtils.sendMessage(
+                        player, "&aAvailable Warps: &e" + api.getWarps().toString());
                 return true;
             }
             if (!api.teleportWarp(player, args[0])) {

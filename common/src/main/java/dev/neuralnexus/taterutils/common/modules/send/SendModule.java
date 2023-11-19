@@ -6,9 +6,7 @@ import dev.neuralnexus.taterutils.common.TaterUtils;
 import dev.neuralnexus.taterutils.common.modules.Module;
 import dev.neuralnexus.taterutils.common.modules.send.command.SendCommand;
 
-/**
- * Send module.
- */
+/** Send module. */
 public class SendModule implements Module {
     private static boolean STARTED = false;
     private static boolean RELOADED = false;
@@ -28,11 +26,12 @@ public class SendModule implements Module {
 
         if (!RELOADED) {
             // Register commands
-            CommandEvents.REGISTER_COMMAND.register((event -> {
-                if (TaterAPIProvider.get().serverType().isVelocityBased()) {
-                    event.registerCommand(TaterUtils.getPlugin(), new SendCommand());
-                }
-            }));
+            CommandEvents.REGISTER_COMMAND.register(
+                    (event -> {
+                        if (TaterAPIProvider.get().serverType().isVelocityBased()) {
+                            event.registerCommand(TaterUtils.getPlugin(), new SendCommand());
+                        }
+                    }));
         }
 
         TaterUtils.getLogger().info("Submodule " + getName() + " has been started!");

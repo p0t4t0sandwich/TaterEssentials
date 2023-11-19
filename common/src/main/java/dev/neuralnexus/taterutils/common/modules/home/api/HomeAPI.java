@@ -11,20 +11,22 @@ import dev.neuralnexus.taterutils.common.modules.home.storage.HomeStorage;
 import java.util.Optional;
 import java.util.Set;
 
-/**
- * API for the home module.
- */
+/** API for the home module. */
 public class HomeAPI {
     private final HomeStorage database;
 
     public HomeAPI() {
-        this.database = new FSHomeStorage(new Database.DatabaseConfig(TaterUtils.Constants.PROJECT_NAME, 0, "homeData", "", ""));
+        this.database =
+                new FSHomeStorage(
+                        new Database.DatabaseConfig(
+                                TaterUtils.Constants.PROJECT_NAME, 0, "homeData", "", ""));
     }
 
     /**
      * Get a player's home.
+     *
      * @param player The player.
-     * @param home   The name of the home.
+     * @param home The name of the home.
      */
     public Optional<NamedLocation> getHome(Player player, String home) {
         return this.database.getHome(player, home);
@@ -32,8 +34,9 @@ public class HomeAPI {
 
     /**
      * Set a player's home.
-     * @param player   The player.
-     * @param home     The name of the home.
+     *
+     * @param player The player.
+     * @param home The name of the home.
      * @param location The location of the home.
      */
     public void setHome(Player player, String home, Location location) {
@@ -42,8 +45,9 @@ public class HomeAPI {
 
     /**
      * Delete a player's home.
+     *
      * @param player The player.
-     * @param home   The name of the home.
+     * @param home The name of the home.
      */
     public void deleteHome(Player player, String home) {
         this.database.deleteHome(player, home);
@@ -51,6 +55,7 @@ public class HomeAPI {
 
     /**
      * Get all of a player's homes.
+     *
      * @param player The player.
      */
     public Set<NamedLocation> getHomes(Player player) {
@@ -59,6 +64,7 @@ public class HomeAPI {
 
     /**
      * Teleport a player to their home.
+     *
      * @param player The player.
      */
     public boolean teleportHome(Player player, String home) {
@@ -67,6 +73,7 @@ public class HomeAPI {
 
     /**
      * Get list of invalid home names.
+     *
      * @return The list of invalid home names.
      */
     public Set<String> getInvalidHomeNames() {

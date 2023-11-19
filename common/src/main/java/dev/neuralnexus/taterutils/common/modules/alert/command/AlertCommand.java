@@ -7,20 +7,18 @@ import dev.neuralnexus.taterutils.common.api.CommandUtils;
 import dev.neuralnexus.taterutils.common.api.TaterUtilsAPIProvider;
 import dev.neuralnexus.taterutils.common.modules.alert.api.AlertAPI;
 
-/**
- * Alert Command.
- */
+/** Alert Command. */
 public class AlertCommand implements Command {
     private String name = "alert";
 
     @Override
-    public void setName(String name) {
-        this.name = name;
+    public String getName() {
+        return name;
     }
 
     @Override
-    public String getName() {
-        return name;
+    public void setName(String name) {
+        this.name = name;
     }
 
     @Override

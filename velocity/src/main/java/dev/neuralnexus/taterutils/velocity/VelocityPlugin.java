@@ -12,9 +12,7 @@ import dev.neuralnexus.taterutils.common.TaterUtils;
 import dev.neuralnexus.taterutils.common.TaterUtilsPlugin;
 import org.slf4j.Logger;
 
-/**
- * Velocity entry point.
- */
+/** Velocity entry point. */
 @Plugin(
         id = TaterUtils.Constants.PROJECT_ID,
         name = TaterUtils.Constants.PROJECT_NAME,
@@ -23,10 +21,9 @@ import org.slf4j.Logger;
         description = TaterUtils.Constants.PROJECT_DESCRIPTION,
         url = TaterUtils.Constants.PROJECT_URL,
         dependencies = {
-                @Dependency(id = "taterlib"),
-                @Dependency(id = "luckperms", optional = true)
-        }
-)
+            @Dependency(id = "taterlib"),
+            @Dependency(id = "luckperms", optional = true)
+        })
 public class VelocityPlugin implements TaterUtilsPlugin {
     @Inject
     public VelocityPlugin(ProxyServer server, Logger logger) {

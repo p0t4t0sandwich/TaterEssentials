@@ -8,9 +8,7 @@ import dev.neuralnexus.taterutils.common.modules.spawn.api.SpawnAPI;
 import dev.neuralnexus.taterutils.common.modules.tpa.api.TpaAPI;
 import dev.neuralnexus.taterutils.common.modules.warp.api.WarpAPI;
 
-/**
- * API wrapper class
- */
+/** API wrapper class */
 public class TaterUtilsAPI {
     private final AlertAPI alertAPI;
     private final HomeAPI homeAPI;
@@ -32,6 +30,7 @@ public class TaterUtilsAPI {
 
     /**
      * Get the alert API.
+     *
      * @return The alert API.
      */
     public AlertAPI getAlertAPI() {
@@ -40,6 +39,7 @@ public class TaterUtilsAPI {
 
     /**
      * Get the home API.
+     *
      * @return The home API.
      */
     public HomeAPI getHomeAPI() {
@@ -48,6 +48,7 @@ public class TaterUtilsAPI {
 
     /**
      * Get the ore watcher API.
+     *
      * @return The ore watcher API.
      */
     public OreWatcherAPI getOreWatcherAPI() {
@@ -56,6 +57,7 @@ public class TaterUtilsAPI {
 
     /**
      * Get the send API.
+     *
      * @return The send API.
      */
     public SendAPI getSendAPI() {
@@ -64,6 +66,7 @@ public class TaterUtilsAPI {
 
     /**
      * Get the spawn API.
+     *
      * @return The spawn API.
      */
     public SpawnAPI getSpawnAPI() {
@@ -72,6 +75,7 @@ public class TaterUtilsAPI {
 
     /**
      * Get the tpa API.
+     *
      * @return The tpa API.
      */
     public TpaAPI getTpaAPI() {
@@ -80,6 +84,7 @@ public class TaterUtilsAPI {
 
     /**
      * Get the warp API.
+     *
      * @return The warp API.
      */
     public WarpAPI getWarpAPI() {

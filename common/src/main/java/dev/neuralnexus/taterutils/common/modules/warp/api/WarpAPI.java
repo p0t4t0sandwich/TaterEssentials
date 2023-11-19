@@ -16,11 +16,15 @@ public class WarpAPI {
     private final WarpStorage database;
 
     public WarpAPI() {
-        this.database = new FSWarpStorage(new Database.DatabaseConfig(TaterUtils.Constants.PROJECT_NAME, 0, "warpData", "", ""));
+        this.database =
+                new FSWarpStorage(
+                        new Database.DatabaseConfig(
+                                TaterUtils.Constants.PROJECT_NAME, 0, "warpData", "", ""));
     }
 
     /**
      * Get a warp.
+     *
      * @param warp The name of the warp.
      */
     public Optional<NamedLocation> getWarp(String warp) {
@@ -29,6 +33,7 @@ public class WarpAPI {
 
     /**
      * Set a Warp.
+     *
      * @param warp The name of the warp.
      * @param location The location of the warp.
      */
@@ -38,21 +43,21 @@ public class WarpAPI {
 
     /**
      * Delete a Warp.
-     * @param warp  The name of the warp.
+     *
+     * @param warp The name of the warp.
      */
     public void deleteWarp(String warp) {
         this.database.deleteWarp(warp);
     }
 
-    /**
-     * Get all Warps.
-     */
+    /** Get all Warps. */
     public Set<NamedLocation> getWarps() {
         return this.database.getWarps();
     }
 
     /**
      * Teleport a player to a Warp.
+     *
      * @param player The player.
      * @param warp the warp name.
      */
@@ -62,6 +67,7 @@ public class WarpAPI {
 
     /**
      * Get invalid warp names.
+     *
      * @return The invalid warp names.
      */
     public Set<String> getInvalidWarpNames() {

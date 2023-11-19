@@ -7,20 +7,18 @@ import dev.neuralnexus.taterutils.common.api.CommandUtils;
 import dev.neuralnexus.taterutils.common.api.TaterUtilsAPIProvider;
 import dev.neuralnexus.taterutils.common.modules.tpa.api.TpaAPI;
 
-/**
- * TpDeny Command.
- */
+/** TpDeny Command. */
 public class TpDenyCommand implements Command {
     private String name = "tpdeny";
 
     @Override
-    public void setName(String name) {
-        this.name = name;
+    public String getName() {
+        return name;
     }
 
     @Override
-    public String getName() {
-        return name;
+    public void setName(String name) {
+        this.name = name;
     }
 
     @Override

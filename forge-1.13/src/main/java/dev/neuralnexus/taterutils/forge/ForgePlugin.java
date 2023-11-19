@@ -6,13 +6,15 @@ import dev.neuralnexus.taterutils.common.TaterUtils;
 import dev.neuralnexus.taterutils.common.TaterUtilsPlugin;
 import net.minecraftforge.fml.common.Mod;
 
-/**
- * Forge entry point.
- */
+/** Forge entry point. */
 @Mod(TaterUtils.Constants.PROJECT_ID)
 public class ForgePlugin implements TaterUtilsPlugin {
     public ForgePlugin() {
         ServerEvents.STOPPED.register(event -> pluginStop());
-        pluginStart(this, new GenericLogger("[" + TaterUtils.Constants.PROJECT_NAME + "] ", TaterUtils.Constants.PROJECT_ID));
+        pluginStart(
+                this,
+                new GenericLogger(
+                        "[" + TaterUtils.Constants.PROJECT_NAME + "] ",
+                        TaterUtils.Constants.PROJECT_ID));
     }
 }

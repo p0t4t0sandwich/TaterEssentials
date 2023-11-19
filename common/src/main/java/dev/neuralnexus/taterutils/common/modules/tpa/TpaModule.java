@@ -11,9 +11,7 @@ import dev.neuralnexus.taterutils.common.modules.tpa.command.TpDenyCommand;
 import dev.neuralnexus.taterutils.common.modules.tpa.command.TpHereCommand;
 import dev.neuralnexus.taterutils.common.modules.tpa.command.TpaCommand;
 
-/**
- * TPA module.
- */
+/** TPA module. */
 public class TpaModule implements Module {
     private static boolean STARTED = false;
     private static boolean RELOADED = false;
@@ -33,17 +31,20 @@ public class TpaModule implements Module {
 
         if (!RELOADED) {
             // Register commands
-            CommandEvents.REGISTER_COMMAND.register((event -> {
-                if (!TaterAPIProvider.get().serverType().isProxy()) {
-                    event.registerCommand(TaterUtils.getPlugin(), new TpaCommand());
-                    event.registerCommand(TaterUtils.getPlugin(), new TpHereCommand(), "tpahere");
-                    event.registerCommand(TaterUtils.getPlugin(), new TpAcceptCommand());
-                    event.registerCommand(TaterUtils.getPlugin(), new TpDenyCommand());
-                }
-            }));
+            CommandEvents.REGISTER_COMMAND.register(
+                    (event -> {
+                        if (!TaterAPIProvider.get().serverType().isProxy()) {
+                            event.registerCommand(TaterUtils.getPlugin(), new TpaCommand());
+                            event.registerCommand(
+                                    TaterUtils.getPlugin(), new TpHereCommand(), "tpahere");
+                            event.registerCommand(TaterUtils.getPlugin(), new TpAcceptCommand());
+                            event.registerCommand(TaterUtils.getPlugin(), new TpDenyCommand());
+                        }
+                    }));
 
             // Set repeating task that clears stale TPA requests every minute
-            Utils.repeatTaskAsync(() -> TaterUtilsAPIProvider.get().getTpaAPI().checkExpired(), 0L, 1200L);
+            Utils.repeatTaskAsync(
+                    () -> TaterUtilsAPIProvider.get().getTpaAPI().checkExpired(), 0L, 1200L);
         }
 
         TaterUtils.getLogger().info("Submodule " + getName() + " has been started!");

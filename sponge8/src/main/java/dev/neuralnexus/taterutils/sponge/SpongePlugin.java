@@ -9,9 +9,7 @@ import org.spongepowered.plugin.builtin.jvm.Plugin;
 import com.google.inject.Inject;
 import org.apache.logging.log4j.Logger;
 
-/**
- * Sponge entry point.
- */
+/** Sponge entry point. */
 @Plugin(TaterUtils.Constants.PROJECT_ID)
 public class SpongePlugin implements TaterUtilsPlugin {
     @Inject

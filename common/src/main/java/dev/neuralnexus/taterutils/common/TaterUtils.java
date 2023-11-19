@@ -79,39 +79,35 @@ public class TaterUtils {
         }
         STARTED = true;
 
-        // Register modules
-        if (TaterUtilsConfig.isModuleEnabled("home")) {
-            TaterUtilsModuleLoader.registerModule(new HomeModule());
-        }
-        if (TaterUtilsConfig.isModuleEnabled("oreWatcher")) {
-            TaterUtilsModuleLoader.registerModule(new OreWatcherModule());
-        }
-        if (TaterUtilsConfig.isModuleEnabled("send")) {
-            TaterUtilsModuleLoader.registerModule(new SendModule());
-        }
-        if (TaterUtilsConfig.isModuleEnabled("spawn")) {
-            TaterUtilsModuleLoader.registerModule(new SpawnModule());
-        }
-        if (TaterUtilsConfig.isModuleEnabled("tpa")) {
-            TaterUtilsModuleLoader.registerModule(new TpaModule());
-        }
-        if (TaterUtilsConfig.isModuleEnabled("warp")) {
-            TaterUtilsModuleLoader.registerModule(new WarpModule());
+        // Register API
+        TaterUtilsAPIProvider.register(new TaterUtilsAPI());
+
+        if (!RELOADED) {
+            // Register modules
+            if (TaterUtilsConfig.isModuleEnabled("home")) {
+                TaterUtilsModuleLoader.registerModule(new HomeModule());
+            }
+            if (TaterUtilsConfig.isModuleEnabled("oreWatcher")) {
+                TaterUtilsModuleLoader.registerModule(new OreWatcherModule());
+            }
+            if (TaterUtilsConfig.isModuleEnabled("send")) {
+                TaterUtilsModuleLoader.registerModule(new SendModule());
+            }
+            if (TaterUtilsConfig.isModuleEnabled("spawn")) {
+                TaterUtilsModuleLoader.registerModule(new SpawnModule());
+            }
+            if (TaterUtilsConfig.isModuleEnabled("tpa")) {
+                TaterUtilsModuleLoader.registerModule(new TpaModule());
+            }
+            if (TaterUtilsConfig.isModuleEnabled("warp")) {
+                TaterUtilsModuleLoader.registerModule(new WarpModule());
+            }
         }
 
         // Start modules
         TaterUtilsModuleLoader.startModules();
 
         logger.info(Constants.PROJECT_NAME + " has been started!");
-
-        TaterUtilsAPIProvider.register(new TaterUtilsAPI());
-    }
-
-    /**
-     * Start
-     */
-    public static void start() {
-        start(instance.plugin, instance.logger);
     }
 
     /**
@@ -123,6 +119,7 @@ public class TaterUtils {
             return;
         }
         STARTED = false;
+        RELOADED = true;
 
         // Stop modules
         TaterUtilsModuleLoader.stopModules();
@@ -131,7 +128,6 @@ public class TaterUtils {
         TaterUtilsConfig.unloadConfig();
 
         instance.logger.info(Constants.PROJECT_NAME + " has been stopped!");
-        TaterUtilsAPIProvider.unregister();
     }
 
     /**
@@ -147,8 +143,11 @@ public class TaterUtils {
         // Stop
         stop();
 
+        // Unregister API
+        TaterUtilsAPIProvider.unregister();
+
         // Start
-        start();
+        start(instance.plugin, instance.logger);
 
         instance.logger.info(Constants.PROJECT_NAME + " has been reloaded!");
     }

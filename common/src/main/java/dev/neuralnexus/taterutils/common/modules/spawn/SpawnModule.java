@@ -49,6 +49,7 @@ public class SpawnModule implements Module {
             return;
         }
         STARTED = false;
+        RELOADED = true;
 
         // Remove references to objects
 

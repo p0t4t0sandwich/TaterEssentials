@@ -45,6 +45,7 @@ public class SendModule implements Module {
             return;
         }
         STARTED = false;
+        RELOADED = true;
 
         // Remove references to objects
 

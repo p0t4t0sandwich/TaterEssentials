@@ -5,3 +5,10 @@ description: '${project_description}'
 main: '${group_id}.${project_id}.bungee.BungeePlugin'
 depends: [ TaterLib ]
 softdepends: [ LuckPerms ]
+commands:
+  slashlobby:
+    description: Send yourself to the lobby
+    aliases: [ lobby, hub ]
+    permission: taterutils.command.slashlobby
+    usage: /<command>
+    permission-message: "&cYou do not have permission to use this command!"

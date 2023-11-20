@@ -3,9 +3,9 @@ package dev.neuralnexus.taterutils.common.modules.warp.command;
 import dev.neuralnexus.taterlib.common.command.Command;
 import dev.neuralnexus.taterlib.common.command.Sender;
 import dev.neuralnexus.taterlib.common.player.Player;
+import dev.neuralnexus.taterutils.common.api.CommandUtils;
 import dev.neuralnexus.taterutils.common.api.TaterUtilsAPIProvider;
 import dev.neuralnexus.taterutils.common.modules.warp.api.WarpAPI;
-import dev.neuralnexus.taterutils.common.api.CommandUtils;
 
 /** SetWarp Command. */
 public class SetWarpCommand implements Command {

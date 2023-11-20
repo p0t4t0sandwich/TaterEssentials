@@ -2,6 +2,7 @@ package dev.neuralnexus.taterutils.common;
 
 import dev.neuralnexus.taterlib.common.Plugin;
 import dev.neuralnexus.taterlib.common.api.TaterAPIProvider;
+import dev.neuralnexus.taterlib.common.event.api.PluginEvents;
 import dev.neuralnexus.taterlib.common.logger.AbstractLogger;
 
 /** The main plugin interface. */
@@ -15,6 +16,7 @@ public interface TaterUtilsPlugin extends Plugin {
                         + " "
                         + TaterAPIProvider.get().minecraftVersion()
                         + "!");
+        PluginEvents.DISABLED.register(event -> pluginStop());
         TaterUtils.start(plugin, logger);
     }
 

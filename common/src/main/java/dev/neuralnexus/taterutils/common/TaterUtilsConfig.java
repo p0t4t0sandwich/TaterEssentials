@@ -1,6 +1,7 @@
 package dev.neuralnexus.taterutils.common;
 
 import dev.neuralnexus.taterlib.lib.dejvokep.boostedyaml.YamlDocument;
+
 import java.io.File;
 import java.io.IOException;
 import java.util.Objects;
@@ -128,6 +129,27 @@ public class TaterUtilsConfig {
          */
         public static boolean getPlayerAlertEnabled() {
             return config.getBoolean("modules.oreWatcher.playerAlertEnabled");
+        }
+    }
+
+    /** SlashLobby config. */
+    public static class SlashLobbyConfig {
+        /**
+         * Get a message from the config.
+         *
+         * @param path The path to the message.
+         */
+        public static String getMessage(String path) {
+            return config.getString("modules.slashLobby.messages." + path);
+        }
+
+        /**
+         * Get the lobby names.
+         *
+         * @return The lobby names.
+         */
+        public static String[] getLobbyNames() {
+            return config.getStringList("modules.slashLobby.lobbyNames").toArray(new String[0]);
         }
     }
 

@@ -1,15 +1,16 @@
-package dev.neuralnexus.taterutils.common.modules.warp.command;
+package dev.neuralnexus.taterutils.common.modules.slashlobby.command;
 
 import dev.neuralnexus.taterlib.common.command.Command;
 import dev.neuralnexus.taterlib.common.command.Sender;
 import dev.neuralnexus.taterlib.common.player.Player;
+import dev.neuralnexus.taterutils.common.TaterUtilsConfig;
 import dev.neuralnexus.taterutils.common.api.CommandUtils;
 import dev.neuralnexus.taterutils.common.api.TaterUtilsAPIProvider;
-import dev.neuralnexus.taterutils.common.modules.warp.api.WarpAPI;
+import dev.neuralnexus.taterutils.common.modules.send.api.SendAPI;
 
-/** SetWarp Command. */
-public class DelWarpCommand implements Command {
-    private String name = "delwarp";
+/** SlashLobby Command. */
+public class SlashLobbyCommand implements Command {
+    private String name = "slashlobby";
 
     @Override
     public String getName() {
@@ -23,17 +24,17 @@ public class DelWarpCommand implements Command {
 
     @Override
     public String getDescription() {
-        return "Deletes a warp location!";
+        return "Command that players can use to send themselves to the lobby.";
     }
 
     @Override
     public String getUsage() {
-        return "/delwarp <name>";
+        return "/slashlobby";
     }
 
     @Override
     public String getPermission() {
-        return "taterutils.command.delwarp";
+        return "taterutils.command.slashlobby";
     }
 
     @Override
@@ -43,18 +44,13 @@ public class DelWarpCommand implements Command {
 
     @Override
     public boolean execute(Sender sender, String label, String[] args) {
-        if (!CommandUtils.senderIsPlayerAndHasPermission(sender, getPermission())) {
+        if (!CommandUtils.senderHasPermission(sender, getPermission())) {
             return true;
         }
         Player player = (Player) sender;
-        WarpAPI api = TaterUtilsAPIProvider.get().getWarpAPI();
+        SendAPI api = TaterUtilsAPIProvider.get().getSendAPI();
 
-        if (args.length == 0) {
-            CommandUtils.sendMessage(player, "&aPlease provide a Warp name!");
-        } else {
-            api.deleteWarp(args[0]);
-            CommandUtils.sendMessage(player, "&aDeleted warp &e" + args[0] + "&a.");
-        }
+        api.sendPlayer(player, TaterUtilsConfig.SlashLobbyConfig.getLobbyNames()[0]);
         return true;
     }
 }

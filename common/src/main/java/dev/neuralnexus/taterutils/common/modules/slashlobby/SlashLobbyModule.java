@@ -1,20 +1,20 @@
-package dev.neuralnexus.taterutils.common.modules.orewatcher;
+package dev.neuralnexus.taterutils.common.modules.slashlobby;
 
-import dev.neuralnexus.taterlib.common.Utils;
-import dev.neuralnexus.taterlib.common.event.api.BlockEvents;
+import dev.neuralnexus.taterlib.common.api.TaterAPIProvider;
+import dev.neuralnexus.taterlib.common.event.api.CommandEvents;
 import dev.neuralnexus.taterutils.common.TaterUtils;
-import dev.neuralnexus.taterutils.common.api.TaterUtilsAPIProvider;
+import dev.neuralnexus.taterutils.common.TaterUtilsConfig;
 import dev.neuralnexus.taterutils.common.modules.Module;
-import dev.neuralnexus.taterutils.common.modules.orewatcher.listeners.OreWatcherBlockListener;
+import dev.neuralnexus.taterutils.common.modules.slashlobby.command.SlashLobbyCommand;
 
-/** OreWatcher module. */
-public class OreWatcherModule implements Module {
+/** SlashLobby module. */
+public class SlashLobbyModule implements Module {
     private static boolean STARTED = false;
     private static boolean RELOADED = false;
 
     @Override
     public String getName() {
-        return "OreWatcher";
+        return "SlashLobby";
     }
 
     @Override
@@ -26,15 +26,18 @@ public class OreWatcherModule implements Module {
         STARTED = true;
 
         if (!RELOADED) {
-            // Register block events
-            BlockEvents.BLOCK_BREAK.register(OreWatcherBlockListener::onBlockBreak);
-
-            // Reset the average per minute every 30 minutes
-            Utils.repeatTaskAsync(
-                    () -> TaterUtilsAPIProvider.get().getOreWatcherAPI().resetAveragePerMinute(),
-                    0L,
-                    36000L);
+            // Register commands
+            CommandEvents.REGISTER_COMMAND.register(
+                    (event -> {
+                        if (TaterAPIProvider.get().serverType().isProxy()) {
+                            event.registerCommand(
+                                    TaterUtils.getPlugin(),
+                                    new SlashLobbyCommand(),
+                                    TaterUtilsConfig.SlashLobbyConfig.getLobbyNames());
+                        }
+                    }));
         }
+
         TaterUtils.getLogger().info("Submodule " + getName() + " has been started!");
     }
 

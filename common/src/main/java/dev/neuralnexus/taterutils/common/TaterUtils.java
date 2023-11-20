@@ -7,26 +7,17 @@ import dev.neuralnexus.taterutils.common.api.TaterUtilsAPIProvider;
 import dev.neuralnexus.taterutils.common.modules.home.HomeModule;
 import dev.neuralnexus.taterutils.common.modules.orewatcher.OreWatcherModule;
 import dev.neuralnexus.taterutils.common.modules.send.SendModule;
+import dev.neuralnexus.taterutils.common.modules.slashlobby.SlashLobbyModule;
 import dev.neuralnexus.taterutils.common.modules.spawn.SpawnModule;
 import dev.neuralnexus.taterutils.common.modules.tpa.TpaModule;
 import dev.neuralnexus.taterutils.common.modules.warp.WarpModule;
 
 /** Main class for the plugin. */
 public class TaterUtils {
-    private static final TaterUtils instance = new TaterUtils();
     private static boolean STARTED = false;
     private static boolean RELOADED = false;
-    private Object plugin;
-    private AbstractLogger logger;
-
-    /**
-     * Getter for the singleton instance of the class.
-     *
-     * @return The singleton instance
-     */
-    public static TaterUtils getInstance() {
-        return instance;
-    }
+    private static Object plugin;
+    private static AbstractLogger logger;
 
     /**
      * Get the plugin
@@ -34,7 +25,7 @@ public class TaterUtils {
      * @return The plugin
      */
     public static Object getPlugin() {
-        return instance.plugin;
+        return plugin;
     }
 
     /**
@@ -43,7 +34,7 @@ public class TaterUtils {
      * @param plugin The plugin
      */
     private static void setPlugin(Object plugin) {
-        instance.plugin = plugin;
+        TaterUtils.plugin = plugin;
     }
 
     /**
@@ -52,7 +43,7 @@ public class TaterUtils {
      * @return The logger
      */
     public static AbstractLogger getLogger() {
-        return instance.logger;
+        return logger;
     }
 
     /**
@@ -61,7 +52,7 @@ public class TaterUtils {
      * @param logger The logger
      */
     private static void setLogger(AbstractLogger logger) {
-        instance.logger = logger;
+        TaterUtils.logger = logger;
     }
 
     /**
@@ -97,6 +88,9 @@ public class TaterUtils {
             if (TaterUtilsConfig.isModuleEnabled("send")) {
                 TaterUtilsModuleLoader.registerModule(new SendModule());
             }
+            if (TaterUtilsConfig.isModuleEnabled("slashLobby")) {
+                TaterUtilsModuleLoader.registerModule(new SlashLobbyModule());
+            }
             if (TaterUtilsConfig.isModuleEnabled("spawn")) {
                 TaterUtilsModuleLoader.registerModule(new SpawnModule());
             }
@@ -117,7 +111,7 @@ public class TaterUtils {
     /** Stop */
     public static void stop() {
         if (!STARTED) {
-            instance.logger.info(Constants.PROJECT_NAME + " has already stopped!");
+            logger.info(Constants.PROJECT_NAME + " has already stopped!");
             return;
         }
         STARTED = false;
@@ -129,13 +123,13 @@ public class TaterUtils {
         // Remove references to objects
         TaterUtilsConfig.unloadConfig();
 
-        instance.logger.info(Constants.PROJECT_NAME + " has been stopped!");
+        logger.info(Constants.PROJECT_NAME + " has been stopped!");
     }
 
     /** Reload */
     public static void reload() {
         if (!STARTED) {
-            instance.logger.info(Constants.PROJECT_NAME + " has not been started!");
+            logger.info(Constants.PROJECT_NAME + " has not been started!");
             return;
         }
         RELOADED = true;
@@ -147,9 +141,9 @@ public class TaterUtils {
         TaterUtilsAPIProvider.unregister();
 
         // Start
-        start(instance.plugin, instance.logger);
+        start(plugin, logger);
 
-        instance.logger.info(Constants.PROJECT_NAME + " has been reloaded!");
+        logger.info(Constants.PROJECT_NAME + " has been reloaded!");
     }
 
     /** Constants used throughout the plugin. */

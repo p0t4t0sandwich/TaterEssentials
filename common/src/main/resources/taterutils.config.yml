@@ -5,6 +5,9 @@ modules:
   alert:
     enabled: true
 
+  badspawns:
+    enabled: true
+
   home:
     enabled: true
     messages:

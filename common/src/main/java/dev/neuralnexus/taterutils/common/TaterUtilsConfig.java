@@ -4,6 +4,8 @@ import dev.neuralnexus.taterlib.lib.dejvokep.boostedyaml.YamlDocument;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.List;
+import java.util.Map;
 import java.util.Objects;
 
 /** Config handler. */
@@ -70,6 +72,27 @@ public class TaterUtilsConfig {
      */
     public static boolean isModuleEnabled(String module) {
         return config.getBoolean("modules" + module + ".enabled");
+    }
+
+    /** BadSpawns config. */
+    public static class BadSpawnsConfig {
+        /**
+         * Get banned mobs.
+         *
+         * @return The banned mobs.
+         */
+        public static List<String> getBannedMobs() {
+            return config.getStringList("modules.badspawns.bannedMobs");
+        }
+
+        /**
+         * Get regions.
+         *
+         * @return The regions.
+         */
+        public static List<Map<?, ?>> getRegions() {
+            return config.getMapList("modules.badspawns.regions");
+        }
     }
 
     /** Home config. */

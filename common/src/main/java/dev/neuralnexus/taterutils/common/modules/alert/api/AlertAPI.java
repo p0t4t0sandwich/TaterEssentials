@@ -1,6 +1,7 @@
 package dev.neuralnexus.taterutils.common.modules.alert.api;
 
-import dev.neuralnexus.taterlib.common.api.TaterAPIProvider;
+import dev.neuralnexus.taterlib.Utils;
+import dev.neuralnexus.taterlib.api.TaterAPIProvider;
 
 /** API for the Send module. */
 public class AlertAPI {
@@ -12,10 +13,6 @@ public class AlertAPI {
      * @param message The message to broadcast.
      */
     public void broadcast(String message) {
-        // TODO: Replace when Server.broadcastMessage is implemented.
-        TaterAPIProvider.get()
-                .getServer()
-                .getOnlinePlayers()
-                .forEach(player -> player.sendMessage(message));
+        TaterAPIProvider.get().getServer().broadcastMessage(Utils.substituteSectionSign(message));
     }
 }

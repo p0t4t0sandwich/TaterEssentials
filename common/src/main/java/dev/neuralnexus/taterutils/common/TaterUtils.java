@@ -5,6 +5,7 @@ import dev.neuralnexus.taterlib.common.logger.AbstractLogger;
 import dev.neuralnexus.taterutils.common.api.TaterUtilsAPI;
 import dev.neuralnexus.taterutils.common.api.TaterUtilsAPIProvider;
 import dev.neuralnexus.taterutils.common.modules.home.HomeModule;
+import dev.neuralnexus.taterutils.common.modules.mclogs.MCLogsModule;
 import dev.neuralnexus.taterutils.common.modules.orewatcher.OreWatcherModule;
 import dev.neuralnexus.taterutils.common.modules.send.SendModule;
 import dev.neuralnexus.taterutils.common.modules.slashlobby.SlashLobbyModule;
@@ -81,6 +82,9 @@ public class TaterUtils {
             // Register modules
             if (TaterUtilsConfig.isModuleEnabled("home")) {
                 TaterUtilsModuleLoader.registerModule(new HomeModule());
+            }
+            if (TaterUtilsConfig.isModuleEnabled("mclogs")) {
+                TaterUtilsModuleLoader.registerModule(new MCLogsModule());
             }
             if (TaterUtilsConfig.isModuleEnabled("oreWatcher")) {
                 TaterUtilsModuleLoader.registerModule(new OreWatcherModule());

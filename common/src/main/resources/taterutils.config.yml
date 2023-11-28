@@ -25,6 +25,9 @@ modules:
       deleteHome:
         success: "&aDeleted home &e%home%&a!"
 
+  mclogs:
+    enabled: true
+
   oreWatcher:
     enabled: true
     # Available message placeholders:

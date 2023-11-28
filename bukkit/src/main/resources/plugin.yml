@@ -25,6 +25,10 @@ commands:
     usage: /delhome [name]
     permission: taterlib.command.delhome
     aliases: [ deletehome, rmhome, removehome ]
+  mclogs:
+    description: Upload logs to mclo.gs
+    usage: /mclogs ...
+    permission: taterlib.command.mclogs
   spawn:
     description: Teleport to spawn
     usage: /spawn

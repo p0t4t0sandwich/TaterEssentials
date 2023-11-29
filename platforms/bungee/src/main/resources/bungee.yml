@@ -1,0 +1,18 @@
+name: '${project_name}'
+version: '${version}'
+author: '${authors}'
+description: '${project_description}'
+main: '${group_id}.${project_id}.bungee.BungeePlugin'
+depends: [ TaterLib ]
+softdepends: [ LuckPerms ]
+commands:
+  mclogs:
+    description: Upload logs to mclo.gs
+    usage: /mclogs ...
+    permission: taterlib.command.mclogs
+  slashlobby:
+    description: Send yourself to the lobby
+    aliases: [ lobby, hub ]
+    permission: taterutils.command.slashlobby
+    usage: /<command>
+    permission-message: "&cYou do not have permission to use this command!"

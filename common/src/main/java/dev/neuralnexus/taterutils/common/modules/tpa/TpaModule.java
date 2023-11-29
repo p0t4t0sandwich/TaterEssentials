@@ -1,8 +1,8 @@
 package dev.neuralnexus.taterutils.common.modules.tpa;
 
-import dev.neuralnexus.taterlib.common.Utils;
-import dev.neuralnexus.taterlib.common.api.TaterAPIProvider;
-import dev.neuralnexus.taterlib.common.event.api.CommandEvents;
+import dev.neuralnexus.taterlib.Utils;
+import dev.neuralnexus.taterlib.api.TaterAPIProvider;
+import dev.neuralnexus.taterlib.event.api.CommandEvents;
 import dev.neuralnexus.taterutils.common.TaterUtils;
 import dev.neuralnexus.taterutils.common.api.TaterUtilsAPIProvider;
 import dev.neuralnexus.taterutils.common.modules.Module;

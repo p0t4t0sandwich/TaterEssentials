@@ -1,6 +1,6 @@
 package dev.neuralnexus.taterutils.common.api;
 
-import dev.neuralnexus.taterlib.common.utils.Location;
+import dev.neuralnexus.taterlib.utils.Location;
 import dev.neuralnexus.taterlib.lib.gson.reflect.TypeToken;
 
 import java.lang.reflect.Type;

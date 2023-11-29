@@ -1,8 +1,8 @@
 package dev.neuralnexus.taterutils.common.api;
 
-import dev.neuralnexus.taterlib.common.Utils;
-import dev.neuralnexus.taterlib.common.command.Sender;
-import dev.neuralnexus.taterlib.common.player.Player;
+import dev.neuralnexus.taterlib.Utils;
+import dev.neuralnexus.taterlib.command.Sender;
+import dev.neuralnexus.taterlib.player.Player;
 
 /** General command utilities. */
 public class CommandUtils {

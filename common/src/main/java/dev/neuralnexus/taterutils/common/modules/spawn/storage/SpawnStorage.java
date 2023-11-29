@@ -1,7 +1,7 @@
 package dev.neuralnexus.taterutils.common.modules.spawn.storage;
 
-import dev.neuralnexus.taterlib.common.player.Player;
-import dev.neuralnexus.taterlib.common.utils.Location;
+import dev.neuralnexus.taterlib.player.Player;
+import dev.neuralnexus.taterlib.utils.Location;
 
 import java.util.Optional;
 

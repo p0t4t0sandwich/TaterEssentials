@@ -5,7 +5,7 @@ import com.velocitypowered.api.plugin.Dependency;
 import com.velocitypowered.api.plugin.Plugin;
 import com.velocitypowered.api.proxy.ProxyServer;
 
-import dev.neuralnexus.taterlib.velocity.logger.VelocityLogger;
+import dev.neuralnexus.taterlib.logger.GenericLogger;
 import dev.neuralnexus.taterutils.common.TaterUtils;
 import dev.neuralnexus.taterutils.common.TaterUtilsPlugin;
 
@@ -26,6 +26,10 @@ import org.slf4j.Logger;
 public class VelocityPlugin implements TaterUtilsPlugin {
     @Inject
     public VelocityPlugin(ProxyServer server, Logger logger) {
-        pluginStart(server, new VelocityLogger(logger));
+        pluginStart(
+                server,
+                new GenericLogger(
+                        "[" + TaterUtils.Constants.PROJECT_NAME + "] ",
+                        TaterUtils.Constants.PROJECT_ID));
     }
 }

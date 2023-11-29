@@ -1,6 +1,6 @@
 package dev.neuralnexus.taterutils.forge;
 
-import dev.neuralnexus.taterlib.common.logger.GenericLogger;
+import dev.neuralnexus.taterlib.logger.GenericLogger;
 import dev.neuralnexus.taterutils.common.TaterUtils;
 import dev.neuralnexus.taterutils.common.TaterUtilsPlugin;
 

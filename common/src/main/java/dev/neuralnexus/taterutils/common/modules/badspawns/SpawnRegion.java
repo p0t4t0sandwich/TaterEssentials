@@ -1,6 +1,6 @@
 package dev.neuralnexus.taterutils.common.modules.badspawns;
 
-import dev.neuralnexus.taterlib.common.entity.Entity;
+import dev.neuralnexus.taterlib.entity.Entity;
 
 import java.util.List;
 

@@ -2,7 +2,7 @@ package dev.neuralnexus.taterutils.sponge;
 
 import com.google.inject.Inject;
 
-import dev.neuralnexus.taterlib.sponge.logger.SpongeLogger;
+import dev.neuralnexus.taterlib.logger.GenericLogger;
 import dev.neuralnexus.taterutils.common.TaterUtils;
 import dev.neuralnexus.taterutils.common.TaterUtilsPlugin;
 
@@ -15,6 +15,8 @@ import org.spongepowered.plugin.builtin.jvm.Plugin;
 public class SpongePlugin implements TaterUtilsPlugin {
     @Inject
     public SpongePlugin(PluginContainer container, Logger logger) {
-        pluginStart(container, new SpongeLogger(logger));
+        pluginStart(container, new GenericLogger(
+                "[" + TaterUtils.Constants.PROJECT_NAME + "] ",
+                TaterUtils.Constants.PROJECT_ID));
     }
 }

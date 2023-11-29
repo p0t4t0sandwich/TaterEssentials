@@ -1,7 +1,7 @@
 package dev.neuralnexus.taterutils.common.api;
 
-import dev.neuralnexus.taterlib.common.utils.Location;
-import dev.neuralnexus.taterlib.common.utils.Position;
+import dev.neuralnexus.taterlib.utils.Location;
+import dev.neuralnexus.taterlib.utils.Position;
 
 /** Implementation of {@link Location}. */
 public class AbstractLocation implements Location {

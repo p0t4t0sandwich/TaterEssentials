@@ -1,8 +1,8 @@
 package dev.neuralnexus.taterutils.common.modules.alert.command;
 
-import dev.neuralnexus.taterlib.common.Utils;
-import dev.neuralnexus.taterlib.common.command.Command;
-import dev.neuralnexus.taterlib.common.command.Sender;
+import dev.neuralnexus.taterlib.Utils;
+import dev.neuralnexus.taterlib.command.Command;
+import dev.neuralnexus.taterlib.command.Sender;
 import dev.neuralnexus.taterutils.common.api.CommandUtils;
 import dev.neuralnexus.taterutils.common.api.TaterUtilsAPIProvider;
 import dev.neuralnexus.taterutils.common.modules.alert.api.AlertAPI;

@@ -1,9 +1,9 @@
 package dev.neuralnexus.taterutils.common.modules.orewatcher.listeners;
 
-import dev.neuralnexus.taterlib.common.Utils;
-import dev.neuralnexus.taterlib.common.api.TaterAPIProvider;
-import dev.neuralnexus.taterlib.common.event.block.BlockBreakEvent;
-import dev.neuralnexus.taterlib.common.placeholder.PlaceholderParser;
+import dev.neuralnexus.taterlib.Utils;
+import dev.neuralnexus.taterlib.api.TaterAPIProvider;
+import dev.neuralnexus.taterlib.event.block.BlockBreakEvent;
+import dev.neuralnexus.taterlib.placeholder.PlaceholderParser;
 import dev.neuralnexus.taterutils.common.TaterUtils;
 import dev.neuralnexus.taterutils.common.TaterUtilsConfig;
 import dev.neuralnexus.taterutils.common.api.TaterUtilsAPIProvider;

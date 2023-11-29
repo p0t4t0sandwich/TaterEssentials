@@ -1,7 +1,7 @@
 package dev.neuralnexus.taterutils.common.modules.send.api;
 
-import dev.neuralnexus.taterlib.common.player.Player;
-import dev.neuralnexus.taterlib.common.player.ProxyPlayer;
+import dev.neuralnexus.taterlib.player.Player;
+import dev.neuralnexus.taterlib.player.ProxyPlayer;
 
 /** API for the Send module. */
 public class SendAPI {

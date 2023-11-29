@@ -1,8 +1,8 @@
 package dev.neuralnexus.taterutils.common.modules.warp.storage;
 
-import dev.neuralnexus.taterlib.common.player.Player;
-import dev.neuralnexus.taterlib.common.storage.Filesystem;
-import dev.neuralnexus.taterlib.common.utils.Location;
+import dev.neuralnexus.taterlib.player.Player;
+import dev.neuralnexus.taterlib.storage.Filesystem;
+import dev.neuralnexus.taterlib.utils.Location;
 import dev.neuralnexus.taterlib.lib.gson.Gson;
 import dev.neuralnexus.taterlib.lib.gson.GsonBuilder;
 import dev.neuralnexus.taterutils.common.api.NamedLocation;

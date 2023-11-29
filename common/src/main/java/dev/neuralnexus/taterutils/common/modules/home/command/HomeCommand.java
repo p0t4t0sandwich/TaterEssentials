@@ -1,9 +1,9 @@
 package dev.neuralnexus.taterutils.common.modules.home.command;
 
-import dev.neuralnexus.taterlib.common.command.Command;
-import dev.neuralnexus.taterlib.common.command.Sender;
-import dev.neuralnexus.taterlib.common.placeholder.PlaceholderParser;
-import dev.neuralnexus.taterlib.common.player.Player;
+import dev.neuralnexus.taterlib.command.Command;
+import dev.neuralnexus.taterlib.command.Sender;
+import dev.neuralnexus.taterlib.placeholder.PlaceholderParser;
+import dev.neuralnexus.taterlib.player.Player;
 import dev.neuralnexus.taterutils.common.TaterUtilsConfig;
 import dev.neuralnexus.taterutils.common.api.CommandUtils;
 import dev.neuralnexus.taterutils.common.api.TaterUtilsAPIProvider;

@@ -1,9 +1,9 @@
 package dev.neuralnexus.taterutils.common;
 
-import dev.neuralnexus.taterlib.common.Plugin;
-import dev.neuralnexus.taterlib.common.api.TaterAPIProvider;
-import dev.neuralnexus.taterlib.common.event.api.PluginEvents;
-import dev.neuralnexus.taterlib.common.logger.AbstractLogger;
+import dev.neuralnexus.taterlib.Plugin;
+import dev.neuralnexus.taterlib.api.TaterAPIProvider;
+import dev.neuralnexus.taterlib.event.api.PluginEvents;
+import dev.neuralnexus.taterlib.logger.AbstractLogger;
 
 /** The main plugin interface. */
 public interface TaterUtilsPlugin extends Plugin {

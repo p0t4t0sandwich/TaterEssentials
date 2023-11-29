@@ -1,8 +1,8 @@
 package dev.neuralnexus.taterutils.fabric;
 
 import dev.neuralnexus.taterlib.logger.GenericLogger;
-import dev.neuralnexus.taterutils.common.TaterUtils;
-import dev.neuralnexus.taterutils.common.TaterUtilsPlugin;
+import dev.neuralnexus.taterutils.TaterUtils;
+import dev.neuralnexus.taterutils.TaterUtilsPlugin;
 
 import net.fabricmc.api.ModInitializer;
 

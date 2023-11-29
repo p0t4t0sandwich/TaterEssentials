@@ -6,8 +6,8 @@ import com.velocitypowered.api.plugin.Plugin;
 import com.velocitypowered.api.proxy.ProxyServer;
 
 import dev.neuralnexus.taterlib.logger.GenericLogger;
-import dev.neuralnexus.taterutils.common.TaterUtils;
-import dev.neuralnexus.taterutils.common.TaterUtilsPlugin;
+import dev.neuralnexus.taterutils.TaterUtils;
+import dev.neuralnexus.taterutils.TaterUtilsPlugin;
 
 import org.slf4j.Logger;
 

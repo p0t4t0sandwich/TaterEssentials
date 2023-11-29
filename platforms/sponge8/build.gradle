@@ -53,7 +53,7 @@ shadowJar {
         include(project(":common"))
     }
 
-    destinationDirectory = file('../target')
+    destinationDirectory = file('../../target')
     archiveFileName = "${project_name}-sponge8-${version}.jar"
 }
 shadowJar.doLast {

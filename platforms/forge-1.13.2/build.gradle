@@ -55,7 +55,7 @@ shadowJar {
         include(project(':common'))
     }
 
-    destinationDirectory = file('../target')
+    destinationDirectory = file('../../target')
     archiveFileName = "${project_name}-forge-${minecraft_version}-${version}.jar"
 }
 shadowJar.doLast {

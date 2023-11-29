@@ -17,8 +17,8 @@ shadowJar {
         include(project(":common"))
     }
 
-    destinationDirectory = file('../target')
-    archiveFileName = "${project_name}-velocity-${version}.jar"
+    destinationDirectory = file('../../target')
+    archiveFileName = "${project_name}-velocity3-${version}.jar"
 }
 shadowJar.doLast {
     task ->

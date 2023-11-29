@@ -53,7 +53,7 @@ task remappedShadowJar(type: RemapJarTask) {
     input.set(tasks.shadowJar.archiveFile)
     addNestedDependencies.set(true)
 
-    destinationDirectory = file('../target')
+    destinationDirectory = file('../../target')
     archiveFileName = "${project_name}-fabric-${minecraft_version}-${version}.jar"
 }
 remappedShadowJar.doLast {

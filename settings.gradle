@@ -52,9 +52,9 @@ include(
         'platforms:bukkit',
         'platforms:bungee',
         'common',
-        'platforms:fabric-1.20.2',
-        'platforms:forge-1.13.2',
-        'platforms:neoforge-1.20.2',
-        'platforms:sponge8',
-        'platforms:velocity3'
+        'platforms:fabric',
+        'platforms:forge',
+        'platforms:neoforge',
+        'platforms:sponge',
+        'platforms:velocity'
 )

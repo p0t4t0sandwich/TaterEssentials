@@ -39,29 +39,36 @@ function build {
 
   # Copy bukkit files
   if [ "$BUKKIT" != "N/A" ]; then
-    cp -r ./bukkit-$BUKKIT/$GROUP_ID/$PROJ_ID/bukkit ./$OUT_FILE/$GROUP_ID/$PROJ_ID
+    cp -r ./bukkit-$BUKKIT/$GROUP_ID/$PROJ_ID/platforms ./$OUT_FILE/$GROUP_ID/$PROJ_ID
     cp ./bukkit-$BUKKIT/plugin.yml ./$OUT_FILE
   fi
 
   # Copy bungee files
   if [ "$BUNGEE" != "N/A" ]; then
-    cp -r ./bungee-$BUNGEE/$GROUP_ID/$PROJ_ID/bungee ./$OUT_FILE/$GROUP_ID/$PROJ_ID
+    cp -r ./bungee-$BUNGEE/$GROUP_ID/$PROJ_ID/platforms ./$OUT_FILE/$GROUP_ID/$PROJ_ID
     cp ./bungee-$BUNGEE/bungee.yml ./$OUT_FILE
   fi
 
   # Copy fabric files
   if [ "$FABRIC" != "N/A" ]; then
-    cp -r ./fabric-$FABRIC/$GROUP_ID/$PROJ_ID/fabric ./$OUT_FILE/$GROUP_ID/$PROJ_ID
+    cp -r ./fabric-$FABRIC/$GROUP_ID/$PROJ_ID/platforms ./$OUT_FILE/$GROUP_ID/$PROJ_ID
     cp ./fabric-$FABRIC/fabric.mod.json ./$OUT_FILE
-    cp ./fabric-$FABRIC/$PROJ_ID.mixins.json ./$OUT_FILE
+    cp ./fabric-$FABRIC/$PROJ_ID.mixins.json ./$OUT_FILE 2>/dev/null || :
     cp -r ./fabric-$FABRIC/assets ./$OUT_FILE
-    cp ./fabric-$FABRIC/fabric-$FABRIC-refmap.json ./$OUT_FILE
-    cp -r ./fabric-$FABRIC/META-INF/jars ./$OUT_FILE/META-INF
+    cp ./fabric-$FABRIC/fabric-$FABRIC-refmap.json ./$OUT_FILE 2>/dev/null || :
+    cp -r ./fabric-$FABRIC/META-INF/jars ./$OUT_FILE/META-INF 2>/dev/null || :
+  fi
+
+  # Copy sponge files -- Note: Sponge before Forge due to legacy mcmod.info
+  if [ "$SPONGE" != "N/A" ]; then
+      cp -r ./sponge$SPONGE/$GROUP_ID/$PROJ_ID/platforms ./$OUT_FILE/$GROUP_ID/$PROJ_ID
+      cp ./sponge$SPONGE/META-INF/sponge_plugins.json ./$OUT_FILE/META-INF 2>/dev/null || :
+      cp ./sponge$SPONGE/mcmod.info ./$OUT_FILE 2>/dev/null || :
   fi
 
   # Copy forge files
   if [ "$FORGE" != "N/A" ]; then
-    cp -r ./forge-$FORGE/$GROUP_ID/$PROJ_ID/forge ./$OUT_FILE/$GROUP_ID/$PROJ_ID
+    cp -r ./forge-$FORGE/$GROUP_ID/$PROJ_ID/platforms ./$OUT_FILE/$GROUP_ID/$PROJ_ID
     cp ./forge-$FORGE/pack.mcmeta ./$OUT_FILE
     cp -r ./forge-$FORGE/$PROJ_NAME.png ./$OUT_FILE
     cp ./forge-$FORGE/META-INF/mods.toml ./$OUT_FILE/META-INF 2>/dev/null || :
@@ -69,22 +76,16 @@ function build {
   fi
 
   # Copy neoforge files
-    if [ "$NEOFORGE" != "N/A" ]; then
-      cp -r ./neoforge-$NEOFORGE/$GROUP_ID/$PROJ_ID/neoforge ./$OUT_FILE/$GROUP_ID/$PROJ_ID
-      cp ./neoforge-$NEOFORGE/pack.mcmeta ./$OUT_FILE
-      cp -r ./neoforge-$NEOFORGE/$PROJ_NAME.png ./$OUT_FILE
-      cp ./neoforge-$NEOFORGE/META-INF/mods.toml ./$OUT_FILE/META-INF
-    fi
-
-  # Copy sponge files
-  if [ "$SPONGE" != "N/A" ]; then
-    cp -r ./sponge$SPONGE/$GROUP_ID/$PROJ_ID/sponge ./$OUT_FILE/$GROUP_ID/$PROJ_ID
-    cp ./sponge$SPONGE/META-INF/sponge_plugins.json ./$OUT_FILE/META-INF
+  if [ "$NEOFORGE" != "N/A" ]; then
+    cp -r ./neoforge-$NEOFORGE/$GROUP_ID/$PROJ_ID/platforms ./$OUT_FILE/$GROUP_ID/$PROJ_ID
+    cp ./neoforge-$NEOFORGE/pack.mcmeta ./$OUT_FILE
+    cp -r ./neoforge-$NEOFORGE/$PROJ_NAME.png ./$OUT_FILE
+    cp ./neoforge-$NEOFORGE/META-INF/mods.toml ./$OUT_FILE/META-INF
   fi
 
   # Copy velocity files
   if [ "$VELOCITY" != "N/A" ]; then
-    cp -r ./velocity$VELOCITY/$GROUP_ID/$PROJ_ID/velocity ./$OUT_FILE/$GROUP_ID/$PROJ_ID
+    cp -r ./velocity$VELOCITY/$GROUP_ID/$PROJ_ID/platforms ./$OUT_FILE/$GROUP_ID/$PROJ_ID
     cp ./velocity$VELOCITY/velocity-plugin.json ./$OUT_FILE
   fi
 

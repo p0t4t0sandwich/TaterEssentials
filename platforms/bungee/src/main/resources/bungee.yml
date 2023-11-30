@@ -2,7 +2,7 @@ name: '${project_name}'
 version: '${version}'
 author: '${authors}'
 description: '${project_description}'
-main: '${group_id}.${project_id}.bungee.BungeePlugin'
+main: '${group_id}.${project_id}.platforms.BungeePlugin'
 depends: [ TaterLib ]
 softdepends: [ LuckPerms ]
 commands:

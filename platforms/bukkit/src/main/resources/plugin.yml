@@ -2,7 +2,7 @@ name: '${project_name}'
 version: '${version}'
 author: '${authors}'
 description: '${project_description}'
-main: '${group_id}.${project_id}.bukkit.BukkitPlugin'
+main: '${group_id}.${project_id}.platforms.BukkitPlugin'
 depends: [ TaterLib ]
 softdepends: [ LuckPerms ]
 folia-supported: true

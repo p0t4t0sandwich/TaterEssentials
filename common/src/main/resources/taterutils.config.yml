@@ -28,6 +28,11 @@ modules:
   mclogs:
     enabled: true
 
+  motd:
+    enabled: true
+    messages:
+      motd: "&aWelcome to the server!"
+
   oreWatcher:
     enabled: true
     # Available message placeholders:

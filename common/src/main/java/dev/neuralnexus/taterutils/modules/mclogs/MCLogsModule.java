@@ -2,8 +2,8 @@ package dev.neuralnexus.taterutils.modules.mclogs;
 
 import dev.neuralnexus.taterlib.api.TaterAPIProvider;
 import dev.neuralnexus.taterlib.event.api.CommandEvents;
+import dev.neuralnexus.taterlib.plugin.Module;
 import dev.neuralnexus.taterutils.TaterUtils;
-import dev.neuralnexus.taterutils.modules.Module;
 import dev.neuralnexus.taterutils.modules.mclogs.command.MCLogsCommand;
 
 /** MCLogs module. */

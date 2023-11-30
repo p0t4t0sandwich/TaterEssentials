@@ -107,6 +107,18 @@ public class TaterUtilsConfig {
         }
     }
 
+    /** Motd config. */
+    public static class MotdConfig {
+        /**
+         * Get a message from the config.
+         *
+         * @param path The path to the message.
+         */
+        public static String getMessage(String path) {
+            return config.getString("modules.motd.messages." + path);
+        }
+    }
+
     /** OreWatcher config. */
     public static class OreWatcherConfig {
         /**

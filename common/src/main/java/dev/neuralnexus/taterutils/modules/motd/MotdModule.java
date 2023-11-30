@@ -1,19 +1,19 @@
-package dev.neuralnexus.taterutils.modules.send;
+package dev.neuralnexus.taterutils.modules.motd;
 
-import dev.neuralnexus.taterlib.api.TaterAPIProvider;
-import dev.neuralnexus.taterlib.event.api.CommandEvents;
+import dev.neuralnexus.taterlib.Utils;
+import dev.neuralnexus.taterlib.event.api.PlayerEvents;
 import dev.neuralnexus.taterlib.plugin.Module;
 import dev.neuralnexus.taterutils.TaterUtils;
-import dev.neuralnexus.taterutils.modules.send.command.SendCommand;
+import dev.neuralnexus.taterutils.TaterUtilsConfig;
 
-/** Send module. */
-public class SendModule implements Module {
+/** Motd module. */
+public class MotdModule implements Module {
     private static boolean STARTED = false;
     private static boolean RELOADED = false;
 
     @Override
     public String getName() {
-        return "Send";
+        return "Motd";
     }
 
     @Override
@@ -25,13 +25,14 @@ public class SendModule implements Module {
         STARTED = true;
 
         if (!RELOADED) {
-            // Register commands
-            CommandEvents.REGISTER_COMMAND.register(
-                    (event -> {
-                        if (TaterAPIProvider.get().serverType().isVelocityBased()) {
-                            event.registerCommand(TaterUtils.getPlugin(), new SendCommand());
-                        }
-                    }));
+            // Register listeners
+            PlayerEvents.LOGIN.register(
+                    event ->
+                            event.getPlayer()
+                                    .sendMessage(
+                                            Utils.substituteSectionSign(
+                                                    TaterUtilsConfig.MotdConfig.getMessage(
+                                                            "motd"))));
         }
 
         TaterUtils.getLogger().info("Submodule " + getName() + " has been started!");
@@ -44,7 +45,6 @@ public class SendModule implements Module {
             return;
         }
         STARTED = false;
-        RELOADED = true;
 
         // Remove references to objects
 

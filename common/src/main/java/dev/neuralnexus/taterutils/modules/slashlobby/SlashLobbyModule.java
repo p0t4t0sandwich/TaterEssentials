@@ -2,9 +2,9 @@ package dev.neuralnexus.taterutils.modules.slashlobby;
 
 import dev.neuralnexus.taterlib.api.TaterAPIProvider;
 import dev.neuralnexus.taterlib.event.api.CommandEvents;
+import dev.neuralnexus.taterlib.plugin.Module;
 import dev.neuralnexus.taterutils.TaterUtils;
 import dev.neuralnexus.taterutils.TaterUtilsConfig;
-import dev.neuralnexus.taterutils.modules.Module;
 import dev.neuralnexus.taterutils.modules.slashlobby.command.SlashLobbyCommand;
 
 /** SlashLobby module. */

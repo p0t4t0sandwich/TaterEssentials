@@ -2,9 +2,9 @@ package dev.neuralnexus.taterutils.modules.orewatcher;
 
 import dev.neuralnexus.taterlib.Utils;
 import dev.neuralnexus.taterlib.event.api.BlockEvents;
+import dev.neuralnexus.taterlib.plugin.Module;
 import dev.neuralnexus.taterutils.TaterUtils;
 import dev.neuralnexus.taterutils.api.TaterUtilsAPIProvider;
-import dev.neuralnexus.taterutils.modules.Module;
 import dev.neuralnexus.taterutils.modules.orewatcher.listeners.OreWatcherBlockListener;
 
 /** OreWatcher module. */

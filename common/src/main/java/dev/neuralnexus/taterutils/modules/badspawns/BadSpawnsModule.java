@@ -2,9 +2,9 @@ package dev.neuralnexus.taterutils.modules.badspawns;
 
 import dev.neuralnexus.taterlib.entity.Entity;
 import dev.neuralnexus.taterlib.event.api.EntityEvents;
+import dev.neuralnexus.taterlib.plugin.Module;
 import dev.neuralnexus.taterutils.TaterUtils;
 import dev.neuralnexus.taterutils.TaterUtilsConfig;
-import dev.neuralnexus.taterutils.modules.Module;
 
 import java.util.ArrayList;
 import java.util.HashMap;

@@ -1,6 +1,6 @@
 package dev.neuralnexus.taterutils;
 
-import dev.neuralnexus.taterutils.modules.Module;
+import dev.neuralnexus.taterlib.plugin.Module;
 
 import java.util.HashSet;
 import java.util.Set;

@@ -1,6 +1,6 @@
 package dev.neuralnexus.taterutils.forge;
 
-import dev.neuralnexus.taterlib.logger.GenericLogger;
+import dev.neuralnexus.taterlib.logger.LoggerAdapter;
 import dev.neuralnexus.taterutils.TaterUtils;
 import dev.neuralnexus.taterutils.TaterUtilsPlugin;
 
@@ -10,10 +10,6 @@ import net.minecraftforge.fml.common.Mod;
 @Mod(TaterUtils.Constants.PROJECT_ID)
 public class ForgePlugin implements TaterUtilsPlugin {
     public ForgePlugin() {
-        pluginStart(
-                this,
-                new GenericLogger(
-                        "[" + TaterUtils.Constants.PROJECT_NAME + "] ",
-                        TaterUtils.Constants.PROJECT_ID));
+        pluginStart(this, new LoggerAdapter(TaterUtils.Constants.PROJECT_NAME));
     }
 }

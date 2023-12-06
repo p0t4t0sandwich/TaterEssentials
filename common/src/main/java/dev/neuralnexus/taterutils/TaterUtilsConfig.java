@@ -107,6 +107,18 @@ public class TaterUtilsConfig {
         }
     }
 
+    /** JoinAndQuit config. */
+    public static class JoinAndQuitConfig {
+        /**
+         * Get a message from the config.
+         *
+         * @param path The path to the message.
+         */
+        public static String getMessage(String path) {
+            return config.getString("modules.joinAndQuit.messages." + path);
+        }
+    }
+
     /** Motd config. */
     public static class MotdConfig {
         /**

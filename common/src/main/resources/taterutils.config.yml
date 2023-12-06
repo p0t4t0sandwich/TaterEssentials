@@ -12,7 +12,7 @@ modules:
     enabled: true
     messages:
       # Available message placeholders:
-      # %home% - The name of the home
+      #   %home% - The name of the home
       home:
         homeNotSet: "&cYou do not have home &e%home%&c set!"
         teleportedToHome: "&aTeleporting to home &e%home%&a!"
@@ -25,19 +25,31 @@ modules:
       deleteHome:
         success: "&aDeleted home &e%home%&a!"
 
+  joinAndQuit:
+    enabled: true
+    messages:
+      # Available message placeholders:
+      #   %player% - Player name
+      #   %displayname% - Player display name
+      #   %message% - Message
+      #   %server% - Server name
+      #   %prefix% - Player prefix
+      #   %suffix% - Player suffix
+      join: "&a%player% joined the game!"
+      quit: "&c%player% left the game!"
+
   mclogs:
     enabled: true
     messages:
       # Available message placeholders:
-      # %url% - The URL of the uploaded log
-      # %id% - The ID of the log
+      #   %url% - The URL of the uploaded log
+      #   %id% - The ID of the log
       upload:
         success: "&aUploaded logs to &e%url%&a!"
         failed: "&cFailed to upload logs!"
       get:
         success: "&aLogs: &e%url%"
         failed: "&cFailed to get logs for &e%id%&c!"
-
 
   motd:
     enabled: true
@@ -46,10 +58,6 @@ modules:
 
   oreWatcher:
     enabled: true
-    # Available message placeholders:
-    # %playername% - The name of the player
-    # %blockname% - The name of the block being mined
-    # %oreperminute% - The amount of ore mined per minute
 
     # The amount of ore mined per minute to trigger an alert
     alertThreshold: 30
@@ -62,9 +70,9 @@ modules:
 
     messages:
       # Available message placeholders:
-      # %playername% - The name of the player
-      # %blockname% - The name of the block being mined
-      # %oreperminute% - The amount of ore mined per minute
+      #   %playername% - The name of the player
+      #   %blockname% - The name of the block being mined
+      #   %oreperminute% - The amount of ore mined per minute
 
       # The message to send to any admins with the permission taterutils.module.orewatcher.admin when the alert threshold is exceeded
       adminAlertMessage: "&c%playername% &7is mining &c %blockname% §7at a rate of &c %oreperminute% &7per minute!"
@@ -84,7 +92,7 @@ modules:
     messages:
       lobby:
         # Available message placeholders:
-        # %lobby% - The name of the lobby
+        #   %lobby% - The name of the lobby
         connectedToLobby: "&aConnected to &e%lobby%&a!"
 
   spawn:

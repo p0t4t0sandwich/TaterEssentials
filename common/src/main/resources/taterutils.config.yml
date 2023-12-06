@@ -27,6 +27,17 @@ modules:
 
   mclogs:
     enabled: true
+    messages:
+      # Available message placeholders:
+      # %url% - The URL of the uploaded log
+      # %id% - The ID of the log
+      upload:
+        success: "&aUploaded logs to &e%url%&a!"
+        failed: "&cFailed to upload logs!"
+      get:
+        success: "&aLogs: &e%url%"
+        failed: "&cFailed to get logs for &e%id%&c!"
+
 
   motd:
     enabled: true

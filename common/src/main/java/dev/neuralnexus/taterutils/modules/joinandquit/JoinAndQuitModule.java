@@ -30,12 +30,20 @@ public class JoinAndQuitModule implements Module {
                     event ->
                             event.setLoginMessage(
                                     Utils.substituteSectionSign(
-                                            TaterUtilsConfig.MotdConfig.getMessage("join"))));
+                                            event.getPlayer()
+                                                    .parsePlaceholders(
+                                                            TaterUtilsConfig.MotdConfig.getMessage(
+                                                                    "join"))
+                                                    .getResult())));
             PlayerEvents.LOGOUT.register(
                     event ->
                             event.setLogoutMessage(
                                     Utils.substituteSectionSign(
-                                            TaterUtilsConfig.MotdConfig.getMessage("quit"))));
+                                            event.getPlayer()
+                                                    .parsePlaceholders(
+                                                            TaterUtilsConfig.MotdConfig.getMessage(
+                                                                    "quit"))
+                                                    .getResult())));
         }
 
         TaterUtils.getLogger().info("Submodule " + getName() + " has been started!");

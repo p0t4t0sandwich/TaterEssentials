@@ -50,11 +50,13 @@ subprojects {
     }
 }
 
-task buildCLI(type: Exec) {
-    executable 'bash'
-    args '-c', './build.sh'
+apply(plugin: 'java')
+evaluationDependsOnChildren()
+tasks.register('taterBuild', Exec) {
+    dependsOn(subprojects*.build)
+    executable('bash')
+    args('-c', './build.sh')
 }
-tasks.buildCLI.dependsOn(subprojects.build)
 
 clean {
     delete('target')

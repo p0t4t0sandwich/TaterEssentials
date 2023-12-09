@@ -50,6 +50,12 @@ subprojects {
     }
 }
 
+task buildCLI(type: Exec) {
+    executable 'bash'
+    args '-c', './build.sh'
+}
+tasks.buildCLI.dependsOn(subprojects.build)
+
 clean {
     delete('target')
 }

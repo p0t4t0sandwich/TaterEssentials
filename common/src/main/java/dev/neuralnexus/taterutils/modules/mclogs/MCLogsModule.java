@@ -1,6 +1,7 @@
 package dev.neuralnexus.taterutils.modules.mclogs;
 
 import dev.neuralnexus.taterlib.api.TaterAPIProvider;
+import dev.neuralnexus.taterlib.command.Command;
 import dev.neuralnexus.taterlib.event.api.CommandEvents;
 import dev.neuralnexus.taterlib.plugin.Module;
 import dev.neuralnexus.taterutils.TaterUtils;
@@ -27,11 +28,15 @@ public class MCLogsModule implements Module {
         if (!RELOADED) {
             // Register commands
             CommandEvents.REGISTER_COMMAND.register(
-                    (event -> {
-                        if (!TaterAPIProvider.get().serverType().isBungeeCordBased()) {
-                            event.registerCommand(TaterUtils.getPlugin(), new MCLogsCommand());
+                    event -> {
+                        Command command = new MCLogsCommand();
+                        if (TaterAPIProvider.serverType().isBungeeCordBased()) {
+                            command.setName("bmclogs");
+                        } else if (TaterAPIProvider.serverType().isVelocityBased()) {
+                            command.setName("vmclogs");
                         }
-                    }));
+                        event.registerCommand(TaterUtils.getPlugin(), command);
+                    });
         }
 
         TaterUtils.getLogger().info("Submodule " + getName() + " has been started!");

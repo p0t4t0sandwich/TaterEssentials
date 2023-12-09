@@ -95,6 +95,18 @@ public class TaterUtilsConfig {
         }
     }
 
+    /** ChatFormatter config. */
+    public static class ChatFormatterConfig {
+        /**
+         * Get a message from the config.
+         *
+         * @param path The path to the message.
+         */
+        public static String getMessage(String path) {
+            return config.getString("modules.chatFormatter.messages." + path);
+        }
+    }
+
     /** Home config. */
     public static class HomeConfig {
         /**

@@ -8,6 +8,19 @@ modules:
   badspawns:
     enabled: true
 
+  chatFormatter:
+    enabled: true
+    messages:
+      # Available message placeholders:
+      #   %player% - Player name
+      #   %displayname% - Player display name
+      #   %message% - Message
+      #   %server% - Server name
+      #   %prefix% - Player prefix
+      #   %suffix% - Player suffix
+      #   %player% - Player name
+      playerMessage: "%displayname% >> %message%"
+
   home:
     enabled: true
     messages:

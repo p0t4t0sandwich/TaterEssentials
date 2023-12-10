@@ -123,7 +123,7 @@ prepareFiles common
 
 # --------------------------- Prepare Bukkit --------------------------------
 
-BUKKIT_VERSIONS=(1.20.2)
+BUKKIT_VERSIONS=(1.8.8)
 for BUKKIT_VERSION in "${BUKKIT_VERSIONS[@]}"
 do
     prepareFiles bukkit-$BUKKIT_VERSION
@@ -131,7 +131,7 @@ done
 
 # --------------------------- Prepare Bungee --------------------------------
 
-BUNGEE_VERSIONS=(1.20)
+BUNGEE_VERSIONS=(1.8)
 for BUNGEE_VERSION in "${BUNGEE_VERSIONS[@]}"
 do
     prepareFiles bungee-$BUNGEE_VERSION
@@ -139,7 +139,7 @@ done
 
 # --------------------------- Prepare Fabric --------------------------------
 
-FABRIC_VERSIONS=(1.20.2)
+FABRIC_VERSIONS=(1.15)
 for FABRIC_VERSION in "${FABRIC_VERSIONS[@]}"
 do
     prepareFiles fabric-$FABRIC_VERSION
@@ -178,10 +178,10 @@ do
 done
 
 # --------------------------- Build 1.13+ --------------------------------
-MC_VERSION=1.20.2
-BUKKIT_VERSION=1.20.2
-BUNGEE_VERSION=1.20
-FABRIC_VERSION=1.20.2
+MC_VERSION=1.13+
+BUKKIT_VERSION=1.8.8
+BUNGEE_VERSION=1.8
+FABRIC_VERSION=1.15
 FORGE_VERSION=1.13.2
 NEOFORGE_VERSION=1.20.2
 SPONGE_VERSION=8

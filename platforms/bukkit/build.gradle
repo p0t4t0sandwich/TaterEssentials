@@ -1,18 +1,8 @@
-plugins {
-    id('com.github.johnrengelman.shadow') version('8.1.1')
-}
-
 dependencies {
-    implementation(project(path: ':common', configuration: 'shadow'))
-
-    // Spigot
     compileOnly("org.spigotmc:spigot-api:${minecraft_version}-${bukkit_version}")
-
-    // TaterLib
+    compileOnly(project(':common'))
     compileOnly("dev.neuralnexus:TaterLib:${taterlib_version}")
 }
-
-java.disableAutoTargetJvm()
 
 tasks.withType(ProcessResources).configureEach {
     var replaceProperties = [
@@ -32,15 +22,7 @@ tasks.withType(ProcessResources).configureEach {
     }
 }
 
-shadowJar {
-    dependencies {
-        include(project(":common"))
-    }
-
+jar {
     destinationDirectory = file('../../target')
     archiveFileName = "${project_name}-bukkit-${minecraft_version}-${version}.jar"
-}
-
-artifacts {
-    archives(shadowJar)
 }

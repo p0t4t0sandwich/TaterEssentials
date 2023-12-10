@@ -29,7 +29,7 @@
   ],
   "depends": {
     "fabricloader": ">=0.9.0",
-    "minecraft": ">=1.14",
+    "minecraft": ">=1.12",
     "taterlib": ">=${taterlib_version}"
   },
   "suggests": {

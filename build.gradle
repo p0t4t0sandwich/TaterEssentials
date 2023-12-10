@@ -52,7 +52,7 @@ subprojects {
 
 apply(plugin: 'java')
 evaluationDependsOnChildren()
-tasks.register('taterBuild', Exec) {
+task taterBuild(type: Exec) {
     dependsOn(subprojects*.build)
     executable('bash')
     args('-c', './build.sh')

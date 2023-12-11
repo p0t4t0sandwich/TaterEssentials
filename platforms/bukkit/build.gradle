@@ -5,20 +5,8 @@ dependencies {
 }
 
 tasks.withType(ProcessResources).configureEach {
-    var replaceProperties = [
-            project_id         : project_id,
-            project_name       : project_name,
-            project_description: project_description,
-            group_id           : group_id,
-            version            : version,
-            authors            : authors,
-
-            homepage_url       : homepage_url
-    ]
-    inputs.properties replaceProperties
-
     filesMatching(['plugin.yml']) {
-        expand replaceProperties + [project: project]
+        expand project.properties
     }
 }
 

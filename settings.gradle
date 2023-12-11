@@ -49,5 +49,6 @@ include(
         'platforms:forge',
         'platforms:neoforge',
         'platforms:sponge',
+        'platforms:sponge-legacy',
         'platforms:velocity'
 )

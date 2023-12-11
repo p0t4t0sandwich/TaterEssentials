@@ -11,25 +11,8 @@ dependencies {
 }
 
 tasks.withType(ProcessResources).configureEach {
-    var replaceProperties = [
-            minecraft_version  : minecraft_version,
-
-            project_id         : project_id,
-            project_name       : project_name,
-            project_description: project_description,
-            license            : license,
-            version            : version,
-            group_id           : group_id,
-            authors            : authors,
-
-            repo_url           : repo_url,
-
-            taterlib_version   : taterlib_version
-    ]
-    inputs.properties replaceProperties
-
     filesMatching(['fabric.mod.json', "${project.project_id}.mixins.json".toString()]) {
-        expand replaceProperties + [project: project]
+        expand project.properties
     }
 }
 

@@ -7,7 +7,12 @@ import dev.neuralnexus.taterutils.TaterUtilsPlugin;
 import net.minecraftforge.fml.common.Mod;
 
 /** Forge entry point. */
-@Mod(TaterUtils.Constants.PROJECT_ID)
+@Mod(
+        value = TaterUtils.Constants.PROJECT_ID,
+        modid = TaterUtils.Constants.PROJECT_ID,
+        useMetadata = true,
+        serverSideOnly = true,
+        acceptableRemoteVersions = "*")
 public class ForgePlugin implements TaterUtilsPlugin {
     public ForgePlugin() {
         pluginStart(this, new LoggerAdapter(TaterUtils.Constants.PROJECT_NAME));

@@ -52,7 +52,7 @@ subprojects {
 
 task taterBuild(type: Jar) {
     dependsOn(subprojects*.build)
-    archiveFileName = "${project_name}-${version}.jar"
+    archiveFileName = "${project_id}-${version}.jar"
     destinationDirectory = file("./build/libs")
     duplicatesStrategy = DuplicatesStrategy.EXCLUDE
 

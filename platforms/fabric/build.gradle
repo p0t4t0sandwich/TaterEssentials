@@ -18,5 +18,5 @@ tasks.withType(ProcessResources).configureEach {
 
 jar {
     destinationDirectory = file('../../target')
-    archiveFileName = "${project_name}-fabric-${minecraft_version}-${version}.jar"
+    archiveFileName = "${project_name}-fabric-${version}.jar"
 }

@@ -12,9 +12,9 @@ import org.spongepowered.plugin.builtin.jvm.Plugin;
 
 /** Sponge entry point. */
 @Plugin(TaterUtils.Constants.PROJECT_ID)
-public class SpongePlugin implements TaterUtilsPlugin {
+public class Sponge8Plugin implements TaterUtilsPlugin {
     @Inject
-    public SpongePlugin(PluginContainer container, Logger logger) {
+    public Sponge8Plugin(PluginContainer container, Logger logger) {
         pluginStart(container, new LoggerAdapter(TaterUtils.Constants.PROJECT_NAME, logger));
     }
 }

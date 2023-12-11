@@ -1,5 +1,5 @@
 dependencies {
-    compileOnly("org.spigotmc:spigot-api:${minecraft_version}-${bukkit_version}")
+    compileOnly("org.spigotmc:spigot-api:${bukkit_version}")
     compileOnly(project(':common'))
     compileOnly("dev.neuralnexus:TaterLib:${taterlib_version}")
 }
@@ -12,5 +12,5 @@ tasks.withType(ProcessResources).configureEach {
 
 jar {
     destinationDirectory = file('../../target')
-    archiveFileName = "${project_name}-bukkit-${minecraft_version}-${version}.jar"
+    archiveFileName = "${project_name}-bukkit-${version}.jar"
 }

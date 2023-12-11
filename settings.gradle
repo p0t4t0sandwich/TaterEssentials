@@ -48,7 +48,7 @@ include(
         'platforms:fabric',
         'platforms:forge',
         'platforms:neoforge',
-        'platforms:sponge',
-        'platforms:sponge-legacy',
+        'platforms:sponge7',
+        'platforms:sponge8',
         'platforms:velocity'
 )

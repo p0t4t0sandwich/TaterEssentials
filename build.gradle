@@ -60,11 +60,11 @@ task taterBuild(type: Jar) {
         fileTree("./target").findAll {
             it.name.contains('jar')
         }.collect {
-            if (it.name.contains('-forge-')) {
+            if (it.name.contains('-forge')) {
                 zipTree(it).matching {
                     exclude 'META-INF/mods.toml'
                 }
-            } else if (it.name.contains('-sponge-legacy-')) {
+            } else if (it.name.contains('sponge7')) {
                 zipTree(it).matching {
                     exclude('META-INF/sponge_plugins.json')
                     exclude('mcmod.info')

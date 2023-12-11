@@ -21,5 +21,5 @@ tasks.withType(ProcessResources).configureEach {
 jar {
     exclude('net')
     destinationDirectory = file('../../target')
-    archiveFileName = "${project_name}-forge-${minecraft_version}-${version}.jar"
+    archiveFileName = "${project_name}-forge-${version}.jar"
 }

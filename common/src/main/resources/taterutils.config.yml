@@ -93,6 +93,9 @@ modules:
       # The message to send to the player when the alert threshold is exceeded
       playerAlertMessage: "&cYou are mining ore a bit too fast there, buddy!"
 
+  ping:
+    enabled: true
+
   send:
     enabled: true
 

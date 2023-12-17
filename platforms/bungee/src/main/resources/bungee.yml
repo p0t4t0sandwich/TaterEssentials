@@ -11,6 +11,10 @@ commands:
     description: Upload logs to mclo.gs
     usage: /mclogs ...
     permission: taterlib.command.mclogs
+  bping:
+    description: Gets the ping of a player
+    usage: /bping [player]
+    permission: taterlib.command.ping
   slashlobby:
     description: Send yourself to the lobby
     aliases: [ lobby, hub ]

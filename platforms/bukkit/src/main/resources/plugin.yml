@@ -30,6 +30,10 @@ commands:
     description: Upload logs to mclo.gs
     usage: /mclogs ...
     permission: taterlib.command.mclogs
+  ping:
+    description: Gets the ping of a player
+    usage: /ping [player]
+    permission: taterlib.command.ping
   spawn:
     description: Teleport to spawn
     usage: /spawn

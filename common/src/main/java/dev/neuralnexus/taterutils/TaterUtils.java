@@ -10,6 +10,7 @@ import dev.neuralnexus.taterutils.modules.joinandquit.JoinAndQuitModule;
 import dev.neuralnexus.taterutils.modules.mclogs.MCLogsModule;
 import dev.neuralnexus.taterutils.modules.motd.MotdModule;
 import dev.neuralnexus.taterutils.modules.orewatcher.OreWatcherModule;
+import dev.neuralnexus.taterutils.modules.ping.PingModule;
 import dev.neuralnexus.taterutils.modules.send.SendModule;
 import dev.neuralnexus.taterutils.modules.slashlobby.SlashLobbyModule;
 import dev.neuralnexus.taterutils.modules.spawn.SpawnModule;
@@ -102,6 +103,9 @@ public class TaterUtils {
             }
             if (TaterUtilsConfig.isModuleEnabled("oreWatcher")) {
                 TaterUtilsModuleLoader.registerModule(new OreWatcherModule());
+            }
+            if (TaterUtilsConfig.isModuleEnabled("ping")) {
+                TaterUtilsModuleLoader.registerModule(new PingModule());
             }
             if (TaterUtilsConfig.isModuleEnabled("send")) {
                 TaterUtilsModuleLoader.registerModule(new SendModule());

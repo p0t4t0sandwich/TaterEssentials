@@ -1,6 +1,7 @@
 package dev.neuralnexus.taterutils.api;
 
-import dev.neuralnexus.taterlib.lib.gson.reflect.TypeToken;
+import com.google.gson.reflect.TypeToken;
+
 import dev.neuralnexus.taterlib.utils.Location;
 
 import java.lang.reflect.Type;

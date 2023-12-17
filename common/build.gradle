@@ -3,18 +3,21 @@ plugins {
 }
 
 dependencies {
-    // TaterLib
-    compileOnly("dev.neuralnexus:TaterLib:${taterlib_version}")
-
-    // MCLogs
+    implementation('dev.dejvokep:boosted-yaml:1.3.1')
+    implementation('com.google.code.gson:gson:2.10.1')
     implementation('gs.mclo:api:4.0.0')
+    compileOnly("dev.neuralnexus:taterlib-api:${taterlib_version}")
 }
 
 shadowJar {
     dependencies {
         include(dependency("${group_id}:${project_id}:${version}"))
+        include(dependency("dev.dejvokep:boosted-yaml:1.3.1"))
+        include(dependency('com.google.code.gson:gson:2.10.1'))
         include(dependency("gs.mclo:api:4.0.0"))
     }
+    relocate('dev.dejvokep', "${group_id}.${project_id}.lib.dejvokep")
+    relocate('com.google.gson', "${group_id}.${project_id}.lib.gson")
     relocate("gs.mclo", "${group_id}.${project_id}.libs.mclogs")
 
     destinationDirectory = file('../target')

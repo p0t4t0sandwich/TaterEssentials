@@ -1,7 +1,8 @@
 package dev.neuralnexus.taterutils.modules.warp.storage;
 
-import dev.neuralnexus.taterlib.lib.gson.Gson;
-import dev.neuralnexus.taterlib.lib.gson.GsonBuilder;
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
+
 import dev.neuralnexus.taterlib.player.Player;
 import dev.neuralnexus.taterlib.storage.Filesystem;
 import dev.neuralnexus.taterlib.utils.Location;

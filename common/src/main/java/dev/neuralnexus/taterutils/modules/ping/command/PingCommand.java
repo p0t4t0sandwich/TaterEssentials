@@ -6,6 +6,8 @@ import dev.neuralnexus.taterlib.command.Sender;
 import dev.neuralnexus.taterlib.player.Player;
 import dev.neuralnexus.taterutils.api.CommandUtils;
 
+import java.util.Optional;
+
 /** Ping Command. */
 public class PingCommand implements Command {
     private String name = "ping";
@@ -48,19 +50,19 @@ public class PingCommand implements Command {
 
         if (args.length == 0) {
             if (sender.isPlayer()) {
-                sender.sendMessage("Your ping is " + sender.getPlayer().getPing() + "ms");
+                sender.sendMessage("Your ping is " + ((Player) sender).getPing() + "ms");
             } else {
                 sender.sendMessage("You must specify a player!");
             }
         } else {
             if (sender.hasPermission("taterutils.command.ping.others")) {
-                Player target =
+                Optional<Player> target =
                         TaterAPIProvider.get().getServer().getOnlinePlayers().stream()
                                 .filter(player -> player.getName().equalsIgnoreCase(args[0]))
-                                .findFirst()
-                                .orElse(null);
-                if (target != null) {
-                    sender.sendMessage(target.getName() + "'s ping is " + target.getPing() + "ms");
+                                .findFirst();
+                if (target.isPresent()) {
+                    sender.sendMessage(
+                            target.get().getName() + "'s ping is " + target.get().getPing() + "ms");
                 } else {
                     sender.sendMessage("Player not found!");
                 }

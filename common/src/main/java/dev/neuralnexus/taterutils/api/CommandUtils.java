@@ -22,7 +22,7 @@ public class CommandUtils {
      * @return True if the sender is a player.
      */
     public static boolean senderIsPlayer(Sender sender) {
-        if (!(sender.isPlayer())) {
+        if (!sender.isPlayer()) {
             sendMessage(sender, "&cOnly players can use this command.");
             return false;
         }

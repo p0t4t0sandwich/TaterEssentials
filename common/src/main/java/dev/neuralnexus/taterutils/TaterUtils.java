@@ -4,7 +4,10 @@ import dev.neuralnexus.taterlib.api.TaterAPIProvider;
 import dev.neuralnexus.taterlib.logger.AbstractLogger;
 import dev.neuralnexus.taterutils.api.TaterUtilsAPI;
 import dev.neuralnexus.taterutils.api.TaterUtilsAPIProvider;
+import dev.neuralnexus.taterutils.modules.alert.AlertModule;
+import dev.neuralnexus.taterutils.modules.badspawns.BadSpawnsModule;
 import dev.neuralnexus.taterutils.modules.chatformatter.ChatFormatterModule;
+import dev.neuralnexus.taterutils.modules.gamemode.GameModeModule;
 import dev.neuralnexus.taterutils.modules.home.HomeModule;
 import dev.neuralnexus.taterutils.modules.joinandquit.JoinAndQuitModule;
 import dev.neuralnexus.taterutils.modules.mclogs.MCLogsModule;
@@ -86,11 +89,20 @@ public class TaterUtils {
 
         if (!RELOADED) {
             // Register modules
-            if (TaterUtilsConfig.isModuleEnabled("home")) {
-                TaterUtilsModuleLoader.registerModule(new HomeModule());
+            if (TaterUtilsConfig.isModuleEnabled("alert")) {
+                TaterUtilsModuleLoader.registerModule(new AlertModule());
+            }
+            if (TaterUtilsConfig.isModuleEnabled("badSpawns")) {
+                TaterUtilsModuleLoader.registerModule(new BadSpawnsModule());
             }
             if (TaterUtilsConfig.isModuleEnabled("chatFormatter")) {
                 TaterUtilsModuleLoader.registerModule(new ChatFormatterModule());
+            }
+            if (TaterUtilsConfig.isModuleEnabled("gameMode")) {
+                TaterUtilsModuleLoader.registerModule(new GameModeModule());
+            }
+            if (TaterUtilsConfig.isModuleEnabled("home")) {
+                TaterUtilsModuleLoader.registerModule(new HomeModule());
             }
             if (TaterUtilsConfig.isModuleEnabled("joinAndQuit")) {
                 TaterUtilsModuleLoader.registerModule(new JoinAndQuitModule());

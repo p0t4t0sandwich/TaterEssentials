@@ -32,8 +32,8 @@ public class JoinAndQuitModule implements Module {
                                     Utils.substituteSectionSign(
                                             event.getPlayer()
                                                     .parsePlaceholders(
-                                                            TaterUtilsConfig.MotdConfig.getMessage(
-                                                                    "join"))
+                                                            TaterUtilsConfig.JoinAndQuitConfig
+                                                                    .getMessage("join"))
                                                     .getResult())));
             PlayerEvents.LOGOUT.register(
                     event ->
@@ -41,8 +41,8 @@ public class JoinAndQuitModule implements Module {
                                     Utils.substituteSectionSign(
                                             event.getPlayer()
                                                     .parsePlaceholders(
-                                                            TaterUtilsConfig.MotdConfig.getMessage(
-                                                                    "quit"))
+                                                            TaterUtilsConfig.JoinAndQuitConfig
+                                                                    .getMessage("quit"))
                                                     .getResult())));
         }
 

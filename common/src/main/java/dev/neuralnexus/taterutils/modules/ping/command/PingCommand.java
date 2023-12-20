@@ -4,6 +4,7 @@ import dev.neuralnexus.taterlib.api.TaterAPIProvider;
 import dev.neuralnexus.taterlib.command.Command;
 import dev.neuralnexus.taterlib.command.Sender;
 import dev.neuralnexus.taterlib.player.Player;
+import dev.neuralnexus.taterutils.TaterUtilsConfig;
 import dev.neuralnexus.taterutils.api.CommandUtils;
 
 import java.util.Optional;
@@ -50,24 +51,38 @@ public class PingCommand implements Command {
 
         if (args.length == 0) {
             if (sender.isPlayer()) {
-                sender.sendMessage("Your ping is " + ((Player) sender).getPing() + "ms");
+                CommandUtils.sendMessage(
+                        sender,
+                        ((Player) sender)
+                                .parsePlaceholders(
+                                        TaterUtilsConfig.PingConfig.getMessage("pingSelf"))
+                                .parseString("ping", String.valueOf(((Player) sender).getPing()))
+                                .getResult());
             } else {
-                sender.sendMessage("You must specify a player!");
+                CommandUtils.sendMessage(
+                        sender, TaterUtilsConfig.PingConfig.getMessage("specifyPlayer"));
             }
         } else {
-            if (sender.hasPermission("taterutils.command.ping.others")) {
+            if (sender.hasPermission(getPermission() + ".others")) {
                 Optional<Player> target =
                         TaterAPIProvider.get().getServer().getOnlinePlayers().stream()
                                 .filter(player -> player.getName().equalsIgnoreCase(args[0]))
                                 .findFirst();
                 if (target.isPresent()) {
-                    sender.sendMessage(
-                            target.get().getName() + "'s ping is " + target.get().getPing() + "ms");
+                    CommandUtils.sendMessage(
+                            sender,
+                            target.get()
+                                    .parsePlaceholders(
+                                            TaterUtilsConfig.PingConfig.getMessage("pingOther"))
+                                    .parseString("ping", String.valueOf(target.get().getPing()))
+                                    .getResult());
                 } else {
-                    sender.sendMessage("Player not found!");
+                    CommandUtils.sendMessage(
+                            sender, TaterUtilsConfig.PingConfig.getMessage("playerNotFound"));
                 }
             } else {
-                sender.sendMessage("You do not have permission to view other players' ping!");
+                CommandUtils.sendMessage(
+                        sender, TaterUtilsConfig.PingConfig.getMessage("pingOtherDenied"));
             }
         }
         return true;

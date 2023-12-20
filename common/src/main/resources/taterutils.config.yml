@@ -1,6 +1,13 @@
 ---
 version: 1
 
+# Common Player Placeholders:
+#   %player% - Player name
+#   %displayname% - Player display name
+#   %server% - Server name
+#   %prefix% - Player prefix
+#   %suffix% - Player suffix
+
 modules:
   alert:
     enabled: true
@@ -13,12 +20,7 @@ modules:
     messages:
       # Available message placeholders:
       #   %player% - Player name
-      #   %displayname% - Player display name
       #   %message% - Message
-      #   %server% - Server name
-      #   %prefix% - Player prefix
-      #   %suffix% - Player suffix
-      #   %player% - Player name
       playerMessage: "%displayname% >> %message%"
 
   gameMode:
@@ -27,10 +29,6 @@ modules:
       # Available message placeholders:
       #   %gamemode% - The name of the gamemode
       #   %player% - Player name
-      #   %displayname% - Player display name
-      #   %server% - Server name
-      #   %prefix% - Player prefix
-      #   %suffix% - Player suffix
       noPermission: "&cYou do not have permission to use this command!"
       changedSelf: "&aSet gamemode to &e%gamemode%&a!"
       notPlayer: "&cYou must be a player to use this command!"
@@ -44,6 +42,7 @@ modules:
     messages:
       # Available message placeholders:
       #   %home% - The name of the home
+      #   %homes% - A list of the player's homes
       home:
         homeNotSet: "&cYou do not have home &e%home%&c set!"
         teleportedToHome: "&aTeleporting to home &e%home%&a!"
@@ -61,11 +60,7 @@ modules:
     messages:
       # Available message placeholders:
       #   %player% - Player name
-      #   %displayname% - Player display name
       #   %message% - Message
-      #   %server% - Server name
-      #   %prefix% - Player prefix
-      #   %suffix% - Player suffix
       join: "&a%player% joined the game!"
       quit: "&c%player% left the game!"
 
@@ -101,7 +96,7 @@ modules:
 
     messages:
       # Available message placeholders:
-      #   %playername% - The name of the player
+      #   %player% - The name of the player
       #   %blockname% - The name of the block being mined
       #   %oreperminute% - The amount of ore mined per minute
 
@@ -113,6 +108,15 @@ modules:
 
   ping:
     enabled: true
+    messages:
+      # Available message placeholders:
+      #   %player% - The name of the player
+      #   %ping% - The player's ping
+      pingSelf: "&aYour ping is &e%ping%ms&a!"
+      pingOther: "&a%player%'s ping is &e%ping%ms&a!"
+      pingOtherDenied: "&cYou do not have permission to view other players' ping!"
+      specifyPlayer: "&cPlease specify a player!"
+      playerNotFound: "&cPlayer not found!"
 
   send:
     enabled: true

@@ -203,6 +203,18 @@ public class TaterUtilsConfig {
         }
     }
 
+    /** Ping config. */
+    public static class PingConfig {
+        /**
+         * Get a message from the config.
+         *
+         * @param path The path to the message.
+         */
+        public static String getMessage(String path) {
+            return config.getString("modules.ping.messages." + path);
+        }
+    }
+
     /** SlashLobby config. */
     public static class SlashLobbyConfig {
         /**

@@ -17,8 +17,10 @@ shadowJar {
         include(dependency("gs.mclo:api:4.0.0"))
     }
     relocate('dev.dejvokep', "${group_id}.${project_id}.lib.dejvokep")
+    relocate('org.intellij', "${group_id}.${project_id}.lib.intellij")
+    relocate('org.jetbrains', "${group_id}.${project_id}.lib.jetbrains")
     relocate('com.google.gson', "${group_id}.${project_id}.lib.gson")
-    relocate("gs.mclo", "${group_id}.${project_id}.libs.mclogs")
+    relocate("gs.mclo", "${group_id}.${project_id}.lib.mclogs")
 
     destinationDirectory = file('../target')
     archiveFileName = "${project_name}-common-${version}.jar"

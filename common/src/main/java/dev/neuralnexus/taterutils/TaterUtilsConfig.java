@@ -71,7 +71,7 @@ public class TaterUtilsConfig {
      * @param module The module
      */
     public static boolean isModuleEnabled(String module) {
-        return config.getBoolean("modules" + module + ".enabled");
+        return config.getBoolean("modules." + module + ".enabled");
     }
 
     /** BadSpawns config. */

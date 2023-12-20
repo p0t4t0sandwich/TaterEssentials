@@ -74,8 +74,6 @@ public class TaterUtils {
         setLogger(logger);
 
         // Config
-
-        System.out.println(TaterAPIProvider.get().configFolder());
         TaterUtilsConfig.loadConfig(TaterAPIProvider.get().configFolder());
 
         if (STARTED) {

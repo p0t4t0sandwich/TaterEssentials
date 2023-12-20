@@ -12,6 +12,11 @@ commands:
     description: Send an alert to all players
     usage: /alert <message>
     permission: taterlib.command.alert
+  gm:
+    description: Change your gamemode
+    usage: /gm <mode> [player]
+    permission: taterlib.command.gamemode
+    aliases: [ gm, gms, gmc, gma, gmsp ]
   home:
     description: Teleport to a home
     usage: /home [name | del | set | list] [name]

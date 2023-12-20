@@ -13,7 +13,7 @@ public class GameModeModule implements Module {
 
     @Override
     public String getName() {
-        return "Ping";
+        return "GameMode";
     }
 
     @Override
@@ -32,7 +32,6 @@ public class GameModeModule implements Module {
                                 event.registerCommand(
                                         TaterUtils.getPlugin(),
                                         new GameModeCommand(),
-                                        "gm",
                                         "gms",
                                         "gmc",
                                         "gma",

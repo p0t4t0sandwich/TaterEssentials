@@ -13,7 +13,7 @@ import java.util.Optional;
 
 /** Ping Command. */
 public class GameModeCommand implements Command {
-    private String name = "gamemode";
+    private String name = "gm";
 
     @Override
     public String getName() {
@@ -32,7 +32,7 @@ public class GameModeCommand implements Command {
 
     @Override
     public String getUsage() {
-        return "/gamemode <mode> [player]";
+        return "/gm <mode> [player]";
     }
 
     @Override

@@ -1,6 +1,7 @@
 package dev.neuralnexus.taterutils.modules.chatformatter;
 
 import dev.neuralnexus.taterlib.Utils;
+import dev.neuralnexus.taterlib.api.TaterAPIProvider;
 import dev.neuralnexus.taterlib.event.api.PlayerEvents;
 import dev.neuralnexus.taterlib.plugin.Module;
 import dev.neuralnexus.taterutils.TaterUtils;
@@ -27,15 +28,20 @@ public class ChatFormatterModule implements Module {
         if (!RELOADED) {
             // Register listeners
             PlayerEvents.MESSAGE.register(
-                    event ->
-                            event.setMessage(
-                                    Utils.substituteSectionSign(
-                                            event.getPlayer()
-                                                    .parsePlaceholders(
-                                                            TaterUtilsConfig.ChatFormatterConfig
-                                                                    .getMessage("playerMessage"))
-                                                    .parseString("message", event.getMessage())
-                                                    .getResult())));
+                    event -> {
+                        event.setCancelled(true);
+                        TaterAPIProvider.get()
+                                .getServer()
+                                .broadcastMessage(
+                                        Utils.substituteSectionSign(
+                                                event.getPlayer()
+                                                        .parsePlaceholders(
+                                                                TaterUtilsConfig.ChatFormatterConfig
+                                                                        .getMessage(
+                                                                                "playerMessage"))
+                                                        .parseString("message", event.getMessage())
+                                                        .getResult()));
+                    });
         }
 
         TaterUtils.getLogger().info("Submodule " + getName() + " has been started!");

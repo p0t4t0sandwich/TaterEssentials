@@ -1,20 +1,18 @@
 package dev.neuralnexus.taterutils.modules.badspawns;
 
+import dev.neuralnexus.taterlib.api.TaterAPIProvider;
 import dev.neuralnexus.taterlib.entity.Entity;
 import dev.neuralnexus.taterlib.event.api.EntityEvents;
 import dev.neuralnexus.taterlib.plugin.Module;
 import dev.neuralnexus.taterutils.TaterUtils;
 import dev.neuralnexus.taterutils.TaterUtilsConfig;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 /** BadSpawns module. */
 public class BadSpawnsModule implements Module {
-    public static ArrayList<String> bannedMobs = new ArrayList<>();
-    public static HashMap<String, SpawnRegion> regions = new HashMap<>();
+    public static Set<String> bannedMobs = new HashSet<>();
+    public static Map<String, SpawnRegion> regions = new HashMap<>();
     private static boolean STARTED = false;
     private static boolean RELOADED = false;
 
@@ -31,9 +29,11 @@ public class BadSpawnsModule implements Module {
         }
         STARTED = true;
 
-        for (String mob : TaterUtilsConfig.BadSpawnsConfig.getBannedMobs()) {
-            bannedMobs.add("entity." + mob.replace(":", "."));
-        }
+        bannedMobs.addAll(TaterUtilsConfig.BadSpawnsConfig.getBannedMobs());
+
+        // Test
+        bannedMobs.add("minecraft:zombie");
+        //
 
         for (Map<?, ?> region : TaterUtilsConfig.BadSpawnsConfig.getRegions()) {
             String name = (String) region.get("name");
@@ -61,22 +61,24 @@ public class BadSpawnsModule implements Module {
         }
 
         if (!RELOADED) {
-            // Register listeners
-            EntityEvents.SPAWN.register(
-                    event -> {
-                        Entity entity = event.getEntity();
+            if (!TaterAPIProvider.serverType().isProxy()) {
+                // Register listeners
+                EntityEvents.SPAWN.register(
+                        event -> {
+                            Entity entity = event.getEntity();
 
-                        // Check banned mobs
-                        if (bannedMobs.contains(entity.getType())) {
-                            entity.remove();
-                        }
-                        // Check regions
-                        for (SpawnRegion region : regions.values()) {
-                            if (region.calculate(entity)) {
-                                entity.remove();
+                            // Check banned mobs
+                            if (bannedMobs.contains(entity.getType())) {
+                                event.setCancelled(true);
                             }
-                        }
-                    });
+                            // Check regions
+                            for (SpawnRegion region : regions.values()) {
+                                if (region.calculate(entity)) {
+                                    event.setCancelled(true);
+                                }
+                            }
+                        });
+            }
         }
 
         TaterUtils.getLogger().info("Submodule " + getName() + " has been started!");

@@ -27,7 +27,7 @@ public class MCLogsAPI {
         client.setProjectVersion(TaterUtils.Constants.PROJECT_VERSION);
         client.setCustomUserAgent(
                 "TaterUtils-MCLogsModule/" + TaterUtils.Constants.PROJECT_VERSION);
-        client.setMinecraftVersion(TaterAPIProvider.get().minecraftVersion().getVersion());
+        client.setMinecraftVersion(TaterAPIProvider.minecraftVersion().getVersion());
     }
 
     /**

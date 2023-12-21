@@ -42,22 +42,31 @@ public class MCLogsCommand implements Command {
         }
         MCLogsAPI api = TaterUtilsAPIProvider.get().getMCLogsAPI();
 
-        switch (args.length) {
-            case 0:
-                sender.sendMessage("§cUsage: " + getUsage());
-                break;
-            case 1:
-                switch (args[0]) {
-                    case "upload":
-                    case "list":
-                    case "get":
-                        sender.sendMessage("Not implemented yet.");
-                        break;
-                    default:
-                        sender.sendMessage("§cUsage: " + getUsage());
-                        break;
+        if (args.length == 0) {
+            sender.sendMessage("§cUsage: " + getUsage());
+            return true;
+        }
+        switch (args[0]) {
+            case "list":
+                if (args.length == 1) {
+                    sender.sendMessage("§cUsage: " + getUsage()); // TODO add as message
+                    return true;
+                }
+            case "upload":
+                if (args.length == 1) {
+                    sender.sendMessage("§cUsage: " + getUsage()); // TODO add as message
+                    return true;
                 }
                 break;
+            case "get":
+                if (args.length == 1) {
+                    sender.sendMessage("§cUsage: " + getUsage()); // TODO add as message
+                    return true;
+                }
+                break;
+            default:
+                sender.sendMessage("§cUsage: " + getUsage()); // TODO add as message
+                return true;
         }
         return true;
     }

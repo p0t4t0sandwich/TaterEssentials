@@ -1,51 +1,16 @@
-plugins {
-    id('com.github.johnrengelman.shadow') version('8.1.1')
-}
-
 dependencies {
-    implementation(project(path: ':common', configuration: 'shadow'))
-
-    // Spigot
-    compileOnly("org.spigotmc:spigot-api:${minecraft_version}-${bukkit_version}")
-
-    // TaterLib
-    compileOnly("dev.neuralnexus:TaterLib:${taterlib_version}")
+    compileOnly("org.spigotmc:spigot-api:${bukkit_version}")
+    compileOnly(project(':common'))
+    compileOnly("dev.neuralnexus:taterlib-api:${taterlib_version}")
 }
-
-java.disableAutoTargetJvm()
 
 tasks.withType(ProcessResources).configureEach {
-    var replaceProperties = [
-            project_id         : project_id,
-            project_name       : project_name,
-            project_description: project_description,
-            group_id           : group_id,
-            version            : version,
-            authors            : authors,
-    ]
-    inputs.properties replaceProperties
-
     filesMatching(['plugin.yml']) {
-        expand replaceProperties + [project: project]
+        expand project.properties
     }
 }
 
-shadowJar {
-    dependencies {
-        include(project(":common"))
-    }
-
+jar {
     destinationDirectory = file('../../target')
-    archiveFileName = "${project_name}-bukkit-${minecraft_version}-${version}.jar"
-}
-shadowJar.doLast {
-    task ->
-        ant.checksum(file: task.archivePath) {
-            hashAlgorithm = 'md5'
-            property = 'md5sum'
-        }
-}
-
-artifacts {
-    archives(shadowJar)
+    archiveFileName = "${project_name}-bukkit-${version}.jar"
 }

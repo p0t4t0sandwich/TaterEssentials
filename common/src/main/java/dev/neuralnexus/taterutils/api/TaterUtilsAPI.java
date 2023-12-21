@@ -1,6 +1,7 @@
 package dev.neuralnexus.taterutils.api;
 
 import dev.neuralnexus.taterutils.modules.alert.api.AlertAPI;
+import dev.neuralnexus.taterutils.modules.godmode.api.GodModeAPI;
 import dev.neuralnexus.taterutils.modules.home.api.HomeAPI;
 import dev.neuralnexus.taterutils.modules.mclogs.api.MCLogsAPI;
 import dev.neuralnexus.taterutils.modules.orewatcher.api.OreWatcherAPI;
@@ -12,6 +13,7 @@ import dev.neuralnexus.taterutils.modules.warp.api.WarpAPI;
 /** API wrapper class */
 public class TaterUtilsAPI {
     private final AlertAPI alertAPI;
+    private final GodModeAPI godModeAPI;
     private final HomeAPI homeAPI;
     private final MCLogsAPI mclogsAPI;
     private final OreWatcherAPI oreWatcherAPI;
@@ -22,6 +24,7 @@ public class TaterUtilsAPI {
 
     public TaterUtilsAPI() {
         this.alertAPI = new AlertAPI();
+        this.godModeAPI = new GodModeAPI();
         this.homeAPI = new HomeAPI();
         this.mclogsAPI = new MCLogsAPI();
         this.oreWatcherAPI = new OreWatcherAPI();
@@ -38,6 +41,15 @@ public class TaterUtilsAPI {
      */
     public AlertAPI getAlertAPI() {
         return alertAPI;
+    }
+
+    /**
+     * Get the god mode API.
+     *
+     * @return The god mode API.
+     */
+    public GodModeAPI getGodModeAPI() {
+        return godModeAPI;
     }
 
     /**

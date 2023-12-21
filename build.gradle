@@ -18,12 +18,6 @@ subprojects {
         mavenLocal()
         mavenCentral()
 
-        // Minecraft
-        maven {
-            name = "minecraft-repo"
-            url = "https://libraries.minecraft.net/"
-        }
-
         // Bukkit/Bungee
         maven {
             name = "spigotmc-repo"
@@ -47,6 +41,35 @@ subprojects {
             name = "NeuralNexus Snapshots"
             url = "https://maven.neuralnexus.dev/snapshots"
         }
+    }
+}
+
+task taterBuild(type: Jar) {
+    dependsOn(subprojects*.build)
+    archiveFileName = "${project_id}-${version}.jar"
+    destinationDirectory = file("./build/libs")
+    duplicatesStrategy = DuplicatesStrategy.EXCLUDE
+
+    from {
+        fileTree("./target").findAll {
+            it.name.contains('jar')
+        }.collect {
+            if (it.name.contains('-forge')) {
+                zipTree(it).matching {
+                    exclude 'META-INF/mods.toml'
+                }
+            } else if (it.name.contains('sponge7')) {
+                zipTree(it).matching {
+                    exclude('META-INF/sponge_plugins.json')
+                    exclude('mcmod.info')
+                }
+            } else {
+                zipTree(it)
+            }
+        }
+    }
+    from(["README.md", "LICENSE", "LICENSE-API"]) {
+        into("META-INF")
     }
 }
 

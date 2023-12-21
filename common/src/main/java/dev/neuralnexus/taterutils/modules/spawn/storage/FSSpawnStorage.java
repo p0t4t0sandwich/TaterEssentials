@@ -1,7 +1,8 @@
 package dev.neuralnexus.taterutils.modules.spawn.storage;
 
-import dev.neuralnexus.taterlib.lib.gson.Gson;
-import dev.neuralnexus.taterlib.lib.gson.GsonBuilder;
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
+
 import dev.neuralnexus.taterlib.player.Player;
 import dev.neuralnexus.taterlib.storage.Filesystem;
 import dev.neuralnexus.taterlib.utils.Location;
@@ -76,11 +77,18 @@ public class FSSpawnStorage extends Filesystem implements SpawnStorage {
 
     /** {@inheritDoc} */
     @Override
-    public void deleteSpawn() {}
+    public void deleteSpawn() {
+        write(gson.toJson(null));
+    }
 
     /** {@inheritDoc} */
     @Override
     public boolean teleportSpawn(Player player) {
+        Optional<Location> spawn = getSpawn();
+        if (spawn.isPresent()) {
+            player.teleport(spawn.get());
+            return true;
+        }
         return false;
     }
 }

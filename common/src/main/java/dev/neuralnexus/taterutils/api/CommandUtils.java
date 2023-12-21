@@ -2,7 +2,6 @@ package dev.neuralnexus.taterutils.api;
 
 import dev.neuralnexus.taterlib.Utils;
 import dev.neuralnexus.taterlib.command.Sender;
-import dev.neuralnexus.taterlib.player.Player;
 
 /** General command utilities. */
 public class CommandUtils {
@@ -23,7 +22,7 @@ public class CommandUtils {
      * @return True if the sender is a player.
      */
     public static boolean senderIsPlayer(Sender sender) {
-        if (!(sender instanceof Player)) {
+        if (!sender.isPlayer()) {
             sendMessage(sender, "&cOnly players can use this command.");
             return false;
         }

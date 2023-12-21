@@ -1,6 +1,6 @@
 package dev.neuralnexus.taterutils;
 
-import dev.neuralnexus.taterlib.lib.dejvokep.boostedyaml.YamlDocument;
+import dev.dejvokep.boostedyaml.YamlDocument;
 
 import java.io.File;
 import java.io.IOException;
@@ -71,7 +71,7 @@ public class TaterUtilsConfig {
      * @param module The module
      */
     public static boolean isModuleEnabled(String module) {
-        return config.getBoolean("modules" + module + ".enabled");
+        return config.getBoolean("modules." + module + ".enabled");
     }
 
     /** BadSpawns config. */
@@ -95,6 +95,42 @@ public class TaterUtilsConfig {
         }
     }
 
+    /** ChatFormatter config. */
+    public static class ChatFormatterConfig {
+        /**
+         * Get a message from the config.
+         *
+         * @param path The path to the message.
+         */
+        public static String getMessage(String path) {
+            return config.getString("modules.chatFormatter.messages." + path);
+        }
+    }
+
+    /** GameMode config. */
+    public static class GameModeConfig {
+        /**
+         * Get a message from the config.
+         *
+         * @param path The path to the message.
+         */
+        public static String getMessage(String path) {
+            return config.getString("modules.gameMode.messages." + path);
+        }
+    }
+
+    /** GodMode config. */
+    public static class GodModeConfig {
+        /**
+         * Get a message from the config.
+         *
+         * @param path The path to the message.
+         */
+        public static String getMessage(String path) {
+            return config.getString("modules.godMode.messages." + path);
+        }
+    }
+
     /** Home config. */
     public static class HomeConfig {
         /**
@@ -104,6 +140,18 @@ public class TaterUtilsConfig {
          */
         public static String getMessage(String path) {
             return config.getString("modules.home.messages." + path);
+        }
+    }
+
+    /** JoinAndQuit config. */
+    public static class JoinAndQuitConfig {
+        /**
+         * Get a message from the config.
+         *
+         * @param path The path to the message.
+         */
+        public static String getMessage(String path) {
+            return config.getString("modules.joinAndQuit.messages." + path);
         }
     }
 
@@ -164,6 +212,18 @@ public class TaterUtilsConfig {
          */
         public static boolean getPlayerAlertEnabled() {
             return config.getBoolean("modules.oreWatcher.playerAlertEnabled");
+        }
+    }
+
+    /** Ping config. */
+    public static class PingConfig {
+        /**
+         * Get a message from the config.
+         *
+         * @param path The path to the message.
+         */
+        public static String getMessage(String path) {
+            return config.getString("modules.ping.messages." + path);
         }
     }
 

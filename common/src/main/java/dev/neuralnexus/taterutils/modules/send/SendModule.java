@@ -28,7 +28,7 @@ public class SendModule implements Module {
             // Register commands
             CommandEvents.REGISTER_COMMAND.register(
                     (event -> {
-                        if (TaterAPIProvider.get().serverType().isVelocityBased()) {
+                        if (TaterAPIProvider.serverType().isVelocityBased()) {
                             event.registerCommand(TaterUtils.getPlugin(), new SendCommand());
                         }
                     }));

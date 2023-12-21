@@ -30,7 +30,7 @@ public class WarpModule implements Module {
             // Register commands
             CommandEvents.REGISTER_COMMAND.register(
                     (event -> {
-                        if (!TaterAPIProvider.get().serverType().isProxy()) {
+                        if (!TaterAPIProvider.serverType().isProxy()) {
                             event.registerCommand(
                                     TaterUtils.getPlugin(), new WarpCommand(), "warps");
                             event.registerCommand(

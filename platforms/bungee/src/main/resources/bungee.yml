@@ -2,7 +2,8 @@ name: '${project_name}'
 version: '${version}'
 author: '${authors}'
 description: '${project_description}'
-main: '${group_id}.${project_id}.bungee.BungeePlugin'
+website: '${homepage_url}'
+main: '${group_id}.${project_id}.platforms.BungeePlugin'
 depends: [ TaterLib ]
 softdepends: [ LuckPerms ]
 commands:
@@ -10,6 +11,10 @@ commands:
     description: Upload logs to mclo.gs
     usage: /mclogs ...
     permission: taterlib.command.mclogs
+  bping:
+    description: Gets the ping of a player
+    usage: /bping [player]
+    permission: taterlib.command.ping
   slashlobby:
     description: Send yourself to the lobby
     aliases: [ lobby, hub ]

@@ -1,6 +1,7 @@
 package dev.neuralnexus.taterutils.modules.alert;
 
 import dev.neuralnexus.taterlib.api.TaterAPIProvider;
+import dev.neuralnexus.taterlib.command.Command;
 import dev.neuralnexus.taterlib.event.api.CommandEvents;
 import dev.neuralnexus.taterlib.plugin.Module;
 import dev.neuralnexus.taterutils.TaterUtils;
@@ -28,8 +29,12 @@ public class AlertModule implements Module {
             // Register commands
             CommandEvents.REGISTER_COMMAND.register(
                     (event -> {
-                        if (!TaterAPIProvider.get().serverType().isBungeeCordBased()) {
-                            event.registerCommand(TaterUtils.getPlugin(), new AlertCommand());
+                        if (!TaterAPIProvider.serverType().isBungeeCordBased()) {
+                            Command command = new AlertCommand();
+                            if (TaterAPIProvider.serverType().isVelocityBased()) {
+                                command.setName("valert");
+                            }
+                            event.registerCommand(TaterUtils.getPlugin(), command);
                         }
                     }));
         }

@@ -77,11 +77,18 @@ public class FSSpawnStorage extends Filesystem implements SpawnStorage {
 
     /** {@inheritDoc} */
     @Override
-    public void deleteSpawn() {}
+    public void deleteSpawn() {
+        write(gson.toJson(null));
+    }
 
     /** {@inheritDoc} */
     @Override
     public boolean teleportSpawn(Player player) {
+        Optional<Location> spawn = getSpawn();
+        if (spawn.isPresent()) {
+            player.teleport(spawn.get());
+            return true;
+        }
         return false;
     }
 }

@@ -9,6 +9,7 @@ import dev.neuralnexus.taterutils.modules.spawn.storage.SpawnStorage;
 
 import java.util.Optional;
 
+/** API for the Spawn module. */
 public class SpawnAPI {
     private final SpawnStorage database;
 
@@ -16,7 +17,7 @@ public class SpawnAPI {
         this.database =
                 new FSSpawnStorage(
                         new Database.DatabaseConfig(
-                                TaterUtils.Constants.PROJECT_NAME, 0, "warpData", "", ""));
+                                TaterUtils.Constants.PROJECT_NAME, 0, "spawnData", "", ""));
     }
 
     /**

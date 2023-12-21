@@ -17,6 +17,11 @@ commands:
     usage: /gm <mode> [player]
     permission: taterlib.command.gamemode
     aliases: [ gm, gms, gmc, gma, gmsp ]
+  godmode:
+    description: Toggle godmode for a player
+    usage: /godmode [player]
+    permission: taterlib.command.godmode
+    aliases: [ god ]
   home:
     description: Teleport to a home
     usage: /home [name | del | set | list] [name]

@@ -119,6 +119,18 @@ public class TaterUtilsConfig {
         }
     }
 
+    /** GodMode config. */
+    public static class GodModeConfig {
+        /**
+         * Get a message from the config.
+         *
+         * @param path The path to the message.
+         */
+        public static String getMessage(String path) {
+            return config.getString("modules.godMode.messages." + path);
+        }
+    }
+
     /** Home config. */
     public static class HomeConfig {
         /**

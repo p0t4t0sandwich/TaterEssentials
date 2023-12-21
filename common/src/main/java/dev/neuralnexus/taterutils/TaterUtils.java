@@ -8,6 +8,7 @@ import dev.neuralnexus.taterutils.modules.alert.AlertModule;
 import dev.neuralnexus.taterutils.modules.badspawns.BadSpawnsModule;
 import dev.neuralnexus.taterutils.modules.chatformatter.ChatFormatterModule;
 import dev.neuralnexus.taterutils.modules.gamemode.GameModeModule;
+import dev.neuralnexus.taterutils.modules.godmode.GodModeModule;
 import dev.neuralnexus.taterutils.modules.home.HomeModule;
 import dev.neuralnexus.taterutils.modules.joinandquit.JoinAndQuitModule;
 import dev.neuralnexus.taterutils.modules.mclogs.MCLogsModule;
@@ -98,6 +99,9 @@ public class TaterUtils {
             }
             if (TaterUtilsConfig.isModuleEnabled("gameMode")) {
                 TaterUtilsModuleLoader.registerModule(new GameModeModule());
+            }
+            if (TaterUtilsConfig.isModuleEnabled("godMode")) {
+                TaterUtilsModuleLoader.registerModule(new GodModeModule());
             }
             if (TaterUtilsConfig.isModuleEnabled("home")) {
                 TaterUtilsModuleLoader.registerModule(new HomeModule());

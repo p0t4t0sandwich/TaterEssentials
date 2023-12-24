@@ -54,7 +54,11 @@ public class HomeCommand implements Command {
         String message = "";
         if (args.length == 0) {
             if (!api.teleportHome(player, "home")) {
-                message = TaterUtilsConfig.HomeConfig.getMessage("home.homeNotSet");
+                message =
+                        new PlaceholderParser(
+                                        TaterUtilsConfig.HomeConfig.getMessage("home.homeNotSet"))
+                                .parseString("home", "home")
+                                .getResult();
             } else {
                 message =
                         new PlaceholderParser(

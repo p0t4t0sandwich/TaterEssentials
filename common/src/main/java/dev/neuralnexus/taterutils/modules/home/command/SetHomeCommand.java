@@ -55,14 +55,14 @@ public class SetHomeCommand implements Command {
         if (args.length == 0) {
             message = TaterUtilsConfig.HomeConfig.getMessage("home.noName");
         } else {
-            if (api.getInvalidHomeNames().contains(args[1])) {
+            if (api.getInvalidHomeNames().contains(args[0])) {
                 message = TaterUtilsConfig.HomeConfig.getMessage("home.invalidName");
             } else {
                 api.setHome(player, args[0], player.getLocation());
                 message =
                         new PlaceholderParser(
                                         TaterUtilsConfig.HomeConfig.getMessage("setHome.success"))
-                                .parseString("name", args[0])
+                                .parseString("home", args[0])
                                 .getResult();
             }
         }

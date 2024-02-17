@@ -1,6 +1,7 @@
 package dev.neuralnexus.taterutils.modules.gamemode;
 
 import dev.neuralnexus.taterlib.api.TaterAPIProvider;
+import dev.neuralnexus.taterlib.command.Command;
 import dev.neuralnexus.taterlib.event.api.CommandEvents;
 import dev.neuralnexus.taterlib.plugin.PluginModule;
 import dev.neuralnexus.taterutils.TaterUtils;
@@ -28,14 +29,26 @@ public class GameModeModule implements PluginModule {
             // Register commands
             if (!TaterAPIProvider.serverType().isProxy()) {
                 CommandEvents.REGISTER_COMMAND.register(
-                        event ->
-                                event.registerCommand(
-                                        TaterUtils.plugin(),
-                                        new GameModeCommand(),
-                                        "gms",
-                                        "gmc",
-                                        "gma",
-                                        "gmsp"));
+                        event -> {
+                            // TODO: Refactor to use aliases once Brig aliases are patched upstream
+                            // event.registerCommand(TaterUtils.plugin(), command, "gms", "gmc",
+                            // "gma", "gmsp");
+                            Command gamemode = new GameModeCommand();
+                            Command gms = new GameModeCommand();
+                            gms.setName("gms");
+                            Command gmc = new GameModeCommand();
+                            gmc.setName("gmc");
+                            Command gma = new GameModeCommand();
+                            gma.setName("gma");
+                            Command gmsp = new GameModeCommand();
+                            gmsp.setName("gmsp");
+
+                            event.registerCommand(TaterUtils.plugin(), gamemode, "gamemode");
+                            event.registerCommand(TaterUtils.plugin(), gms);
+                            event.registerCommand(TaterUtils.plugin(), gmc);
+                            event.registerCommand(TaterUtils.plugin(), gma);
+                            event.registerCommand(TaterUtils.plugin(), gmsp);
+                        });
             }
         }
 

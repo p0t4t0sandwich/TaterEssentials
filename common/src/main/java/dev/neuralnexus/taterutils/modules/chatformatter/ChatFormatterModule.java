@@ -3,24 +3,24 @@ package dev.neuralnexus.taterutils.modules.chatformatter;
 import dev.neuralnexus.taterlib.Utils;
 import dev.neuralnexus.taterlib.api.TaterAPIProvider;
 import dev.neuralnexus.taterlib.event.api.PlayerEvents;
-import dev.neuralnexus.taterlib.plugin.Module;
+import dev.neuralnexus.taterlib.plugin.PluginModule;
 import dev.neuralnexus.taterutils.TaterUtils;
 import dev.neuralnexus.taterutils.TaterUtilsConfig;
 
 /** ChatFormatter module. */
-public class ChatFormatterModule implements Module {
+public class ChatFormatterModule implements PluginModule {
     private static boolean STARTED = false;
     private static boolean RELOADED = false;
 
     @Override
-    public String getName() {
+    public String name() {
         return "ChatFormatter";
     }
 
     @Override
     public void start() {
         if (STARTED) {
-            TaterUtils.getLogger().info("Submodule " + getName() + " has already started!");
+            TaterUtils.logger().info("Submodule " + name() + " has already started!");
             return;
         }
         STARTED = true;
@@ -34,36 +34,36 @@ public class ChatFormatterModule implements Module {
                                 .getServer()
                                 .broadcastMessage(
                                         Utils.substituteSectionSign(
-                                                event.getPlayer()
+                                                event.player()
                                                         .parsePlaceholders(
                                                                 TaterUtilsConfig.ChatFormatterConfig
                                                                         .getMessage(
                                                                                 "playerMessage"))
-                                                        .parseString("message", event.getMessage())
+                                                        .parseString("message", event.message())
                                                         .getResult()));
                     });
         }
 
-        TaterUtils.getLogger().info("Submodule " + getName() + " has been started!");
+        TaterUtils.logger().info("Submodule " + name() + " has been started!");
     }
 
     @Override
     public void stop() {
         if (!STARTED) {
-            TaterUtils.getLogger().info("Submodule " + getName() + " has already stopped!");
+            TaterUtils.logger().info("Submodule " + name() + " has already stopped!");
             return;
         }
         STARTED = false;
 
         // Remove references to objects
 
-        TaterUtils.getLogger().info("Submodule " + getName() + " has been stopped!");
+        TaterUtils.logger().info("Submodule " + name() + " has been stopped!");
     }
 
     @Override
     public void reload() {
         if (!STARTED) {
-            TaterUtils.getLogger().info("Submodule " + getName() + " has not been started!");
+            TaterUtils.logger().info("Submodule " + name() + " has not been started!");
             return;
         }
         RELOADED = true;
@@ -74,6 +74,6 @@ public class ChatFormatterModule implements Module {
         // Start
         start();
 
-        TaterUtils.getLogger().info("Submodule " + getName() + " has been reloaded!");
+        TaterUtils.logger().info("Submodule " + name() + " has been reloaded!");
     }
 }

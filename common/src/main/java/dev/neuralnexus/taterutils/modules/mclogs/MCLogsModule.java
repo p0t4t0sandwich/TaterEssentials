@@ -3,24 +3,24 @@ package dev.neuralnexus.taterutils.modules.mclogs;
 import dev.neuralnexus.taterlib.api.TaterAPIProvider;
 import dev.neuralnexus.taterlib.command.Command;
 import dev.neuralnexus.taterlib.event.api.CommandEvents;
-import dev.neuralnexus.taterlib.plugin.Module;
+import dev.neuralnexus.taterlib.plugin.PluginModule;
 import dev.neuralnexus.taterutils.TaterUtils;
 import dev.neuralnexus.taterutils.modules.mclogs.command.MCLogsCommand;
 
 /** MCLogs module. */
-public class MCLogsModule implements Module {
+public class MCLogsModule implements PluginModule {
     private static boolean STARTED = false;
     private static boolean RELOADED = false;
 
     @Override
-    public String getName() {
+    public String name() {
         return "MCLogs";
     }
 
     @Override
     public void start() {
         if (STARTED) {
-            TaterUtils.getLogger().info("Submodule " + getName() + " has already started!");
+            TaterUtils.logger().info("Submodule " + name() + " has already started!");
             return;
         }
         STARTED = true;
@@ -35,30 +35,30 @@ public class MCLogsModule implements Module {
                         } else if (TaterAPIProvider.serverType().isVelocityBased()) {
                             command.setName("vmclogs");
                         }
-                        event.registerCommand(TaterUtils.getPlugin(), command);
+                        event.registerCommand(TaterUtils.plugin(), command);
                     });
         }
 
-        TaterUtils.getLogger().info("Submodule " + getName() + " has been started!");
+        TaterUtils.logger().info("Submodule " + name() + " has been started!");
     }
 
     @Override
     public void stop() {
         if (!STARTED) {
-            TaterUtils.getLogger().info("Submodule " + getName() + " has already stopped!");
+            TaterUtils.logger().info("Submodule " + name() + " has already stopped!");
             return;
         }
         STARTED = false;
 
         // Remove references to objects
 
-        TaterUtils.getLogger().info("Submodule " + getName() + " has been stopped!");
+        TaterUtils.logger().info("Submodule " + name() + " has been stopped!");
     }
 
     @Override
     public void reload() {
         if (!STARTED) {
-            TaterUtils.getLogger().info("Submodule " + getName() + " has not been started!");
+            TaterUtils.logger().info("Submodule " + name() + " has not been started!");
             return;
         }
         RELOADED = true;
@@ -69,6 +69,6 @@ public class MCLogsModule implements Module {
         // Start
         start();
 
-        TaterUtils.getLogger().info("Submodule " + getName() + " has been reloaded!");
+        TaterUtils.logger().info("Submodule " + name() + " has been reloaded!");
     }
 }

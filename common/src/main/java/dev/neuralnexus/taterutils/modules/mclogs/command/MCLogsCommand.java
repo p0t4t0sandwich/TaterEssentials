@@ -1,7 +1,7 @@
 package dev.neuralnexus.taterutils.modules.mclogs.command;
 
 import dev.neuralnexus.taterlib.command.Command;
-import dev.neuralnexus.taterlib.command.Sender;
+import dev.neuralnexus.taterlib.command.CommandSender;
 import dev.neuralnexus.taterutils.api.CommandUtils;
 import dev.neuralnexus.taterutils.api.TaterUtilsAPIProvider;
 import dev.neuralnexus.taterutils.modules.mclogs.api.MCLogsAPI;
@@ -11,7 +11,7 @@ public class MCLogsCommand implements Command {
     private String name = "mclogs";
 
     @Override
-    public String getName() {
+    public String name() {
         return name;
     }
 
@@ -21,51 +21,51 @@ public class MCLogsCommand implements Command {
     }
 
     @Override
-    public String getDescription() {
+    public String description() {
         return "Upload logs to mclo.gs.";
     }
 
     @Override
-    public String getUsage() {
+    public String usage() {
         return "/mclogs <upload | list | get>";
     }
 
     @Override
-    public String getPermission() {
+    public String permission() {
         return "taterutils.command.alert";
     }
 
     @Override
-    public boolean execute(Sender sender, String label, String[] args) {
-        if (!CommandUtils.senderHasPermission(sender, getPermission())) {
+    public boolean execute(CommandSender sender, String label, String[] args) {
+        if (!CommandUtils.senderHasPermission(sender, permission())) {
             return true;
         }
-        MCLogsAPI api = TaterUtilsAPIProvider.get().getMCLogsAPI();
+        MCLogsAPI api = TaterUtilsAPIProvider.get().mcLogsAPI();
 
         if (args.length == 0) {
-            sender.sendMessage("§cUsage: " + getUsage());
+            sender.sendMessage("§cUsage: " + usage());
             return true;
         }
         switch (args[0]) {
             case "list":
                 if (args.length == 1) {
-                    sender.sendMessage("§cUsage: " + getUsage()); // TODO add as message
+                    sender.sendMessage("§cUsage: " + usage()); // TODO add as message
                     return true;
                 }
             case "upload":
                 if (args.length == 1) {
-                    sender.sendMessage("§cUsage: " + getUsage()); // TODO add as message
+                    sender.sendMessage("§cUsage: " + usage()); // TODO add as message
                     return true;
                 }
                 break;
             case "get":
                 if (args.length == 1) {
-                    sender.sendMessage("§cUsage: " + getUsage()); // TODO add as message
+                    sender.sendMessage("§cUsage: " + usage()); // TODO add as message
                     return true;
                 }
                 break;
             default:
-                sender.sendMessage("§cUsage: " + getUsage()); // TODO add as message
+                sender.sendMessage("§cUsage: " + usage()); // TODO add as message
                 return true;
         }
         return true;

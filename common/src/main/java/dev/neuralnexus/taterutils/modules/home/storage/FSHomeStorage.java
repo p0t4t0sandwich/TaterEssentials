@@ -86,17 +86,9 @@ public class FSHomeStorage extends Filesystem implements HomeStorage {
         if (homes.stream().anyMatch(h -> h.getName().equals(home))) {
             homes.removeIf(h -> h.getName().equals(home));
         }
-        homes.add(
-                new NamedLocation(
-                        home,
-                        location.getWorld(),
-                        location.getX(),
-                        location.getY(),
-                        location.getZ(),
-                        location.getYaw(),
-                        location.getPitch()));
+        homes.add(new NamedLocation(home, location));
         String json = gson.toJson(homes);
-        write(player.getUniqueId().toString(), json);
+        write(player.uuid().toString(), json);
     }
 
     /** {@inheritDoc} */
@@ -105,13 +97,13 @@ public class FSHomeStorage extends Filesystem implements HomeStorage {
         Set<NamedLocation> homes = getHomes(player);
         homes.removeIf(h -> h.getName().equals(home));
         String json = gson.toJson(homes);
-        write(player.getUniqueId().toString(), json);
+        write(player.uuid().toString(), json);
     }
 
     /** {@inheritDoc} */
     @Override
     public Set<NamedLocation> getHomes(Player player) {
-        String json = read(player.getUniqueId().toString());
+        String json = read(player.uuid().toString());
         Set<NamedLocation> homes = gson.fromJson(json, NamedLocation.getType());
         return homes == null ? new java.util.HashSet<>() : homes;
     }

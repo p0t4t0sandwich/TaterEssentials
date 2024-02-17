@@ -2,26 +2,26 @@ package dev.neuralnexus.taterutils.modules.spawn;
 
 import dev.neuralnexus.taterlib.api.TaterAPIProvider;
 import dev.neuralnexus.taterlib.event.api.CommandEvents;
-import dev.neuralnexus.taterlib.plugin.Module;
+import dev.neuralnexus.taterlib.plugin.PluginModule;
 import dev.neuralnexus.taterutils.TaterUtils;
 import dev.neuralnexus.taterutils.modules.spawn.command.DelSpawnCommand;
 import dev.neuralnexus.taterutils.modules.spawn.command.SetSpawnCommand;
 import dev.neuralnexus.taterutils.modules.spawn.command.SpawnCommand;
 
 /** Spawn module. */
-public class SpawnModule implements Module {
+public class SpawnModule implements PluginModule {
     private static boolean STARTED = false;
     private static boolean RELOADED = false;
 
     @Override
-    public String getName() {
+    public String name() {
         return "Spawn";
     }
 
     @Override
     public void start() {
         if (STARTED) {
-            TaterUtils.getLogger().info("Submodule " + getName() + " has already started!");
+            TaterUtils.logger().info("Submodule " + name() + " has already started!");
             return;
         }
         STARTED = true;
@@ -31,14 +31,14 @@ public class SpawnModule implements Module {
             CommandEvents.REGISTER_COMMAND.register(
                     (event -> {
                         if (!TaterAPIProvider.serverType().isProxy()) {
-                            event.registerCommand(TaterUtils.getPlugin(), new SpawnCommand());
+                            event.registerCommand(TaterUtils.plugin(), new SpawnCommand());
                             event.registerCommand(
-                                    TaterUtils.getPlugin(),
+                                    TaterUtils.plugin(),
                                     new SetSpawnCommand(),
                                     "addspawn",
                                     "createspawn");
                             event.registerCommand(
-                                    TaterUtils.getPlugin(),
+                                    TaterUtils.plugin(),
                                     new DelSpawnCommand(),
                                     "deletespawn",
                                     "removespawn",
@@ -47,13 +47,13 @@ public class SpawnModule implements Module {
                     }));
         }
 
-        TaterUtils.getLogger().info("Submodule " + getName() + " has been started!");
+        TaterUtils.logger().info("Submodule " + name() + " has been started!");
     }
 
     @Override
     public void stop() {
         if (!STARTED) {
-            TaterUtils.getLogger().info("Submodule " + getName() + " has already stopped!");
+            TaterUtils.logger().info("Submodule " + name() + " has already stopped!");
             return;
         }
         STARTED = false;
@@ -61,13 +61,13 @@ public class SpawnModule implements Module {
 
         // Remove references to objects
 
-        TaterUtils.getLogger().info("Submodule " + getName() + " has been stopped!");
+        TaterUtils.logger().info("Submodule " + name() + " has been stopped!");
     }
 
     @Override
     public void reload() {
         if (!STARTED) {
-            TaterUtils.getLogger().info("Submodule " + getName() + " has not been started!");
+            TaterUtils.logger().info("Submodule " + name() + " has not been started!");
             return;
         }
         RELOADED = true;
@@ -78,6 +78,6 @@ public class SpawnModule implements Module {
         // Start
         start();
 
-        TaterUtils.getLogger().info("Submodule " + getName() + " has been reloaded!");
+        TaterUtils.logger().info("Submodule " + name() + " has been reloaded!");
     }
 }

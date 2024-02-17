@@ -2,18 +2,20 @@ package dev.neuralnexus.taterutils.modules.tpa.command;
 
 import dev.neuralnexus.taterlib.api.TaterAPIProvider;
 import dev.neuralnexus.taterlib.command.Command;
-import dev.neuralnexus.taterlib.command.Sender;
+import dev.neuralnexus.taterlib.command.CommandSender;
 import dev.neuralnexus.taterlib.player.Player;
 import dev.neuralnexus.taterutils.api.CommandUtils;
 import dev.neuralnexus.taterutils.api.TaterUtilsAPIProvider;
 import dev.neuralnexus.taterutils.modules.tpa.api.TpaAPI;
+
+import java.util.Optional;
 
 /** TpHere Command. */
 public class TpHereCommand implements Command {
     private String name = "tphere";
 
     @Override
-    public String getName() {
+    public String name() {
         return name;
     }
 
@@ -23,46 +25,41 @@ public class TpHereCommand implements Command {
     }
 
     @Override
-    public String getDescription() {
+    public String description() {
         return "Allows players to request another player to teleport to them!";
     }
 
     @Override
-    public String getUsage() {
+    public String usage() {
         return "/tphere <player>";
     }
 
     @Override
-    public String getPermission() {
+    public String permission() {
         return "taterutils.command.tphere";
     }
 
     @Override
-    public String execute(String[] args) {
-        return null;
-    }
-
-    @Override
-    public boolean execute(Sender sender, String label, String[] args) {
-        if (!CommandUtils.senderIsPlayerAndHasPermission(sender, getPermission())) {
+    public boolean execute(CommandSender sender, String label, String[] args) {
+        if (!CommandUtils.senderIsPlayerAndHasPermission(sender, permission())) {
             return true;
         }
         Player player = (Player) sender;
-        TpaAPI api = TaterUtilsAPIProvider.get().getTpaAPI();
+        TpaAPI api = TaterUtilsAPIProvider.get().tpaAPI();
 
         if (args.length == 0) {
             CommandUtils.sendMessage(player, "&aPlease provide a player name!");
         } else {
-            Player target =
-                    TaterAPIProvider.get().getServer().getOnlinePlayers().stream()
-                            .filter(p -> p.getName().equalsIgnoreCase(args[0]))
+            Optional<Player> target =
+                    TaterAPIProvider.get().getServer().onlinePlayers().stream()
+                            .filter(p -> p.name().equalsIgnoreCase(args[0]))
                             .findFirst()
-                            .orElse(null);
-            if (target != null && !api.hasPendingRequest(player)) {
-                api.addRequest(player, target);
+                            .map(p -> (Player) p);
+            if (target.isPresent() && !api.hasPendingRequest(player)) {
+                api.addRequest(player, target.get());
                 CommandUtils.sendMessage(
                         player,
-                        "&aYou have requested &e" + target.getName() + " &ato teleport to you!");
+                        "&aYou have requested &e" + target.get().name() + " &ato teleport to you!");
             } else {
                 CommandUtils.sendMessage(
                         player,

@@ -23,17 +23,17 @@ public class AbstractLocation implements Location {
 
     public AbstractLocation(Location location) {
         this(
-                location.getWorld(),
-                location.getX(),
-                location.getY(),
-                location.getZ(),
-                location.getYaw(),
-                location.getPitch());
+                location.world(),
+                location.x(),
+                location.y(),
+                location.z(),
+                location.yaw(),
+                location.pitch());
     }
 
     /** {@inheritDoc} */
     @Override
-    public double getX() {
+    public double x() {
         return x;
     }
 
@@ -45,13 +45,13 @@ public class AbstractLocation implements Location {
 
     /** {@inheritDoc} */
     @Override
-    public double getBlockX() {
+    public double blockX() {
         return Math.floor(x);
     }
 
     /** {@inheritDoc} */
     @Override
-    public double getY() {
+    public double y() {
         return y;
     }
 
@@ -63,13 +63,13 @@ public class AbstractLocation implements Location {
 
     /** {@inheritDoc} */
     @Override
-    public double getBlockY() {
+    public double blockY() {
         return Math.floor(y);
     }
 
     /** {@inheritDoc} */
     @Override
-    public double getZ() {
+    public double z() {
         return z;
     }
 
@@ -81,13 +81,13 @@ public class AbstractLocation implements Location {
 
     /** {@inheritDoc} */
     @Override
-    public double getBlockZ() {
+    public double blockZ() {
         return Math.floor(z);
     }
 
     /** {@inheritDoc} */
     @Override
-    public float getYaw() {
+    public float yaw() {
         return yaw;
     }
 
@@ -99,7 +99,7 @@ public class AbstractLocation implements Location {
 
     /** {@inheritDoc} */
     @Override
-    public float getPitch() {
+    public float pitch() {
         return pitch;
     }
 
@@ -109,15 +109,14 @@ public class AbstractLocation implements Location {
         this.pitch = pitch;
     }
 
-    /** {@inheritDoc} */
     @Override
-    public Position getBlockPosition() {
-        return new Position(getBlockX(), getBlockY(), getBlockZ());
+    public Position blockPosition() {
+        return new Position(blockX(), blockY(), blockZ());
     }
 
     /** {@inheritDoc} */
     @Override
-    public String getWorld() {
+    public String world() {
         return world;
     }
 

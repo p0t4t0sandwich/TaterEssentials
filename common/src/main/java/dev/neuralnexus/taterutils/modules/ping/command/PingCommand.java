@@ -2,8 +2,9 @@ package dev.neuralnexus.taterutils.modules.ping.command;
 
 import dev.neuralnexus.taterlib.api.TaterAPIProvider;
 import dev.neuralnexus.taterlib.command.Command;
-import dev.neuralnexus.taterlib.command.Sender;
+import dev.neuralnexus.taterlib.command.CommandSender;
 import dev.neuralnexus.taterlib.player.Player;
+import dev.neuralnexus.taterlib.player.SimplePlayer;
 import dev.neuralnexus.taterutils.TaterUtilsConfig;
 import dev.neuralnexus.taterutils.api.CommandUtils;
 
@@ -14,7 +15,7 @@ public class PingCommand implements Command {
     private String name = "ping";
 
     @Override
-    public String getName() {
+    public String name() {
         return name;
     }
 
@@ -24,28 +25,23 @@ public class PingCommand implements Command {
     }
 
     @Override
-    public String getDescription() {
+    public String description() {
         return "Gets the ping of a player";
     }
 
     @Override
-    public String getUsage() {
+    public String usage() {
         return "/ping [player]";
     }
 
     @Override
-    public String getPermission() {
+    public String permission() {
         return "taterutils.command.ping";
     }
 
     @Override
-    public String execute(String[] args) {
-        return null;
-    }
-
-    @Override
-    public boolean execute(Sender sender, String label, String[] args) {
-        if (!CommandUtils.senderHasPermission(sender, getPermission())) {
+    public boolean execute(CommandSender sender, String label, String[] args) {
+        if (!CommandUtils.senderHasPermission(sender, permission())) {
             return true;
         }
 
@@ -56,17 +52,17 @@ public class PingCommand implements Command {
                         ((Player) sender)
                                 .parsePlaceholders(
                                         TaterUtilsConfig.PingConfig.getMessage("pingSelf"))
-                                .parseString("ping", String.valueOf(((Player) sender).getPing()))
+                                .parseString("ping", String.valueOf(((Player) sender).ping()))
                                 .getResult());
             } else {
                 CommandUtils.sendMessage(
                         sender, TaterUtilsConfig.PingConfig.getMessage("specifyPlayer"));
             }
         } else {
-            if (sender.hasPermission(getPermission() + ".others")) {
-                Optional<Player> target =
-                        TaterAPIProvider.get().getServer().getOnlinePlayers().stream()
-                                .filter(player -> player.getName().equalsIgnoreCase(args[0]))
+            if (sender.hasPermission(permission() + ".others")) {
+                Optional<SimplePlayer> target =
+                        TaterAPIProvider.get().getServer().onlinePlayers().stream()
+                                .filter(player -> player.name().equalsIgnoreCase(args[0]))
                                 .findFirst();
                 if (target.isPresent()) {
                     CommandUtils.sendMessage(
@@ -74,7 +70,7 @@ public class PingCommand implements Command {
                             target.get()
                                     .parsePlaceholders(
                                             TaterUtilsConfig.PingConfig.getMessage("pingOther"))
-                                    .parseString("ping", String.valueOf(target.get().getPing()))
+                                    .parseString("ping", String.valueOf(target.get().ping()))
                                     .getResult());
                 } else {
                     CommandUtils.sendMessage(

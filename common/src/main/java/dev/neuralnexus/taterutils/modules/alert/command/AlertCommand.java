@@ -2,7 +2,7 @@ package dev.neuralnexus.taterutils.modules.alert.command;
 
 import dev.neuralnexus.taterlib.Utils;
 import dev.neuralnexus.taterlib.command.Command;
-import dev.neuralnexus.taterlib.command.Sender;
+import dev.neuralnexus.taterlib.command.CommandSender;
 import dev.neuralnexus.taterutils.api.CommandUtils;
 import dev.neuralnexus.taterutils.api.TaterUtilsAPIProvider;
 import dev.neuralnexus.taterutils.modules.alert.api.AlertAPI;
@@ -12,7 +12,7 @@ public class AlertCommand implements Command {
     private String name = "alert";
 
     @Override
-    public String getName() {
+    public String name() {
         return name;
     }
 
@@ -22,31 +22,26 @@ public class AlertCommand implements Command {
     }
 
     @Override
-    public String getDescription() {
+    public String description() {
         return "Sends an alert to everyone on the server/network.";
     }
 
     @Override
-    public String getUsage() {
+    public String usage() {
         return "/alert <message>";
     }
 
     @Override
-    public String getPermission() {
+    public String permission() {
         return "taterutils.command.alert";
     }
 
     @Override
-    public String execute(String[] args) {
-        return null;
-    }
-
-    @Override
-    public boolean execute(Sender sender, String label, String[] args) {
-        if (!CommandUtils.senderHasPermission(sender, getPermission())) {
+    public boolean execute(CommandSender sender, String label, String[] args) {
+        if (!CommandUtils.senderHasPermission(sender, permission())) {
             return true;
         }
-        AlertAPI api = TaterUtilsAPIProvider.get().getAlertAPI();
+        AlertAPI api = TaterUtilsAPIProvider.get().alertAPI();
 
         api.broadcast(Utils.substituteSectionSign("&4" + String.join(" ", args)));
         return true;

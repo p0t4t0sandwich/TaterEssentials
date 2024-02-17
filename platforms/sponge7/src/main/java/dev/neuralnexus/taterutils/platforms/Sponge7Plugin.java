@@ -19,6 +19,10 @@ import org.spongepowered.api.plugin.PluginContainer;
 public class Sponge7Plugin implements TaterUtilsPlugin {
     @Inject
     public Sponge7Plugin(PluginContainer container, Logger logger) {
-        pluginStart(container, new LoggerAdapter(TaterUtils.Constants.PROJECT_NAME, logger));
+        pluginStart(
+                container,
+                null,
+                logger,
+                new LoggerAdapter(TaterUtils.Constants.PROJECT_NAME, logger));
     }
 }

@@ -28,6 +28,17 @@ public class NamedLocation {
         this.pitch = pitch;
     }
 
+    public NamedLocation(String name, Location location) {
+        this(
+                name,
+                location.world(),
+                location.x(),
+                location.y(),
+                location.z(),
+                location.yaw(),
+                location.pitch());
+    }
+
     /** Get type */
     public static Type getType() {
         return new TypeToken<Set<NamedLocation>>() {}.getType();

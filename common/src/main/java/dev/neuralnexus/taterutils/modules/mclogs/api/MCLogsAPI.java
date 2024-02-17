@@ -40,7 +40,7 @@ public class MCLogsAPI {
         try {
             return Optional.ofNullable(client.uploadLog(log).get());
         } catch (InterruptedException | ExecutionException e) {
-            TaterUtils.getLogger().info("Failed to upload log.");
+            TaterUtils.logger().info("Failed to upload log.");
             return Optional.empty();
         }
     }
@@ -55,7 +55,7 @@ public class MCLogsAPI {
         try {
             return Optional.ofNullable(client.getRawLogContent(id).get());
         } catch (InterruptedException | ExecutionException | IOException e) {
-            TaterUtils.getLogger().info("Failed to get raw log content.");
+            TaterUtils.logger().info("Failed to get raw log content.");
             return Optional.empty();
         }
     }
@@ -70,7 +70,7 @@ public class MCLogsAPI {
         try {
             return Optional.ofNullable(client.getInsights(id).get());
         } catch (InterruptedException | ExecutionException e) {
-            TaterUtils.getLogger().info("Failed to get log insights.");
+            TaterUtils.logger().info("Failed to get log insights.");
             return Optional.empty();
         }
     }
@@ -109,7 +109,7 @@ public class MCLogsAPI {
                 return uploadLog(lastFilePath.get().toString());
             }
         } catch (IOException e) {
-            TaterUtils.getLogger().info("No crash reports found.");
+            TaterUtils.logger().info("No crash reports found.");
         }
         return Optional.empty();
     }

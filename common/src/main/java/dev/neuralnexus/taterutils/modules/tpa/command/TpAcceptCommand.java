@@ -1,7 +1,7 @@
 package dev.neuralnexus.taterutils.modules.tpa.command;
 
 import dev.neuralnexus.taterlib.command.Command;
-import dev.neuralnexus.taterlib.command.Sender;
+import dev.neuralnexus.taterlib.command.CommandSender;
 import dev.neuralnexus.taterlib.player.Player;
 import dev.neuralnexus.taterutils.api.CommandUtils;
 import dev.neuralnexus.taterutils.api.TaterUtilsAPIProvider;
@@ -12,7 +12,7 @@ public class TpAcceptCommand implements Command {
     private String name = "tpaccept";
 
     @Override
-    public String getName() {
+    public String name() {
         return name;
     }
 
@@ -22,32 +22,27 @@ public class TpAcceptCommand implements Command {
     }
 
     @Override
-    public String getDescription() {
+    public String description() {
         return "Allows players to accept a teleport request!";
     }
 
     @Override
-    public String getUsage() {
+    public String usage() {
         return "/tpaccept";
     }
 
     @Override
-    public String getPermission() {
+    public String permission() {
         return "taterutils.command.tpaccept";
     }
 
     @Override
-    public String execute(String[] args) {
-        return null;
-    }
-
-    @Override
-    public boolean execute(Sender sender, String label, String[] args) {
-        if (!CommandUtils.senderIsPlayerAndHasPermission(sender, getPermission())) {
+    public boolean execute(CommandSender sender, String label, String[] args) {
+        if (!CommandUtils.senderIsPlayerAndHasPermission(sender, permission())) {
             return true;
         }
         Player player = (Player) sender;
-        TpaAPI api = TaterUtilsAPIProvider.get().getTpaAPI();
+        TpaAPI api = TaterUtilsAPIProvider.get().tpaAPI();
 
         if (api.hasPendingRequest(player)) {
             api.acceptRequest(player);

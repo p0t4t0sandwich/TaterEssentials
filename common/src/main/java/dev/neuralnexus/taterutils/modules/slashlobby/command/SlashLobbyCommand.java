@@ -1,19 +1,17 @@
 package dev.neuralnexus.taterutils.modules.slashlobby.command;
 
 import dev.neuralnexus.taterlib.command.Command;
-import dev.neuralnexus.taterlib.command.Sender;
-import dev.neuralnexus.taterlib.player.Player;
+import dev.neuralnexus.taterlib.command.CommandSender;
+import dev.neuralnexus.taterlib.player.ProxyPlayer;
 import dev.neuralnexus.taterutils.TaterUtilsConfig;
 import dev.neuralnexus.taterutils.api.CommandUtils;
-import dev.neuralnexus.taterutils.api.TaterUtilsAPIProvider;
-import dev.neuralnexus.taterutils.modules.send.api.SendAPI;
 
 /** SlashLobby Command. */
 public class SlashLobbyCommand implements Command {
     private String name = "slashlobby";
 
     @Override
-    public String getName() {
+    public String name() {
         return name;
     }
 
@@ -23,34 +21,27 @@ public class SlashLobbyCommand implements Command {
     }
 
     @Override
-    public String getDescription() {
+    public String description() {
         return "Command that players can use to send themselves to the lobby.";
     }
 
     @Override
-    public String getUsage() {
+    public String usage() {
         return "/slashlobby";
     }
 
     @Override
-    public String getPermission() {
+    public String permission() {
         return "taterutils.command.slashlobby";
     }
 
     @Override
-    public String execute(String[] args) {
-        return null;
-    }
-
-    @Override
-    public boolean execute(Sender sender, String label, String[] args) {
-        if (!CommandUtils.senderHasPermission(sender, getPermission())) {
+    public boolean execute(CommandSender sender, String label, String[] args) {
+        if (!CommandUtils.senderHasPermission(sender, permission())) {
             return true;
         }
-        Player player = (Player) sender;
-        SendAPI api = TaterUtilsAPIProvider.get().getSendAPI();
-
-        api.sendPlayer(player, TaterUtilsConfig.SlashLobbyConfig.getLobbyNames()[0]);
+        ProxyPlayer player = (ProxyPlayer) sender;
+        player.connect(TaterUtilsConfig.SlashLobbyConfig.getLobbyNames()[0]);
         return true;
     }
 }

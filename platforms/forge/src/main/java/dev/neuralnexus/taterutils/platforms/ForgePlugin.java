@@ -15,6 +15,6 @@ import net.minecraftforge.fml.common.Mod;
         acceptableRemoteVersions = "*")
 public class ForgePlugin implements TaterUtilsPlugin {
     public ForgePlugin() {
-        pluginStart(this, new LoggerAdapter(TaterUtils.Constants.PROJECT_NAME));
+        pluginStart(this, null, null, new LoggerAdapter(TaterUtils.Constants.PROJECT_NAME));
     }
 }

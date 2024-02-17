@@ -159,7 +159,7 @@ public class SpawnRegion {
         //
 
         // Check mobs
-        if (!mobs.contains(entity.getType()) && !mobs.contains("all")) {
+        if (!mobs.contains(entity.type()) && !mobs.contains("all")) {
             //
             //            System.out.println("Not in mob list: " + entity.getType());
             //
@@ -167,7 +167,7 @@ public class SpawnRegion {
         }
 
         // Check dimensions
-        if (!worlds.contains(entity.getDimension()) && !worlds.contains("all")) {
+        if (!worlds.contains(entity.dimension()) && !worlds.contains("all")) {
             //
             //            System.out.println("Not in dimension list: " + entity.getDimension());
             //
@@ -175,7 +175,7 @@ public class SpawnRegion {
         }
 
         // Check biomes
-        if (!biomes.contains(entity.getBiome()) && !biomes.contains("all")) {
+        if (!biomes.contains(entity.biome()) && !biomes.contains("all")) {
             //
             //            System.out.println("Not in biome list: " + entity.getBiome());
             //
@@ -183,13 +183,13 @@ public class SpawnRegion {
         }
 
         // Check coordinates
-        if (entity.getX() < minX || entity.getX() > maxX) {
+        if (entity.x() < minX || entity.x() > maxX) {
             return false;
         }
-        if (entity.getY() < minY || entity.getY() > maxY) {
+        if (entity.y() < minY || entity.y() > maxY) {
             return false;
         }
-        return entity.getZ() >= minZ && entity.getZ() <= maxZ;
+        return entity.z() >= minZ && entity.z() <= maxZ;
 
         //
         //        System.out.println("In region, all parameters true");

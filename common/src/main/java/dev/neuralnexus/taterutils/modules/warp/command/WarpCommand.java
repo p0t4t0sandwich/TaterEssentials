@@ -1,7 +1,7 @@
 package dev.neuralnexus.taterutils.modules.warp.command;
 
 import dev.neuralnexus.taterlib.command.Command;
-import dev.neuralnexus.taterlib.command.Sender;
+import dev.neuralnexus.taterlib.command.CommandSender;
 import dev.neuralnexus.taterlib.player.Player;
 import dev.neuralnexus.taterutils.api.CommandUtils;
 import dev.neuralnexus.taterutils.api.TaterUtilsAPIProvider;
@@ -12,7 +12,7 @@ public class WarpCommand implements Command {
     private String name = "warp";
 
     @Override
-    public String getName() {
+    public String name() {
         return name;
     }
 
@@ -22,32 +22,27 @@ public class WarpCommand implements Command {
     }
 
     @Override
-    public String getDescription() {
+    public String description() {
         return "Teleports you to a warp!";
     }
 
     @Override
-    public String getUsage() {
+    public String usage() {
         return "/warp [name]";
     }
 
     @Override
-    public String getPermission() {
+    public String permission() {
         return "taterutils.command.warp";
     }
 
     @Override
-    public String execute(String[] args) {
-        return null;
-    }
-
-    @Override
-    public boolean execute(Sender sender, String label, String[] args) {
-        if (!CommandUtils.senderIsPlayerAndHasPermission(sender, getPermission())) {
+    public boolean execute(CommandSender sender, String label, String[] args) {
+        if (!CommandUtils.senderIsPlayerAndHasPermission(sender, permission())) {
             return true;
         }
         Player player = (Player) sender;
-        WarpAPI api = TaterUtilsAPIProvider.get().getWarpAPI();
+        WarpAPI api = TaterUtilsAPIProvider.get().warpAPI();
 
         if (args.length == 0) {
             CommandUtils.sendMessage(player, "&Available Warps: &e" + api.getWarps().toString());

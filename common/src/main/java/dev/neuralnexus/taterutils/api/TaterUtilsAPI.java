@@ -5,7 +5,6 @@ import dev.neuralnexus.taterutils.modules.godmode.api.GodModeAPI;
 import dev.neuralnexus.taterutils.modules.home.api.HomeAPI;
 import dev.neuralnexus.taterutils.modules.mclogs.api.MCLogsAPI;
 import dev.neuralnexus.taterutils.modules.orewatcher.api.OreWatcherAPI;
-import dev.neuralnexus.taterutils.modules.send.api.SendAPI;
 import dev.neuralnexus.taterutils.modules.spawn.api.SpawnAPI;
 import dev.neuralnexus.taterutils.modules.tpa.api.TpaAPI;
 import dev.neuralnexus.taterutils.modules.warp.api.WarpAPI;
@@ -17,7 +16,6 @@ public class TaterUtilsAPI {
     private final HomeAPI homeAPI;
     private final MCLogsAPI mclogsAPI;
     private final OreWatcherAPI oreWatcherAPI;
-    private final SendAPI sendAPI;
     private final SpawnAPI spawnAPI;
     private final TpaAPI tpaAPI;
     private final WarpAPI warpAPI;
@@ -28,7 +26,6 @@ public class TaterUtilsAPI {
         this.homeAPI = new HomeAPI();
         this.mclogsAPI = new MCLogsAPI();
         this.oreWatcherAPI = new OreWatcherAPI();
-        this.sendAPI = new SendAPI();
         this.spawnAPI = new SpawnAPI();
         this.tpaAPI = new TpaAPI();
         this.warpAPI = new WarpAPI();
@@ -39,7 +36,7 @@ public class TaterUtilsAPI {
      *
      * @return The alert API.
      */
-    public AlertAPI getAlertAPI() {
+    public AlertAPI alertAPI() {
         return alertAPI;
     }
 
@@ -48,7 +45,7 @@ public class TaterUtilsAPI {
      *
      * @return The god mode API.
      */
-    public GodModeAPI getGodModeAPI() {
+    public GodModeAPI godModeAPI() {
         return godModeAPI;
     }
 
@@ -57,7 +54,7 @@ public class TaterUtilsAPI {
      *
      * @return The home API.
      */
-    public HomeAPI getHomeAPI() {
+    public HomeAPI homeAPI() {
         return homeAPI;
     }
 
@@ -66,7 +63,7 @@ public class TaterUtilsAPI {
      *
      * @return The MCLogs API.
      */
-    public MCLogsAPI getMCLogsAPI() {
+    public MCLogsAPI mcLogsAPI() {
         return mclogsAPI;
     }
 
@@ -75,17 +72,8 @@ public class TaterUtilsAPI {
      *
      * @return The ore watcher API.
      */
-    public OreWatcherAPI getOreWatcherAPI() {
+    public OreWatcherAPI oreWatcherAPI() {
         return oreWatcherAPI;
-    }
-
-    /**
-     * Get the send API.
-     *
-     * @return The send API.
-     */
-    public SendAPI getSendAPI() {
-        return sendAPI;
     }
 
     /**
@@ -93,7 +81,7 @@ public class TaterUtilsAPI {
      *
      * @return The spawn API.
      */
-    public SpawnAPI getSpawnAPI() {
+    public SpawnAPI spawnAPI() {
         return spawnAPI;
     }
 
@@ -102,7 +90,7 @@ public class TaterUtilsAPI {
      *
      * @return The tpa API.
      */
-    public TpaAPI getTpaAPI() {
+    public TpaAPI tpaAPI() {
         return tpaAPI;
     }
 
@@ -111,7 +99,7 @@ public class TaterUtilsAPI {
      *
      * @return The warp API.
      */
-    public WarpAPI getWarpAPI() {
+    public WarpAPI warpAPI() {
         return warpAPI;
     }
 }

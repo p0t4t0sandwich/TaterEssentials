@@ -74,15 +74,7 @@ public class FSWarpStorage extends Filesystem implements WarpStorage {
     @Override
     public void setWarp(String warp, Location location) {
         Set<NamedLocation> warps = getWarps();
-        warps.add(
-                new NamedLocation(
-                        warp,
-                        location.getWorld(),
-                        location.getX(),
-                        location.getY(),
-                        location.getZ(),
-                        location.getYaw(),
-                        location.getPitch()));
+        warps.add(new NamedLocation(warp, location));
         String json = gson.toJson(warps);
         write(json);
     }

@@ -3,7 +3,7 @@ package dev.neuralnexus.taterutils.modules.tpa;
 import dev.neuralnexus.taterlib.Utils;
 import dev.neuralnexus.taterlib.api.TaterAPIProvider;
 import dev.neuralnexus.taterlib.event.api.CommandEvents;
-import dev.neuralnexus.taterlib.plugin.Module;
+import dev.neuralnexus.taterlib.plugin.PluginModule;
 import dev.neuralnexus.taterutils.TaterUtils;
 import dev.neuralnexus.taterutils.api.TaterUtilsAPIProvider;
 import dev.neuralnexus.taterutils.modules.tpa.command.TpAcceptCommand;
@@ -12,19 +12,19 @@ import dev.neuralnexus.taterutils.modules.tpa.command.TpHereCommand;
 import dev.neuralnexus.taterutils.modules.tpa.command.TpaCommand;
 
 /** TPA module. */
-public class TpaModule implements Module {
+public class TpaModule implements PluginModule {
     private static boolean STARTED = false;
     private static boolean RELOADED = false;
 
     @Override
-    public String getName() {
+    public String name() {
         return "TPA";
     }
 
     @Override
     public void start() {
         if (STARTED) {
-            TaterUtils.getLogger().info("Submodule " + getName() + " has already started!");
+            TaterUtils.logger().info("Submodule " + name() + " has already started!");
             return;
         }
         STARTED = true;
@@ -34,26 +34,26 @@ public class TpaModule implements Module {
             CommandEvents.REGISTER_COMMAND.register(
                     (event -> {
                         if (!TaterAPIProvider.serverType().isProxy()) {
-                            event.registerCommand(TaterUtils.getPlugin(), new TpaCommand());
+                            event.registerCommand(TaterUtils.plugin(), new TpaCommand());
                             event.registerCommand(
-                                    TaterUtils.getPlugin(), new TpHereCommand(), "tpahere");
-                            event.registerCommand(TaterUtils.getPlugin(), new TpAcceptCommand());
-                            event.registerCommand(TaterUtils.getPlugin(), new TpDenyCommand());
+                                    TaterUtils.plugin(), new TpHereCommand(), "tpahere");
+                            event.registerCommand(TaterUtils.plugin(), new TpAcceptCommand());
+                            event.registerCommand(TaterUtils.plugin(), new TpDenyCommand());
                         }
                     }));
 
             // Set repeating task that clears stale TPA requests every minute
             Utils.repeatTaskAsync(
-                    () -> TaterUtilsAPIProvider.get().getTpaAPI().checkExpired(), 0L, 1200L);
+                    () -> TaterUtilsAPIProvider.get().tpaAPI().checkExpired(), 0L, 1200L);
         }
 
-        TaterUtils.getLogger().info("Submodule " + getName() + " has been started!");
+        TaterUtils.logger().info("Submodule " + name() + " has been started!");
     }
 
     @Override
     public void stop() {
         if (!STARTED) {
-            TaterUtils.getLogger().info("Submodule " + getName() + " has already stopped!");
+            TaterUtils.logger().info("Submodule " + name() + " has already stopped!");
             return;
         }
         STARTED = false;
@@ -61,13 +61,13 @@ public class TpaModule implements Module {
 
         // Remove references to objects
 
-        TaterUtils.getLogger().info("Submodule " + getName() + " has been stopped!");
+        TaterUtils.logger().info("Submodule " + name() + " has been stopped!");
     }
 
     @Override
     public void reload() {
         if (!STARTED) {
-            TaterUtils.getLogger().info("Submodule " + getName() + " has not been started!");
+            TaterUtils.logger().info("Submodule " + name() + " has not been started!");
             return;
         }
         RELOADED = true;
@@ -78,6 +78,6 @@ public class TpaModule implements Module {
         // Start
         start();
 
-        TaterUtils.getLogger().info("Submodule " + getName() + " has been reloaded!");
+        TaterUtils.logger().info("Submodule " + name() + " has been reloaded!");
     }
 }

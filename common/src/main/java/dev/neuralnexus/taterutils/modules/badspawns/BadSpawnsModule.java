@@ -3,28 +3,28 @@ package dev.neuralnexus.taterutils.modules.badspawns;
 import dev.neuralnexus.taterlib.api.TaterAPIProvider;
 import dev.neuralnexus.taterlib.entity.Entity;
 import dev.neuralnexus.taterlib.event.api.EntityEvents;
-import dev.neuralnexus.taterlib.plugin.Module;
+import dev.neuralnexus.taterlib.plugin.PluginModule;
 import dev.neuralnexus.taterutils.TaterUtils;
 import dev.neuralnexus.taterutils.TaterUtilsConfig;
 
 import java.util.*;
 
 /** BadSpawns module. */
-public class BadSpawnsModule implements Module {
+public class BadSpawnsModule implements PluginModule {
     public static Set<String> bannedMobs = new HashSet<>();
     public static Map<String, SpawnRegion> regions = new HashMap<>();
     private static boolean STARTED = false;
     private static boolean RELOADED = false;
 
     @Override
-    public String getName() {
+    public String name() {
         return "BadSpawns";
     }
 
     @Override
     public void start() {
         if (STARTED) {
-            TaterUtils.getLogger().info("Submodule " + getName() + " has already started!");
+            TaterUtils.logger().info("Submodule " + name() + " has already started!");
             return;
         }
         STARTED = true;
@@ -54,8 +54,7 @@ public class BadSpawnsModule implements Module {
                                 (List<String>) region.get("biomes"),
                                 (List<String>) region.get("mobs")));
             } catch (Exception e) {
-                TaterUtils.getLogger()
-                        .info("Failed to build region " + name + "!\n" + e.getMessage());
+                TaterUtils.logger().info("Failed to build region " + name + "!\n" + e.getMessage());
                 e.printStackTrace();
             }
         }
@@ -65,10 +64,10 @@ public class BadSpawnsModule implements Module {
                 // Register listeners
                 EntityEvents.SPAWN.register(
                         event -> {
-                            Entity entity = event.getEntity();
+                            Entity entity = event.entity();
 
                             // Check banned mobs
-                            if (bannedMobs.contains(entity.getType())) {
+                            if (bannedMobs.contains(entity.type())) {
                                 event.setCancelled(true);
                             }
                             // Check regions
@@ -81,13 +80,13 @@ public class BadSpawnsModule implements Module {
             }
         }
 
-        TaterUtils.getLogger().info("Submodule " + getName() + " has been started!");
+        TaterUtils.logger().info("Submodule " + name() + " has been started!");
     }
 
     @Override
     public void stop() {
         if (!STARTED) {
-            TaterUtils.getLogger().info("Submodule " + getName() + " has already stopped!");
+            TaterUtils.logger().info("Submodule " + name() + " has already stopped!");
             return;
         }
         STARTED = false;
@@ -97,13 +96,13 @@ public class BadSpawnsModule implements Module {
         bannedMobs.clear();
         regions.clear();
 
-        TaterUtils.getLogger().info("Submodule " + getName() + " has been stopped!");
+        TaterUtils.logger().info("Submodule " + name() + " has been stopped!");
     }
 
     @Override
     public void reload() {
         if (!STARTED) {
-            TaterUtils.getLogger().info("Submodule " + getName() + " has not been started!");
+            TaterUtils.logger().info("Submodule " + name() + " has not been started!");
             return;
         }
         RELOADED = true;
@@ -114,6 +113,6 @@ public class BadSpawnsModule implements Module {
         // Start
         start();
 
-        TaterUtils.getLogger().info("Submodule " + getName() + " has been reloaded!");
+        TaterUtils.logger().info("Submodule " + name() + " has been reloaded!");
     }
 }

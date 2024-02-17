@@ -1,7 +1,7 @@
 package dev.neuralnexus.taterutils.modules.home.command;
 
 import dev.neuralnexus.taterlib.command.Command;
-import dev.neuralnexus.taterlib.command.Sender;
+import dev.neuralnexus.taterlib.command.CommandSender;
 import dev.neuralnexus.taterlib.placeholder.PlaceholderParser;
 import dev.neuralnexus.taterlib.player.Player;
 import dev.neuralnexus.taterutils.TaterUtilsConfig;
@@ -14,7 +14,7 @@ public class DelHomeCommand implements Command {
     private String name = "delhome";
 
     @Override
-    public String getName() {
+    public String name() {
         return name;
     }
 
@@ -24,38 +24,33 @@ public class DelHomeCommand implements Command {
     }
 
     @Override
-    public String getDescription() {
+    public String description() {
         return "Allows players to delete a home.";
     }
 
     @Override
-    public String getUsage() {
+    public String usage() {
         return "/delhome <name>";
     }
 
     @Override
-    public String getPermission() {
+    public String permission() {
         return "taterutils.command.delhome";
     }
 
     @Override
-    public String execute(String[] args) {
-        return null;
-    }
-
-    @Override
-    public boolean execute(Sender sender, String label, String[] args) {
-        if (!CommandUtils.senderIsPlayerAndHasPermission(sender, getPermission())) {
+    public boolean execute(CommandSender sender, String label, String[] args) {
+        if (!CommandUtils.senderIsPlayerAndHasPermission(sender, permission())) {
             return true;
         }
         Player player = (Player) sender;
-        HomeAPI api = TaterUtilsAPIProvider.get().getHomeAPI();
+        HomeAPI api = TaterUtilsAPIProvider.get().homeAPI();
 
         String message;
         if (args.length == 0) {
             message = TaterUtilsConfig.HomeConfig.getMessage("home.noName");
         } else {
-            api.setHome(player, args[0], player.getLocation());
+            api.setHome(player, args[0], player.location());
             message =
                     new PlaceholderParser(TaterUtilsConfig.HomeConfig.getMessage("delhome.success"))
                             .parseString("home", args[0])

@@ -1,6 +1,6 @@
 package dev.neuralnexus.taterutils.modules.orewatcher.api;
 
-import dev.neuralnexus.taterlib.player.Player;
+import dev.neuralnexus.taterlib.player.SimplePlayer;
 
 import java.util.HashSet;
 import java.util.Optional;
@@ -20,7 +20,7 @@ public class OreWatcherAPI {
      * @param player The player.
      * @param amount The amount of ore mined.
      */
-    public void addOreMined(Player player, int amount) {
+    public void addOreMined(SimplePlayer player, int amount) {
         Optional<OreMined> oreMined = data.getOreMined(player);
         if (oreMined.isPresent()) {
             oreMined.get().addAmount(amount);
@@ -35,7 +35,7 @@ public class OreWatcherAPI {
      * @param player The player.
      * @return The ore mined.
      */
-    public Optional<OreMined> getOreMined(Player player) {
+    public Optional<OreMined> getOreMined(SimplePlayer player) {
         return data.getOreMined(player);
     }
 
@@ -55,7 +55,7 @@ public class OreWatcherAPI {
 
     /** Class representing the ore the player has mined in a given period of time. */
     public static class OreMined {
-        private final Player player;
+        private final SimplePlayer player;
         private int amount;
         private long firstMined = System.currentTimeMillis();
         private long lastMined = System.currentTimeMillis();
@@ -66,7 +66,7 @@ public class OreWatcherAPI {
          * @param player The player.
          * @param amount The amount of ore mined.
          */
-        public OreMined(Player player, int amount) {
+        public OreMined(SimplePlayer player, int amount) {
             this.player = player;
             this.amount = amount;
         }
@@ -76,7 +76,7 @@ public class OreWatcherAPI {
          *
          * @return The player.
          */
-        public Player getPlayer() {
+        public SimplePlayer getPlayer() {
             return player;
         }
 
@@ -137,7 +137,7 @@ public class OreWatcherAPI {
          * @param player The player.
          * @return The ore mined.
          */
-        public Optional<OreMined> getOreMined(Player player) {
+        public Optional<OreMined> getOreMined(SimplePlayer player) {
             return oreMined.stream()
                     .filter(oreMined -> oreMined.getPlayer().equals(player))
                     .findFirst();

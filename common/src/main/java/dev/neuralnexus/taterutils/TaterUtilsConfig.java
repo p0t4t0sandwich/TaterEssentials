@@ -36,7 +36,7 @@ public class TaterUtilsConfig {
                                                             + ".config.yml")));
             config.reload();
         } catch (IOException | NullPointerException e) {
-            TaterUtils.getLogger()
+            TaterUtils.logger()
                     .info(
                             "Failed to load "
                                     + TaterUtils.Constants.PROJECT_ID
@@ -56,7 +56,7 @@ public class TaterUtilsConfig {
         try {
             config.save();
         } catch (IOException e) {
-            TaterUtils.getLogger()
+            TaterUtils.logger()
                     .info(
                             "Failed to save "
                                     + TaterUtils.Constants.PROJECT_ID

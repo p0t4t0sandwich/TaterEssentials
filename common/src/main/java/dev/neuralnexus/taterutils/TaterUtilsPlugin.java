@@ -7,8 +7,19 @@ import dev.neuralnexus.taterlib.plugin.Plugin;
 
 /** The main plugin interface. */
 public interface TaterUtilsPlugin extends Plugin {
-    /** Starts the plugin. */
-    default void pluginStart(Object plugin, AbstractLogger logger) {
+    @Override
+    default String name() {
+        return TaterUtils.Constants.PROJECT_NAME;
+    }
+
+    @Override
+    default String id() {
+        return TaterUtils.Constants.PROJECT_ID;
+    }
+
+    @Override
+    default void pluginStart(
+            Object plugin, Object pluginServer, Object pluginLogger, AbstractLogger logger) {
         logger.info(
                 TaterUtils.Constants.PROJECT_NAME
                         + " is running on "
@@ -17,10 +28,10 @@ public interface TaterUtilsPlugin extends Plugin {
                         + TaterAPIProvider.minecraftVersion()
                         + "!");
         PluginEvents.DISABLED.register(event -> pluginStop());
-        TaterUtils.start(plugin, logger);
+        TaterUtils.start(plugin, pluginServer, pluginLogger, logger);
     }
 
-    /** Stops the plugin. */
+    @Override
     default void pluginStop() {
         TaterUtils.stop();
     }

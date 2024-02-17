@@ -154,9 +154,7 @@ public class TpaAPI {
         public void sendExpireMessage() {
             sender.sendMessage(
                     Utils.substituteSectionSign(
-                            "&aYour teleport request to &e"
-                                    + receiver.getName()
-                                    + " &ahas expired."));
+                            "&aYour teleport request to &e" + receiver.name() + " &ahas expired."));
         }
 
         /** Accepts the request. */
@@ -165,11 +163,11 @@ public class TpaAPI {
             sender.sendMessage(
                     Utils.substituteSectionSign(
                             "&aYou have accepted the teleport request from &e"
-                                    + receiver.getName()
+                                    + receiver.name()
                                     + "&a."));
             receiver.sendMessage(
                     Utils.substituteSectionSign(
-                            "&e" + sender.getName() + " &ahas accepted your teleport request."));
+                            "&e" + sender.name() + " &ahas accepted your teleport request."));
         }
 
         /** Denies the request. */
@@ -177,11 +175,11 @@ public class TpaAPI {
             sender.sendMessage(
                     Utils.substituteSectionSign(
                             "&aYou have denied the teleport request from &e"
-                                    + receiver.getName()
+                                    + receiver.name()
                                     + "&a."));
             receiver.sendMessage(
                     Utils.substituteSectionSign(
-                            "&e" + sender.getName() + " &ahas denied your teleport request."));
+                            "&e" + sender.name() + " &ahas denied your teleport request."));
         }
     }
 

@@ -2,6 +2,7 @@ package dev.neuralnexus.taterutils;
 
 import dev.neuralnexus.taterlib.api.TaterAPIProvider;
 import dev.neuralnexus.taterlib.logger.AbstractLogger;
+import dev.neuralnexus.taterlib.plugin.ModuleLoader;
 import dev.neuralnexus.taterutils.api.TaterUtilsAPI;
 import dev.neuralnexus.taterutils.api.TaterUtilsAPIProvider;
 import dev.neuralnexus.taterutils.modules.alert.AlertModule;
@@ -23,18 +24,31 @@ import dev.neuralnexus.taterutils.modules.warp.WarpModule;
 
 /** Main class for the plugin. */
 public class TaterUtils {
+    private static final TaterUtils instance = new TaterUtils();
     private static boolean STARTED = false;
     private static boolean RELOADED = false;
-    private static Object plugin;
-    private static AbstractLogger logger;
+    private static ModuleLoader moduleLoader;
+    private Object plugin;
+    private Object pluginServer;
+    private Object pluginLogger;
+    private AbstractLogger logger;
+
+    /**
+     * Getter for the singleton instance of the class.
+     *
+     * @return The singleton instance
+     */
+    public static TaterUtils instance() {
+        return instance;
+    }
 
     /**
      * Get the plugin
      *
      * @return The plugin
      */
-    public static Object getPlugin() {
-        return plugin;
+    public static Object plugin() {
+        return instance.plugin;
     }
 
     /**
@@ -43,7 +57,25 @@ public class TaterUtils {
      * @param plugin The plugin
      */
     private static void setPlugin(Object plugin) {
-        TaterUtils.plugin = plugin;
+        instance.plugin = plugin;
+    }
+
+    /**
+     * Set the plugin server
+     *
+     * @param pluginServer The plugin server
+     */
+    private static void setPluginServer(Object pluginServer) {
+        instance.pluginServer = pluginServer;
+    }
+
+    /**
+     * Set the plugin logger
+     *
+     * @param pluginLogger The plugin logger
+     */
+    private static void setPluginLogger(Object pluginLogger) {
+        instance.pluginLogger = pluginLogger;
     }
 
     /**
@@ -51,8 +83,8 @@ public class TaterUtils {
      *
      * @return The logger
      */
-    public static AbstractLogger getLogger() {
-        return logger;
+    public static AbstractLogger logger() {
+        return instance.logger;
     }
 
     /**
@@ -61,24 +93,45 @@ public class TaterUtils {
      * @param logger The logger
      */
     private static void setLogger(AbstractLogger logger) {
-        TaterUtils.logger = logger;
+        instance.logger = logger;
     }
 
     /**
      * Start
      *
      * @param plugin The plugin
+     * @param pluginServer The plugin server
+     * @param pluginLogger The plugin logger
      * @param logger The logger
      */
-    public static void start(Object plugin, AbstractLogger logger) {
+    public static void start(
+            Object plugin, Object pluginServer, Object pluginLogger, AbstractLogger logger) {
+        if (pluginServer != null) {
+            setPluginServer(pluginServer);
+        }
+        if (pluginLogger != null) {
+            setPluginLogger(pluginLogger);
+        }
         setPlugin(plugin);
         setLogger(logger);
 
+        // Set up bStats
+        //        MetricsAdapter.setupMetrics(
+        //                plugin,
+        //                pluginServer,
+        //                pluginLogger,
+        //                ImmutableMap.<ServerType, Integer>builder()
+        //                        .put(ServerType.BUKKIT, 21008)
+        //                        .put(ServerType.BUNGEECORD, 21009)
+        //                        .put(ServerType.SPONGE, 21010)
+        //                        .put(ServerType.VELOCITY, 21011)
+        //                        .build());
+
         // Config
-        TaterUtilsConfig.loadConfig(TaterAPIProvider.get().configFolder());
+        TaterUtilsConfig.loadConfig(TaterAPIProvider.serverType().dataFolders().configFolder());
 
         if (STARTED) {
-            logger.info(Constants.PROJECT_NAME + " has already started!");
+            instance.logger.info(Constants.PROJECT_NAME + " has already started!");
             return;
         }
         STARTED = true;
@@ -88,84 +141,90 @@ public class TaterUtils {
 
         if (!RELOADED) {
             // Register modules
+            moduleLoader = new TaterUtilsModuleLoader();
             if (TaterUtilsConfig.isModuleEnabled("alert")) {
-                TaterUtilsModuleLoader.registerModule(new AlertModule());
+                moduleLoader.registerModule(new AlertModule());
             }
             if (TaterUtilsConfig.isModuleEnabled("badSpawns")) {
-                TaterUtilsModuleLoader.registerModule(new BadSpawnsModule());
+                moduleLoader.registerModule(new BadSpawnsModule());
             }
             if (TaterUtilsConfig.isModuleEnabled("chatFormatter")) {
-                TaterUtilsModuleLoader.registerModule(new ChatFormatterModule());
+                moduleLoader.registerModule(new ChatFormatterModule());
             }
             if (TaterUtilsConfig.isModuleEnabled("gameMode")) {
-                TaterUtilsModuleLoader.registerModule(new GameModeModule());
+                moduleLoader.registerModule(new GameModeModule());
             }
             if (TaterUtilsConfig.isModuleEnabled("godMode")) {
-                TaterUtilsModuleLoader.registerModule(new GodModeModule());
+                moduleLoader.registerModule(new GodModeModule());
             }
             if (TaterUtilsConfig.isModuleEnabled("home")) {
-                TaterUtilsModuleLoader.registerModule(new HomeModule());
+                moduleLoader.registerModule(new HomeModule());
             }
             if (TaterUtilsConfig.isModuleEnabled("joinAndQuit")) {
-                TaterUtilsModuleLoader.registerModule(new JoinAndQuitModule());
+                moduleLoader.registerModule(new JoinAndQuitModule());
             }
             if (TaterUtilsConfig.isModuleEnabled("mclogs")) {
-                TaterUtilsModuleLoader.registerModule(new MCLogsModule());
+                moduleLoader.registerModule(new MCLogsModule());
             }
             if (TaterUtilsConfig.isModuleEnabled("motd")) {
-                TaterUtilsModuleLoader.registerModule(new MotdModule());
+                moduleLoader.registerModule(new MotdModule());
             }
             if (TaterUtilsConfig.isModuleEnabled("oreWatcher")) {
-                TaterUtilsModuleLoader.registerModule(new OreWatcherModule());
+                moduleLoader.registerModule(new OreWatcherModule());
             }
             if (TaterUtilsConfig.isModuleEnabled("ping")) {
-                TaterUtilsModuleLoader.registerModule(new PingModule());
+                moduleLoader.registerModule(new PingModule());
             }
             if (TaterUtilsConfig.isModuleEnabled("send")) {
-                TaterUtilsModuleLoader.registerModule(new SendModule());
+                moduleLoader.registerModule(new SendModule());
             }
             if (TaterUtilsConfig.isModuleEnabled("slashLobby")) {
-                TaterUtilsModuleLoader.registerModule(new SlashLobbyModule());
+                moduleLoader.registerModule(new SlashLobbyModule());
             }
             if (TaterUtilsConfig.isModuleEnabled("spawn")) {
-                TaterUtilsModuleLoader.registerModule(new SpawnModule());
+                moduleLoader.registerModule(new SpawnModule());
             }
             if (TaterUtilsConfig.isModuleEnabled("tpa")) {
-                TaterUtilsModuleLoader.registerModule(new TpaModule());
+                moduleLoader.registerModule(new TpaModule());
             }
             if (TaterUtilsConfig.isModuleEnabled("warp")) {
-                TaterUtilsModuleLoader.registerModule(new WarpModule());
+                moduleLoader.registerModule(new WarpModule());
             }
         }
 
         // Start modules
-        TaterUtilsModuleLoader.startModules();
+        moduleLoader.startModules();
 
-        logger.info(Constants.PROJECT_NAME + " has been started!");
+        instance.logger.info(Constants.PROJECT_NAME + " has been started!");
+    }
+
+    /** Start */
+    public static void start() {
+        start(instance.plugin, instance.pluginServer, instance.pluginLogger, instance.logger);
     }
 
     /** Stop */
     public static void stop() {
         if (!STARTED) {
-            logger.info(Constants.PROJECT_NAME + " has already stopped!");
+            instance.logger.info(Constants.PROJECT_NAME + " has already stopped!");
             return;
         }
         STARTED = false;
         RELOADED = true;
 
         // Stop modules
-        TaterUtilsModuleLoader.stopModules();
+        moduleLoader.stopModules();
 
         // Remove references to objects
         TaterUtilsConfig.unloadConfig();
 
-        logger.info(Constants.PROJECT_NAME + " has been stopped!");
+        instance.logger.info(Constants.PROJECT_NAME + " has been stopped!");
     }
 
     /** Reload */
     public static void reload() {
         if (!STARTED) {
-            logger.info(Constants.PROJECT_NAME + " has not been started!");
+            instance.logger.info(Constants.PROJECT_NAME + " has not been started!");
             return;
         }
         RELOADED = true;
@@ -177,16 +236,16 @@ public class TaterUtils {
         TaterUtilsAPIProvider.unregister();
 
         // Start
-        start(plugin, logger);
+        start();
 
-        logger.info(Constants.PROJECT_NAME + " has been reloaded!");
+        instance.logger.info(Constants.PROJECT_NAME + " has been reloaded!");
     }
 
     /** Constants used throughout the plugin. */
     public static class Constants {
         public static final String PROJECT_NAME = "TaterUtils";
         public static final String PROJECT_ID = "taterutils";
-        public static final String PROJECT_VERSION = "0.1.0-R0.1-SNAPSHOT";
+        public static final String PROJECT_VERSION = "0.1.0-R0.2-SNAPSHOT";
         public static final String PROJECT_AUTHORS = "p0t4t0sandwich, DJjewl";
         public static final String PROJECT_DESCRIPTION =
                 "An essential, cross API server utility plugin that doubles as a staging ground for new plugin ideas.";

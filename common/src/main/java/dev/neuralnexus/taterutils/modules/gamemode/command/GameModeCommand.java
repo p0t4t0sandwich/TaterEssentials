@@ -2,7 +2,7 @@ package dev.neuralnexus.taterutils.modules.gamemode.command;
 
 import dev.neuralnexus.taterlib.api.TaterAPIProvider;
 import dev.neuralnexus.taterlib.command.Command;
-import dev.neuralnexus.taterlib.command.Sender;
+import dev.neuralnexus.taterlib.command.CommandSender;
 import dev.neuralnexus.taterlib.placeholder.PlaceholderParser;
 import dev.neuralnexus.taterlib.player.GameMode;
 import dev.neuralnexus.taterlib.player.Player;
@@ -16,7 +16,7 @@ public class GameModeCommand implements Command {
     private String name = "gm";
 
     @Override
-    public String getName() {
+    public String name() {
         return name;
     }
 
@@ -26,32 +26,32 @@ public class GameModeCommand implements Command {
     }
 
     @Override
-    public String getDescription() {
+    public String description() {
         return "Change the gamemode of a player.";
     }
 
     @Override
-    public String getUsage() {
+    public String usage() {
         return "/gm <mode> [player]";
     }
 
     @Override
-    public String getPermission() {
+    public String permission() {
         return "taterutils.command.gamemode";
     }
 
     @Override
-    public boolean execute(Sender sender, String label, String[] args) {
-        if (!CommandUtils.senderHasPermission(sender, getPermission())) {
+    public boolean execute(CommandSender sender, String label, String[] args) {
+        if (!CommandUtils.senderHasPermission(sender, permission())) {
             return true;
         }
         Player player = null;
         GameMode gameMode = GameMode.UNKNOWN;
         String message = "";
 
-        if (label.equals(getName())) {
+        if (label.equals(name())) {
             if (args.length == 0) {
-                sender.sendMessage(getUsage());
+                sender.sendMessage(usage());
                 return true;
             } else if (args.length == 1) {
                 if (sender.isPlayer()) {
@@ -64,13 +64,14 @@ public class GameModeCommand implements Command {
                     return true;
                 }
             } else if (args.length == 2) {
-                if (!CommandUtils.senderHasPermission(sender, getPermission() + ".others")) {
+                if (!CommandUtils.senderHasPermission(sender, permission() + ".others")) {
                     return true;
                 }
                 Optional<Player> optionalPlayer =
-                        TaterAPIProvider.get().getServer().getOnlinePlayers().stream()
-                                .filter(p -> p.getName().equalsIgnoreCase(args[1]))
-                                .findFirst();
+                        TaterAPIProvider.get().getServer().onlinePlayers().stream()
+                                .filter(p -> p.name().equalsIgnoreCase(args[1]))
+                                .findFirst()
+                                .map(p -> (Player) p);
                 if (optionalPlayer.isPresent()) {
                     player = optionalPlayer.get();
                     gameMode = GameMode.from(args[0]);
@@ -81,7 +82,7 @@ public class GameModeCommand implements Command {
                     return true;
                 }
             } else {
-                sender.sendMessage(getUsage());
+                sender.sendMessage(usage());
             }
         } else {
             switch (label) {
@@ -100,13 +101,14 @@ public class GameModeCommand implements Command {
             }
 
             if (args.length == 1) {
-                if (!CommandUtils.senderHasPermission(sender, getPermission() + ".others")) {
+                if (!CommandUtils.senderHasPermission(sender, permission() + ".others")) {
                     return true;
                 }
                 Optional<Player> optionalPlayer =
-                        TaterAPIProvider.get().getServer().getOnlinePlayers().stream()
-                                .filter(p -> p.getName().equalsIgnoreCase(args[0]))
-                                .findFirst();
+                        TaterAPIProvider.get().getServer().onlinePlayers().stream()
+                                .filter(p -> p.name().equalsIgnoreCase(args[0]))
+                                .findFirst()
+                                .map(p -> (Player) p);
                 if (optionalPlayer.isPresent()) {
                     player = optionalPlayer.get();
                     message = TaterUtilsConfig.GameModeConfig.getMessage("changedOther");
@@ -131,12 +133,12 @@ public class GameModeCommand implements Command {
             CommandUtils.sendMessage(
                     sender, TaterUtilsConfig.GameModeConfig.getMessage("invalidGameMode"));
         } else {
-            if (sender.hasPermission(getPermission() + "." + gameMode.getName())) {
+            if (sender.hasPermission(permission() + "." + gameMode.name())) {
                 player.setGameMode(gameMode);
                 CommandUtils.sendMessage(
                         sender,
                         player.parsePlaceholders(message)
-                                .parseString("gamemode", gameMode.getName())
+                                .parseString("gamemode", gameMode.name())
                                 .getResult());
                 return true;
             } else {
@@ -145,7 +147,7 @@ public class GameModeCommand implements Command {
                         new PlaceholderParser(
                                         TaterUtilsConfig.GameModeConfig.getMessage(
                                                 "noPermissionGamemode"))
-                                .parseString("gamemode", gameMode.getName())
+                                .parseString("gamemode", gameMode.name())
                                 .getResult());
             }
         }

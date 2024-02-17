@@ -9,6 +9,10 @@ import org.bukkit.plugin.java.JavaPlugin;
 /** Bukkit entry point. */
 public class BukkitPlugin extends JavaPlugin implements TaterUtilsPlugin {
     public BukkitPlugin() {
-        pluginStart(this, new LoggerAdapter(TaterUtils.Constants.PROJECT_NAME, getLogger()));
+        pluginStart(
+                this,
+                getServer(),
+                getLogger(),
+                new LoggerAdapter(TaterUtils.Constants.PROJECT_NAME, getLogger()));
     }
 }

@@ -1,7 +1,7 @@
 package dev.neuralnexus.taterutils.modules.warp.api;
 
 import dev.neuralnexus.taterlib.player.Player;
-import dev.neuralnexus.taterlib.storage.Database;
+import dev.neuralnexus.taterlib.storage.databases.Database;
 import dev.neuralnexus.taterlib.utils.Location;
 import dev.neuralnexus.taterutils.TaterUtils;
 import dev.neuralnexus.taterutils.api.NamedLocation;

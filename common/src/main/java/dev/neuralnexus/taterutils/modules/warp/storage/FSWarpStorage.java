@@ -4,7 +4,7 @@ import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 
 import dev.neuralnexus.taterlib.player.Player;
-import dev.neuralnexus.taterlib.storage.Filesystem;
+import dev.neuralnexus.taterlib.storage.databases.Filesystem;
 import dev.neuralnexus.taterlib.utils.Location;
 import dev.neuralnexus.taterutils.api.NamedLocation;
 
@@ -30,12 +30,7 @@ public class FSWarpStorage extends Filesystem implements WarpStorage {
     private String read() {
         try {
             String file =
-                    getConnection()
-                            + File.separator
-                            + getDatabase()
-                            + File.separator
-                            + "warps"
-                            + ".json";
+                    connection() + File.separator + database() + File.separator + "warps" + ".json";
             return new String(Files.readAllBytes(Paths.get(file)));
         } catch (IOException e) {
             e.printStackTrace();
@@ -51,12 +46,7 @@ public class FSWarpStorage extends Filesystem implements WarpStorage {
     private void write(String json) {
         try {
             String file =
-                    getConnection()
-                            + File.separator
-                            + getDatabase()
-                            + File.separator
-                            + "warps"
-                            + ".json";
+                    connection() + File.separator + database() + File.separator + "warps" + ".json";
             Files.write(Paths.get(file), json.getBytes());
         } catch (IOException e) {
             e.printStackTrace();

@@ -1,22 +1,9 @@
 package dev.neuralnexus.taterutils.modules.godmode.api;
 
 import dev.neuralnexus.taterlib.player.Player;
-import dev.neuralnexus.taterlib.storage.Database;
-import dev.neuralnexus.taterutils.TaterUtils;
-import dev.neuralnexus.taterutils.modules.godmode.storage.FSGodModeStorage;
-import dev.neuralnexus.taterutils.modules.godmode.storage.GodModeStorage;
 
 /** API for the GodMode module. */
 public class GodModeAPI {
-    private final GodModeStorage database;
-
-    public GodModeAPI() {
-        this.database =
-                new FSGodModeStorage(
-                        new Database.DatabaseConfig(
-                                TaterUtils.Constants.PROJECT_NAME, 0, "godModeData", "", ""));
-    }
-
     /**
      * Get player's godmode status.
      *
@@ -24,7 +11,7 @@ public class GodModeAPI {
      * @return The player's godmode status.
      */
     public boolean getGodMode(Player player) {
-        return this.database.getGodMode(player);
+        return player.getMeta("godMode", Boolean.class).orElse(false);
     }
 
     /**
@@ -34,6 +21,6 @@ public class GodModeAPI {
      * @param godMode The player's godmode status.
      */
     public void setGodMode(Player player, boolean godMode) {
-        this.database.setGodMode(player, godMode);
+        player.setMeta("godMode", godMode);
     }
 }

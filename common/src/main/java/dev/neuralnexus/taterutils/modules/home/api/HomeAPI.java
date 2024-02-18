@@ -1,27 +1,17 @@
 package dev.neuralnexus.taterutils.modules.home.api;
 
-import dev.neuralnexus.taterlib.player.Player;
-import dev.neuralnexus.taterlib.storage.Database;
-import dev.neuralnexus.taterlib.utils.Location;
-import dev.neuralnexus.taterutils.TaterUtils;
-import dev.neuralnexus.taterutils.api.NamedLocation;
-import dev.neuralnexus.taterutils.modules.home.storage.FSHomeStorage;
-import dev.neuralnexus.taterutils.modules.home.storage.HomeStorage;
+import com.google.gson.reflect.TypeToken;
 
-import java.util.Optional;
-import java.util.Set;
+import dev.neuralnexus.taterlib.player.Player;
+import dev.neuralnexus.taterlib.utils.Location;
+import dev.neuralnexus.taterutils.api.AbstractLocation;
+import dev.neuralnexus.taterutils.api.NamedLocation;
+
+import java.lang.reflect.Type;
+import java.util.*;
 
 /** API for the home module. */
 public class HomeAPI {
-    private final HomeStorage database;
-
-    public HomeAPI() {
-        this.database =
-                new FSHomeStorage(
-                        new Database.DatabaseConfig(
-                                TaterUtils.Constants.PROJECT_NAME, 0, "homeData", "", ""));
-    }
-
     /**
      * Get a player's home.
      *
@@ -29,7 +19,14 @@ public class HomeAPI {
      * @param home The name of the home.
      */
     public Optional<NamedLocation> getHome(Player player, String home) {
-        return this.database.getHome(player, home);
+        Type type = new TypeToken<Map<String, AbstractLocation>>() {}.getType();
+        Optional<Map<String, AbstractLocation>> homes = player.getMeta("home", type);
+        if (homes.isPresent()) {
+            if (homes.get().containsKey(home)) {
+                return Optional.of(new NamedLocation(home, homes.get().get(home)));
+            }
+        }
+        return Optional.empty();
     }
 
     /**
@@ -40,7 +37,9 @@ public class HomeAPI {
      * @param location The location of the home.
      */
     public void setHome(Player player, String home, Location location) {
-        this.database.setHome(player, home, location);
+        Map<String, AbstractLocation> homes = this.getHomes(player);
+        homes.put(home, new AbstractLocation(location));
+        player.setMeta("home", homes);
     }
 
     /**
@@ -50,7 +49,9 @@ public class HomeAPI {
      * @param home The name of the home.
      */
     public void deleteHome(Player player, String home) {
-        this.database.deleteHome(player, home);
+        Map<String, AbstractLocation> homes = this.getHomes(player);
+        homes.remove(home);
+        player.setMeta("home", homes);
     }
 
     /**
@@ -58,8 +59,10 @@ public class HomeAPI {
      *
      * @param player The player.
      */
-    public Set<NamedLocation> getHomes(Player player) {
-        return this.database.getHomes(player);
+    public Map<String, AbstractLocation> getHomes(Player player) {
+        Type type = new TypeToken<Map<String, AbstractLocation>>() {}.getType();
+        Optional<Map<String, AbstractLocation>> homes = player.getMeta("home", type);
+        return homes.orElse(new HashMap<>());
     }
 
     /**
@@ -68,7 +71,12 @@ public class HomeAPI {
      * @param player The player.
      */
     public boolean teleportHome(Player player, String home) {
-        return this.database.teleportHome(player, home);
+        Optional<NamedLocation> playerHome = this.getHome(player, home);
+        if (playerHome.isPresent()) {
+            player.teleport(playerHome.get().getLocation());
+            return true;
+        }
+        return false;
     }
 
     /**

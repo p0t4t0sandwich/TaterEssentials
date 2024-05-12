@@ -1,78 +1,74 @@
 plugins {
     id('java')
+    id('com.github.johnrengelman.shadow') version('8.1.1')
 }
 
-defaultTasks('build')
+sourceCompatibility = targetCompatibility = 1.8
 
-subprojects {
-    apply(plugin: 'java')
+tasks.withType(JavaCompile) {
+    options.encoding = 'UTF-8'
+}
 
-    sourceCompatibility = 1.8
-    targetCompatibility = 1.8
-
-    tasks.withType(JavaCompile) {
-        options.encoding = 'UTF-8'
+repositories {
+    mavenCentral()
+    mavenLocal()
+    maven {
+        name = 'NeuralNexus'
+        url = 'https://maven.neuralnexus.dev/releases'
     }
-
-    repositories {
-        mavenLocal()
-        mavenCentral()
-
-        // Bukkit/Bungee
-        maven {
-            name = "spigotmc-repo"
-            url = "https://hub.spigotmc.org/nexus/content/repositories/snapshots/"
-        }
-
-        // Paper/Velocity
-        maven {
-            name = "papermc-repo"
-            url = "https://repo.papermc.io/repository/maven-public/"
-        }
-
-        // NeuralNexus
-        maven {
-            name = "NeuralNexus"
-            url = "https://maven.neuralnexus.dev/releases"
-        }
-
-        // NeuralNexus Snapshots
-        maven {
-            name = "NeuralNexus Snapshots"
-            url = "https://maven.neuralnexus.dev/snapshots"
-        }
+    maven {
+        name = 'NeuralNexusSnapshots'
+        url = 'https://maven.neuralnexus.dev/snapshots'
     }
 }
 
-task taterBuild(type: Jar) {
-    dependsOn(subprojects*.build)
+dependencies {
+    implementation('dev.dejvokep:boosted-yaml:1.3.1')
+    compileOnly("dev.neuralnexus:taterlib-api:${taterlib_version}")
+
+    compileOnly('org.spongepowered:configurate-hocon:4.1.2')
+    compileOnly('com.google.code.gson:gson:2.10.1')
+    compileOnly('com.google.guava:guava:33.0.0-jre')
+}
+
+tasks.withType(ProcessResources).configureEach {
+    filesMatching([
+            'plugin.yml',
+            'bungee.yml',
+            'fabric.mod.json',
+            'META-INF/mods.toml', 'mcmod.info', 'pack.mcmeta',
+            'META-INF/sponge_plugins.json',
+            'velocity-plugin.json'
+    ]) {
+        expand project.properties
+    }
+}
+
+shadowJar {
+    // TaterLib bundled dependencies
+    relocate('org.spongepowered.configurate', 'dev.neuralnexus.taterlib.lib.configurate')
+    relocate('com.typesafe.config', 'dev.neuralnexus.taterlib.lib.typesafe.config')
+    relocate('io.leangen.geantyref', 'dev.neuralnexus.taterlib.lib.geantyref')
+    relocate('com.google.gson', 'dev.neuralnexus.taterlib.lib.gson')
+    relocate('com.google.common', 'dev.neuralnexus.taterlib.lib.guava')
+    relocate('com.google.thirdparty', 'dev.neuralnexus.taterlib.lib.google.thirdparty')
+
     archiveFileName = "${project_id}-${version}.jar"
-    destinationDirectory = file("./build/libs")
-    duplicatesStrategy = DuplicatesStrategy.EXCLUDE
 
-    from {
-        fileTree("./target").findAll {
-            it.name.contains('jar')
-        }.collect {
-            if (it.name.contains('-forge')) {
-                zipTree(it).matching {
-                    exclude 'META-INF/mods.toml'
-                }
-            } else if (it.name.contains('sponge7')) {
-                zipTree(it).matching {
-                    exclude('META-INF/sponge_plugins.json')
-                    exclude('mcmod.info')
-                }
-            } else {
-                zipTree(it)
-            }
-        }
+    manifest {
+        attributes 'Specification-Title': "${project_name}",
+                'Specification-Version': version,
+                'Specification-Vendor': 'NeuralNexus',
+                'Implementation-Version': version,
+                'Implementation-Vendor': 'NeuralNexus',
+                'Implementation-Timestamp': new Date().format("yyyy-MM-dd'T'HH:mm:ssZ")
     }
+
     from(["README.md", "LICENSE", "LICENSE-API"]) {
         into("META-INF")
     }
 }
 
-clean {
-    delete('target')
+artifacts {
+    archives(shadowJar)
 }

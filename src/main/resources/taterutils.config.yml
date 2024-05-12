@@ -1,0 +1,150 @@
+---
+version: 1
+
+# Common Player Placeholders:
+#   %player% - Player name
+#   %displayname% - Player display name
+#   %server% - Server name
+#   %prefix% - Player prefix
+#   %suffix% - Player suffix
+
+modules:
+  alert:
+    enabled: true
+
+  badSpawns:
+    enabled: true
+
+  chatFormatter:
+    enabled: true
+    messages:
+      # Available message placeholders:
+      #   %player% - Player name
+      #   %message% - Message
+      playerMessage: "%displayname% >> %message%"
+
+  gameMode:
+    enabled: true
+    messages:
+      # Available message placeholders:
+      #   %gamemode% - The name of the gamemode
+      #   %player% - Player name
+      noPermission: "&cYou do not have permission to use this command!"
+      changedSelf: "&aSet gamemode to &e%gamemode%&a!"
+      notPlayer: "&cYou must be a player to use this command!"
+      changedOther: "&aSet &e%player%&a's gamemode to &e%gamemode%&a!"
+      playerNotFound: "&cPlayer not found!"
+      invalidGameMode: "&cInvalid gamemode!"
+      noPermissionGamemode: "&cYou do not have permission to use the &e%gamemode%&c gamemode!"
+
+  godMode:
+    enabled: true
+    messages:
+      # Available message placeholders:
+      #   %player% - Player name
+      #   %state% - The state of the player's godmode
+      toggleSelf: "&e%state%&a godmode!"
+      toggleOther: "&e%state%&a &e%player%&a's godmode!"
+      specifyPlayer: "&cPlease specify a player!"
+      playerNotFound: "&cPlayer not found!"
+      godmodeOtherDenied: "&cYou do not have permission to change other players' godmode!"
+
+  home:
+    enabled: true
+    messages:
+      # Available message placeholders:
+      #   %home% - The name of the home
+      #   %homes% - A list of the player's homes
+      home:
+        homeNotSet: "&cYou do not have home &e%home%&c set!"
+        teleportedToHome: "&aTeleporting to home &e%home%&a!"
+        invalidArguments: "&cInvalid arguments!"
+        invalidHomeName: "&cInvalid home name!"
+        noName: "&aPlease provide a Home name!"
+        availableHomes: "&aAvailable homes: &e%homes%"
+      setHome:
+        success: "&aSet home &e%home%&a!"
+      deleteHome:
+        success: "&aDeleted home &e%home%&a!"
+
+  joinAndQuit:
+    enabled: true
+    messages:
+      # Available message placeholders:
+      #   %player% - Player name
+      #   %message% - Message
+      join: "&a%player% joined the game!"
+      quit: "&c%player% left the game!"
+
+  motd:
+    enabled: true
+    messages:
+      motd: "&aWelcome to the server!"
+
+  oreWatcher:
+    enabled: true
+
+    # The amount of ore mined per minute to trigger an alert
+    alertThreshold: 30
+    # Whether to cancel the mining event if the alert threshold is exceeded
+    cancelMinedOverThreshold: false
+
+    # Config for the alert messages
+    adminAlertEnabled: true
+    playerAlertEnabled: false
+
+    messages:
+      # Available message placeholders:
+      #   %player% - The name of the player
+      #   %blockname% - The name of the block being mined
+      #   %oreperminute% - The amount of ore mined per minute
+
+      # The message to send to any admins with the permission taterutils.module.orewatcher.admin when the alert threshold is exceeded
+      adminAlertMessage: "&c%playername% &7is mining &c %blockname% §7at a rate of &c %oreperminute% &7per minute!"
+
+      # The message to send to the player when the alert threshold is exceeded
+      playerAlertMessage: "&cYou are mining ore a bit too fast there, buddy!"
+
+  ping:
+    enabled: true
+    messages:
+      # Available message placeholders:
+      #   %player% - The name of the player
+      #   %ping% - The player's ping
+      pingSelf: "&aYour ping is &e%ping%ms&a!"
+      pingOther: "&a%player%'s ping is &e%ping%ms&a!"
+      pingOtherDenied: "&cYou do not have permission to view other players' ping!"
+      specifyPlayer: "&cPlease specify a player!"
+      playerNotFound: "&cPlayer not found!"
+
+  send:
+    enabled: true
+
+  slashLobby:
+    enabled: true
+
+    # The name of the lobby/hub server to send players to
+    lobbyNames: [ "lobby", "hub" ]
+
+    messages:
+      lobby:
+        # Available message placeholders:
+        #   %lobby% - The name of the lobby
+        connectedToLobby: "&aConnected to &e%lobby%&a!"
+
+  spawn:
+    enabled: true
+    messages:
+      spawn:
+        spawnNotSet: "&cSpawn has not been set!"
+        teleportedToSpawn: "&aTeleporting to spawn!"
+        setSpawn:
+          success: "&aSet spawn location!"
+        deleteSpawn:
+          success: "&aDeleted spawn location!"
+
+  tpa:
+    enabled: true
+
+  warp:
+    enabled: true

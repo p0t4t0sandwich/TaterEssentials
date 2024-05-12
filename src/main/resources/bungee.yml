@@ -1,0 +1,18 @@
+name: '${project_name}'
+version: '${version}'
+author: '${authors}'
+description: '${project_description}'
+website: '${homepage_url}'
+main: '${group_id}.${project_id}.platforms.BungeePlugin'
+depends: [ TaterLib ]
+softdepends: [ ]
+commands:
+  switchboard:
+    description: Switchboard command
+    aliases: [ tc ]
+    usage: /switchboard
+    permission: switchboard.admin
+  discord:
+    description: Get the discord invite link
+    usage: /discord
+    permission: switchboard.command.discord

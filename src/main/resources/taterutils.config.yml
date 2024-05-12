@@ -13,7 +13,25 @@ modules:
     enabled: true
 
   badSpawns:
-    enabled: true
+    enabled: false
+    bannedMobs:
+      - "modid:entityid"
+
+    regions:
+      - name: "ExampleRegion"
+        type: "blacklist"
+        minX: "-100"
+        maxX: "*"
+        minY: "0"
+        maxY: "*"
+        minZ: "-100"
+        maxZ: "*"
+        worlds:
+          - "minecraft:overworld"
+        biomes:
+          - "minecraft:plains"
+        mobs:
+          - "modid:entityid"
 
   chatFormatter:
     enabled: true
@@ -82,7 +100,7 @@ modules:
       motd: "&aWelcome to the server!"
 
   oreWatcher:
-    enabled: true
+    enabled: false
 
     # The amount of ore mined per minute to trigger an alert
     alertThreshold: 30

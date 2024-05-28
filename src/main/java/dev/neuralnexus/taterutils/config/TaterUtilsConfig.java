@@ -9,6 +9,7 @@ package dev.neuralnexus.taterutils.config;
 import dev.neuralnexus.taterlib.config.sections.ModuleConfig;
 import dev.neuralnexus.taterutils.config.sections.BadSpawnsConfig;
 import dev.neuralnexus.taterutils.config.sections.ChatFormatterConfig;
+import dev.neuralnexus.taterutils.config.sections.GameModeConfig;
 
 import java.util.List;
 
@@ -29,6 +30,20 @@ public interface TaterUtilsConfig {
     List<ModuleConfig> modules();
 
     /**
+     * Check if a module is enabled in the configuration.
+     *
+     * @param moduleName The name of the module.
+     * @return Whether the module should be applied.
+     */
+    default boolean checkModule(String moduleName) {
+        return modules().stream()
+                .anyMatch(
+                        moduleConfig ->
+                                moduleConfig.name().equalsIgnoreCase(moduleName)
+                                        && moduleConfig.enabled());
+    }
+
+    /**
      * Get the configuration for bad spawns.
      *
      * @return The configuration for bad spawns.
@@ -43,16 +58,9 @@ public interface TaterUtilsConfig {
     ChatFormatterConfig chatFormatter();
 
     /**
-     * Check if a module is enabled in the configuration.
+     * Get the configuration for game modes.
      *
-     * @param moduleName The name of the module.
-     * @return Whether the module should be applied.
+     * @return The configuration for game modes.
      */
-    default boolean checkModule(String moduleName) {
-        return modules().stream()
-                .anyMatch(
-                        moduleConfig ->
-                                moduleConfig.name().equalsIgnoreCase(moduleName)
-                                        && moduleConfig.enabled());
-    }
+    GameModeConfig gameMode();
 }

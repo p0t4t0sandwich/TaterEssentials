@@ -3,7 +3,6 @@ package dev.neuralnexus.taterutils.modules.slashlobby.command;
 import dev.neuralnexus.taterlib.command.Command;
 import dev.neuralnexus.taterlib.command.CommandSender;
 import dev.neuralnexus.taterlib.player.ProxyPlayer;
-import dev.neuralnexus.taterutils.TaterUtilsConfigOld;
 import dev.neuralnexus.taterutils.api.CommandUtils;
 
 /** SlashLobby Command. */

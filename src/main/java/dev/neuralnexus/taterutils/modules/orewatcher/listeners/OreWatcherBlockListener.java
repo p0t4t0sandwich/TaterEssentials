@@ -5,7 +5,6 @@ import dev.neuralnexus.taterlib.api.TaterAPIProvider;
 import dev.neuralnexus.taterlib.event.block.PlayerBlockBreakEvent;
 import dev.neuralnexus.taterlib.placeholder.PlaceholderParser;
 import dev.neuralnexus.taterutils.TaterUtils;
-import dev.neuralnexus.taterutils.TaterUtilsConfigOld;
 import dev.neuralnexus.taterutils.api.TaterUtilsAPIProvider;
 import dev.neuralnexus.taterutils.modules.orewatcher.api.OreWatcherAPI;
 
@@ -38,8 +37,7 @@ public class OreWatcherBlockListener {
                                     String adminAlertMessage =
                                             new PlaceholderParser(
                                                             "["
-                                                                    + TaterUtils.Constants
-                                                                            .PROJECT_NAME
+                                                                    + TaterUtils.PROJECT_NAME
                                                                     + "->OreWatcher]"
                                                                     + TaterUtilsConfigOld
                                                                             .OreWatcherConfig
@@ -76,8 +74,7 @@ public class OreWatcherBlockListener {
                                         String playerAlertMessage =
                                                 new PlaceholderParser(
                                                                 "["
-                                                                        + TaterUtils.Constants
-                                                                                .PROJECT_NAME
+                                                                        + TaterUtils.PROJECT_NAME
                                                                         + "->OreWatcher]"
                                                                         + TaterUtilsConfigOld
                                                                                 .OreWatcherConfig

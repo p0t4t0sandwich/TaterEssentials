@@ -6,8 +6,9 @@ import dev.neuralnexus.taterlib.command.CommandSender;
 import dev.neuralnexus.taterlib.placeholder.PlaceholderParser;
 import dev.neuralnexus.taterlib.player.GameMode;
 import dev.neuralnexus.taterlib.player.Player;
-import dev.neuralnexus.taterutils.TaterUtilsConfigOld;
 import dev.neuralnexus.taterutils.api.CommandUtils;
+import dev.neuralnexus.taterutils.config.TaterUtilsConfigLoader;
+import dev.neuralnexus.taterutils.config.sections.GameModeConfig;
 
 import java.util.Optional;
 
@@ -45,6 +46,7 @@ public class GameModeCommand implements Command {
         if (!CommandUtils.senderHasPermission(sender, permission())) {
             return true;
         }
+        GameModeConfig config = TaterUtilsConfigLoader.config().gameMode();
         Player player = null;
         GameMode gameMode = GameMode.UNKNOWN;
         String message = "";
@@ -57,10 +59,9 @@ public class GameModeCommand implements Command {
                 if (sender.isPlayer()) {
                     player = (Player) sender;
                     gameMode = GameMode.from(args[0]);
-                    message = TaterUtilsConfigOld.GameModeConfig.getMessage("changedSelf");
+                    message = config.changedSelf();
                 } else {
-                    CommandUtils.sendMessage(
-                            sender, TaterUtilsConfigOld.GameModeConfig.getMessage("notPlayer"));
+                    CommandUtils.sendMessage(sender, config.notPlayer());
                     return true;
                 }
             } else if (args.length == 2) {
@@ -75,11 +76,9 @@ public class GameModeCommand implements Command {
                 if (optionalPlayer.isPresent()) {
                     player = optionalPlayer.get();
                     gameMode = GameMode.from(args[0]);
-                    message = TaterUtilsConfigOld.GameModeConfig.getMessage("changedOther");
+                    message = config.changedOther();
                 } else {
-                    CommandUtils.sendMessage(
-                            sender,
-                            TaterUtilsConfigOld.GameModeConfig.getMessage("playerNotFound"));
+                    CommandUtils.sendMessage(sender, config.playerNotFound());
                     return true;
                 }
             } else {
@@ -112,28 +111,24 @@ public class GameModeCommand implements Command {
                                 .map(p -> (Player) p);
                 if (optionalPlayer.isPresent()) {
                     player = optionalPlayer.get();
-                    message = TaterUtilsConfigOld.GameModeConfig.getMessage("changedOther");
+                    message = config.changedOther();
                 } else {
-                    CommandUtils.sendMessage(
-                            sender,
-                            TaterUtilsConfigOld.GameModeConfig.getMessage("playerNotFound"));
+                    CommandUtils.sendMessage(sender, config.playerNotFound());
                     return true;
                 }
             } else {
                 if (sender.isPlayer()) {
                     player = (Player) sender;
-                    message = TaterUtilsConfigOld.GameModeConfig.getMessage("changedSelf");
+                    message = config.changedSelf();
                 } else {
-                    CommandUtils.sendMessage(
-                            sender, TaterUtilsConfigOld.GameModeConfig.getMessage("notPlayer"));
+                    CommandUtils.sendMessage(sender, config.notPlayer());
                     return true;
                 }
             }
         }
 
         if (gameMode == GameMode.UNKNOWN) {
-            CommandUtils.sendMessage(
-                    sender, TaterUtilsConfigOld.GameModeConfig.getMessage("invalidGameMode"));
+            CommandUtils.sendMessage(sender, config.invalidGameMode());
         } else {
             if (sender.hasPermission(permission() + "." + gameMode.name())) {
                 player.setGameMode(gameMode);
@@ -146,9 +141,7 @@ public class GameModeCommand implements Command {
             } else {
                 CommandUtils.sendMessage(
                         sender,
-                        new PlaceholderParser(
-                                        TaterUtilsConfigOld.GameModeConfig.getMessage(
-                                                "noPermissionGamemode"))
+                        new PlaceholderParser(config.noPermissionGamemode())
                                 .parseString("gamemode", gameMode.name())
                                 .getResult());
             }

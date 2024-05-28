@@ -12,6 +12,7 @@ import dev.neuralnexus.taterlib.config.sections.ModuleConfig;
 import dev.neuralnexus.taterutils.TaterUtils;
 import dev.neuralnexus.taterutils.config.sections.BadSpawnsConfig;
 import dev.neuralnexus.taterutils.config.sections.ChatFormatterConfig;
+import dev.neuralnexus.taterutils.config.sections.GameModeConfig;
 import dev.neuralnexus.taterutils.config.versions.TaterUtilsConfig_V1;
 
 import io.leangen.geantyref.TypeToken;
@@ -47,6 +48,8 @@ public class TaterUtilsConfigLoader {
             new TypeToken<BadSpawnsConfig>() {};
     private static final TypeToken<ChatFormatterConfig> chatFormatterType =
             new TypeToken<ChatFormatterConfig>() {};
+    private static final TypeToken<GameModeConfig> gameModeType =
+            new TypeToken<GameModeConfig>() {};
     private static TaterUtilsConfig config;
 
     /** Copy the default configuration to the config folder. */
@@ -122,7 +125,7 @@ public class TaterUtilsConfigLoader {
 
         ChatFormatterConfig chatFormatter = null;
         try {
-            chatFormatter = root.node("chat").get(chatFormatterType);
+            chatFormatter = root.node("chatFormatter").get(chatFormatterType);
         } catch (SerializationException e) {
             TaterUtils.logger()
                     .error(
@@ -133,9 +136,22 @@ public class TaterUtilsConfigLoader {
             }
         }
 
+        GameModeConfig gameMode = null;
+        try {
+            gameMode = root.node("gameMode").get(gameModeType);
+        } catch (SerializationException e) {
+            TaterUtils.logger()
+                    .error(
+                            "An error occurred while loading the gameMode configuration: "
+                                    + e.getMessage());
+            if (e.getCause() != null) {
+                e.getCause().printStackTrace();
+            }
+        }
+
         switch (version) {
             case 1:
-                config = new TaterUtilsConfig_V1(modules, badSpawns, chatFormatter);
+                config = new TaterUtilsConfig_V1(modules, badSpawns, chatFormatter, gameMode);
                 break;
             default:
                 TaterUtils.logger().error("Unknown configuration version: " + version);
@@ -197,7 +213,17 @@ public class TaterUtilsConfigLoader {
         }
 
         try {
-            root.node("chat").set(chatFormatterType, config.chatFormatter());
+            root.node("chatFormatter").set(chatFormatterType, config.chatFormatter());
+        } catch (SerializationException e) {
+            TaterLib.logger()
+                    .error("An error occurred while saving this configuration: " + e.getMessage());
+            if (e.getCause() != null) {
+                e.getCause().printStackTrace();
+            }
+        }
+
+        try {
+            root.node("gameMode").set(gameModeType, config.gameMode());
         } catch (SerializationException e) {
             TaterLib.logger()
                     .error("An error occurred while saving this configuration: " + e.getMessage());

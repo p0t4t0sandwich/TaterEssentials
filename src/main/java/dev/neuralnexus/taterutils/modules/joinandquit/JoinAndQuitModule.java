@@ -4,7 +4,6 @@ import dev.neuralnexus.taterlib.Utils;
 import dev.neuralnexus.taterlib.event.api.PlayerEvents;
 import dev.neuralnexus.taterlib.plugin.PluginModule;
 import dev.neuralnexus.taterutils.TaterUtils;
-import dev.neuralnexus.taterutils.TaterUtilsConfigOld;
 
 /** JoinAndQuit module. */
 public class JoinAndQuitModule implements PluginModule {

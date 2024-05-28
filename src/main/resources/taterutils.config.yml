@@ -9,28 +9,6 @@ version: 1
 #   %suffix% - Player suffix
 
 modules:
-  chatFormatter:
-    enabled: true
-    messages:
-      # Available message placeholders:
-      #   %player% - Player name
-      #   %message% - Message
-      playerMessage: "%displayname% >> %message%"
-
-  gameMode:
-    enabled: true
-    messages:
-      # Available message placeholders:
-      #   %gamemode% - The name of the gamemode
-      #   %player% - Player name
-      noPermission: "&cYou do not have permission to use this command!"
-      changedSelf: "&aSet gamemode to &e%gamemode%&a!"
-      notPlayer: "&cYou must be a player to use this command!"
-      changedOther: "&aSet &e%player%&a's gamemode to &e%gamemode%&a!"
-      playerNotFound: "&cPlayer not found!"
-      invalidGameMode: "&cInvalid gamemode!"
-      noPermissionGamemode: "&cYou do not have permission to use the &e%gamemode%&c gamemode!"
-
   godMode:
     enabled: true
     messages:

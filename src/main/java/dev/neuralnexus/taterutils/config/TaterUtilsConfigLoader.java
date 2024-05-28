@@ -57,6 +57,7 @@ public class TaterUtilsConfigLoader {
     private static final TypeToken<MOTDConfig> motdType = new TypeToken<MOTDConfig>() {};
     private static final TypeToken<OreWatcherConfig> oreWatcherType =
             new TypeToken<OreWatcherConfig>() {};
+    private static final TypeToken<PingConfig> pingType = new TypeToken<PingConfig>() {};
     private static TaterUtilsConfig config;
 
     // TODO: REMOVE WHEN TATERLIB VERSION IS BUMPED
@@ -155,6 +156,7 @@ public class TaterUtilsConfigLoader {
                 get(root, joinAndQuitType, "joinAndQuit", TaterUtils.logger());
         MOTDConfig motd = get(root, motdType, "motd", TaterUtils.logger());
         OreWatcherConfig oreWatcher = get(root, oreWatcherType, "oreWatcher", TaterUtils.logger());
+        PingConfig ping = get(root, pingType, "ping", TaterUtils.logger());
 
         switch (version) {
             case 1:
@@ -168,7 +170,8 @@ public class TaterUtilsConfigLoader {
                                 home,
                                 joinAndQuit,
                                 motd,
-                                oreWatcher);
+                                oreWatcher,
+                                ping);
                 break;
             default:
                 TaterUtils.logger().error("Unknown configuration version: " + version);
@@ -202,6 +205,7 @@ public class TaterUtilsConfigLoader {
         set(root, joinAndQuitType, "joinAndQuit", config.joinAndQuit(), TaterUtils.logger());
         set(root, motdType, "motd", config.motd(), TaterUtils.logger());
         set(root, oreWatcherType, "oreWatcher", config.oreWatcher(), TaterUtils.logger());
+        set(root, pingType, "ping", config.ping(), TaterUtils.logger());
 
         try {
             loader.save(root);

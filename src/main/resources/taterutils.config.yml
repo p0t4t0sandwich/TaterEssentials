@@ -1,16 +1,4 @@
 modules:
-  ping:
-    enabled: true
-    messages:
-      # Available message placeholders:
-      #   %player% - The name of the player
-      #   %ping% - The player's ping
-      pingSelf: "&aYour ping is &e%ping%ms&a!"
-      pingOther: "&a%player%'s ping is &e%ping%ms&a!"
-      pingOtherDenied: "&cYou do not have permission to view other players' ping!"
-      specifyPlayer: "&cPlease specify a player!"
-      playerNotFound: "&cPlayer not found!"
-
   slashLobby:
     enabled: true
 

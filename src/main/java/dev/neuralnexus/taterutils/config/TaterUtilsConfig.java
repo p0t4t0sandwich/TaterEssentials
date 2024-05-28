@@ -96,4 +96,11 @@ public interface TaterUtilsConfig {
      * @return The configuration for the ore watcher.
      */
     OreWatcherConfig oreWatcher();
+
+    /**
+     * Get the configuration for the ping.
+     *
+     * @return The configuration for the ping.
+     */
+    PingConfig ping();
 }

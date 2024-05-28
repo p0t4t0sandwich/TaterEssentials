@@ -1,9 +1,4 @@
 modules:
-  motd:
-    enabled: true
-    messages:
-      motd: "&aWelcome to the server!"
-
   oreWatcher:
     enabled: false
 

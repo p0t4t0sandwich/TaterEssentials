@@ -82,4 +82,11 @@ public interface TaterUtilsConfig {
      * @return The configuration for join and quit.
      */
     JoinAndQuitConfig joinAndQuit();
+
+    /**
+     * Get the configuration for the message of the day.
+     *
+     * @return The configuration for the message of the day.
+     */
+    MOTDConfig motd();
 }

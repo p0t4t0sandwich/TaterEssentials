@@ -4,6 +4,7 @@ import dev.neuralnexus.taterlib.Utils;
 import dev.neuralnexus.taterlib.event.api.PlayerEvents;
 import dev.neuralnexus.taterlib.plugin.PluginModule;
 import dev.neuralnexus.taterutils.TaterUtils;
+import dev.neuralnexus.taterutils.config.TaterUtilsConfigLoader;
 
 /** Motd module. */
 public class MotdModule implements PluginModule {
@@ -30,8 +31,9 @@ public class MotdModule implements PluginModule {
                             event.player()
                                     .sendMessage(
                                             Utils.substituteSectionSign(
-                                                    TaterUtilsConfigOld.MotdConfig.getMessage(
-                                                            "motd"))));
+                                                    TaterUtilsConfigLoader.config()
+                                                            .motd()
+                                                            .message())));
         }
 
         TaterUtils.logger().info("Submodule " + name() + " has been started!");

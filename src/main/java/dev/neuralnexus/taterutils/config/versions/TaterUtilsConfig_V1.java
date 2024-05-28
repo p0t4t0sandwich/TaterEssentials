@@ -14,6 +14,7 @@ public class TaterUtilsConfig_V1 implements TaterUtilsConfig {
     private final GodModeConfig godMode;
     private final HomeConfig home;
     private final JoinAndQuitConfig joinAndQuit;
+    private final MOTDConfig motd;
 
     public TaterUtilsConfig_V1(
             List<ModuleConfig> modules,
@@ -22,7 +23,8 @@ public class TaterUtilsConfig_V1 implements TaterUtilsConfig {
             GameModeConfig gameMode,
             GodModeConfig godMode,
             HomeConfig home,
-            JoinAndQuitConfig joinAndQuit) {
+            JoinAndQuitConfig joinAndQuit,
+            MOTDConfig motd) {
         this.modules = modules;
         this.badSpawns = badSpawns;
         this.chatFormatter = chatFormatter;
@@ -30,6 +32,7 @@ public class TaterUtilsConfig_V1 implements TaterUtilsConfig {
         this.godMode = godMode;
         this.home = home;
         this.joinAndQuit = joinAndQuit;
+        this.motd = motd;
     }
 
     @Override
@@ -70,5 +73,10 @@ public class TaterUtilsConfig_V1 implements TaterUtilsConfig {
     @Override
     public JoinAndQuitConfig joinAndQuit() {
         return joinAndQuit;
+    }
+
+    @Override
+    public MOTDConfig motd() {
+        return motd;
     }
 }

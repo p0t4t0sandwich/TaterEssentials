@@ -54,6 +54,7 @@ public class TaterUtilsConfigLoader {
     private static final TypeToken<HomeConfig> homeType = new TypeToken<HomeConfig>() {};
     private static final TypeToken<JoinAndQuitConfig> joinAndQuitType =
             new TypeToken<JoinAndQuitConfig>() {};
+    private static final TypeToken<MOTDConfig> motdType = new TypeToken<MOTDConfig>() {};
     private static TaterUtilsConfig config;
 
     // TODO: REMOVE WHEN TATERLIB VERSION IS BUMPED
@@ -150,6 +151,7 @@ public class TaterUtilsConfigLoader {
         HomeConfig home = get(root, homeType, "home", TaterUtils.logger());
         JoinAndQuitConfig joinAndQuit =
                 get(root, joinAndQuitType, "joinAndQuit", TaterUtils.logger());
+        MOTDConfig motd = get(root, motdType, "motd", TaterUtils.logger());
 
         switch (version) {
             case 1:
@@ -161,7 +163,8 @@ public class TaterUtilsConfigLoader {
                                 gameMode,
                                 godMode,
                                 home,
-                                joinAndQuit);
+                                joinAndQuit,
+                                motd);
                 break;
             default:
                 TaterUtils.logger().error("Unknown configuration version: " + version);
@@ -193,6 +196,7 @@ public class TaterUtilsConfigLoader {
         set(root, godModeType, "godMode", config.godMode(), TaterUtils.logger());
         set(root, homeType, "home", config.home(), TaterUtils.logger());
         set(root, joinAndQuitType, "joinAndQuit", config.joinAndQuit(), TaterUtils.logger());
+        set(root, motdType, "motd", config.motd(), TaterUtils.logger());
 
         try {
             loader.save(root);

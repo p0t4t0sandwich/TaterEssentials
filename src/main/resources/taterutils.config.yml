@@ -20,7 +20,7 @@ modules:
         teleportedToHome: "&aTeleporting to home &e%home%&a!"
         invalidArguments: "&cInvalid arguments!"
         invalidHomeName: "&cInvalid home name!"
-        noName: "&aPlease provide a Home name!"
+        noName: "&aPlease provide a home name!"
         availableHomes: "&aAvailable homes: &e%homes%"
       setHome:
         success: "&aSet home &e%home%&a!"

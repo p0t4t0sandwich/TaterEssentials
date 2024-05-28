@@ -11,10 +11,7 @@ import dev.neuralnexus.taterlib.api.TaterAPIProvider;
 import dev.neuralnexus.taterlib.config.sections.ModuleConfig;
 import dev.neuralnexus.taterlib.logger.AbstractLogger;
 import dev.neuralnexus.taterutils.TaterUtils;
-import dev.neuralnexus.taterutils.config.sections.BadSpawnsConfig;
-import dev.neuralnexus.taterutils.config.sections.ChatFormatterConfig;
-import dev.neuralnexus.taterutils.config.sections.GameModeConfig;
-import dev.neuralnexus.taterutils.config.sections.GodModeConfig;
+import dev.neuralnexus.taterutils.config.sections.*;
 import dev.neuralnexus.taterutils.config.versions.TaterUtilsConfig_V1;
 
 import io.leangen.geantyref.TypeToken;
@@ -54,6 +51,7 @@ public class TaterUtilsConfigLoader {
     private static final TypeToken<GameModeConfig> gameModeType =
             new TypeToken<GameModeConfig>() {};
     private static final TypeToken<GodModeConfig> godModeType = new TypeToken<GodModeConfig>() {};
+    private static final TypeToken<HomeConfig> homeType = new TypeToken<HomeConfig>() {};
     private static TaterUtilsConfig config;
 
     // TODO: REMOVE WHEN TATERLIB VERSION IS BUMPED
@@ -147,12 +145,13 @@ public class TaterUtilsConfigLoader {
                 get(root, chatFormatterType, "chatFormatter", TaterUtils.logger());
         GameModeConfig gameMode = get(root, gameModeType, "gameMode", TaterUtils.logger());
         GodModeConfig godMode = get(root, godModeType, "godMode", TaterUtils.logger());
+        HomeConfig home = get(root, homeType, "home", TaterUtils.logger());
 
         switch (version) {
             case 1:
                 config =
                         new TaterUtilsConfig_V1(
-                                modules, badSpawns, chatFormatter, gameMode, godMode);
+                                modules, badSpawns, chatFormatter, gameMode, godMode, home);
                 break;
             default:
                 TaterUtils.logger().error("Unknown configuration version: " + version);
@@ -182,6 +181,7 @@ public class TaterUtilsConfigLoader {
         set(root, chatFormatterType, "chatFormatter", config.chatFormatter(), TaterUtils.logger());
         set(root, gameModeType, "gameMode", config.gameMode(), TaterUtils.logger());
         set(root, godModeType, "godMode", config.godMode(), TaterUtils.logger());
+        set(root, homeType, "home", config.home(), TaterUtils.logger());
 
         try {
             loader.save(root);

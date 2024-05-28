@@ -7,10 +7,7 @@
 package dev.neuralnexus.taterutils.config;
 
 import dev.neuralnexus.taterlib.config.sections.ModuleConfig;
-import dev.neuralnexus.taterutils.config.sections.BadSpawnsConfig;
-import dev.neuralnexus.taterutils.config.sections.ChatFormatterConfig;
-import dev.neuralnexus.taterutils.config.sections.GameModeConfig;
-import dev.neuralnexus.taterutils.config.sections.GodModeConfig;
+import dev.neuralnexus.taterutils.config.sections.*;
 
 import java.util.List;
 
@@ -71,4 +68,11 @@ public interface TaterUtilsConfig {
      * @return The configuration for god mode.
      */
     GodModeConfig godMode();
+
+    /**
+     * Get the configuration for home.
+     *
+     * @return The configuration for home.
+     */
+    HomeConfig home();
 }

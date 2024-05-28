@@ -1,3 +1,9 @@
+/**
+ * Copyright (c) 2024 Dylan Sperrer - dylan@sperrer.ca
+ * The project is Licensed under <a href="https://github.com/p0t4t0sandwich/TaterUtils/blob/dev/LICENSE">GPL-3</a>
+ * The API is Licensed under <a href="https://github.com/p0t4t0sandwich/TaterUtils/blob/dev/LICENSE-API">MIT</a>
+ */
+
 package dev.neuralnexus.taterutils;
 
 import com.google.common.collect.ImmutableMap;
@@ -177,7 +183,6 @@ public class TaterUtils implements Plugin {
 
         // Config
         TaterUtilsConfigLoader.load();
-        TaterUtilsConfigOld.loadConfig(TaterAPIProvider.serverType().dataFolders().configFolder());
 
         if (STARTED) {
             logger().info(PROJECT_NAME + " has already started!");

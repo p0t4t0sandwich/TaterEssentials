@@ -10,6 +10,7 @@ import dev.neuralnexus.taterlib.config.sections.ModuleConfig;
 import dev.neuralnexus.taterutils.config.sections.BadSpawnsConfig;
 import dev.neuralnexus.taterutils.config.sections.ChatFormatterConfig;
 import dev.neuralnexus.taterutils.config.sections.GameModeConfig;
+import dev.neuralnexus.taterutils.config.sections.GodModeConfig;
 
 import java.util.List;
 
@@ -63,4 +64,11 @@ public interface TaterUtilsConfig {
      * @return The configuration for game modes.
      */
     GameModeConfig gameMode();
+
+    /**
+     * Get the configuration for god mode.
+     *
+     * @return The configuration for god mode.
+     */
+    GodModeConfig godMode();
 }

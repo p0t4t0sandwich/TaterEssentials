@@ -9,18 +9,6 @@ version: 1
 #   %suffix% - Player suffix
 
 modules:
-  godMode:
-    enabled: true
-    messages:
-      # Available message placeholders:
-      #   %player% - Player name
-      #   %state% - The state of the player's godmode
-      toggleSelf: "&e%state%&a godmode!"
-      toggleOther: "&e%state%&a &e%player%&a's godmode!"
-      specifyPlayer: "&cPlease specify a player!"
-      playerNotFound: "&cPlayer not found!"
-      godmodeOtherDenied: "&cYou do not have permission to change other players' godmode!"
-
   home:
     enabled: true
     messages:
@@ -89,9 +77,6 @@ modules:
       specifyPlayer: "&cPlease specify a player!"
       playerNotFound: "&cPlayer not found!"
 
-  send:
-    enabled: true
-
   slashLobby:
     enabled: true
 
@@ -114,9 +99,3 @@ modules:
           success: "&aSet spawn location!"
         deleteSpawn:
           success: "&aDeleted spawn location!"
-
-  tpa:
-    enabled: true
-
-  warp:
-    enabled: true

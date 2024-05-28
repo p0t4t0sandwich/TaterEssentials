@@ -9,10 +9,12 @@ package dev.neuralnexus.taterutils.config;
 import dev.neuralnexus.taterlib.TaterLib;
 import dev.neuralnexus.taterlib.api.TaterAPIProvider;
 import dev.neuralnexus.taterlib.config.sections.ModuleConfig;
+import dev.neuralnexus.taterlib.logger.AbstractLogger;
 import dev.neuralnexus.taterutils.TaterUtils;
 import dev.neuralnexus.taterutils.config.sections.BadSpawnsConfig;
 import dev.neuralnexus.taterutils.config.sections.ChatFormatterConfig;
 import dev.neuralnexus.taterutils.config.sections.GameModeConfig;
+import dev.neuralnexus.taterutils.config.sections.GodModeConfig;
 import dev.neuralnexus.taterutils.config.versions.TaterUtilsConfig_V1;
 
 import io.leangen.geantyref.TypeToken;
@@ -42,6 +44,7 @@ public class TaterUtilsConfigLoader {
                             + TaterUtils.PROJECT_ID
                             + ".conf");
     private static final String defaultConfigPath = "source." + TaterUtils.PROJECT_ID + ".conf";
+    private static final TypeToken<Integer> versionType = new TypeToken<Integer>() {};
     private static final TypeToken<List<ModuleConfig>> moduleType =
             new TypeToken<List<ModuleConfig>>() {};
     private static final TypeToken<BadSpawnsConfig> badSpawnsType =
@@ -50,10 +53,62 @@ public class TaterUtilsConfigLoader {
             new TypeToken<ChatFormatterConfig>() {};
     private static final TypeToken<GameModeConfig> gameModeType =
             new TypeToken<GameModeConfig>() {};
+    private static final TypeToken<GodModeConfig> godModeType = new TypeToken<GodModeConfig>() {};
     private static TaterUtilsConfig config;
 
-    /** Copy the default configuration to the config folder. */
-    public static void copyDefaults() {
+    // TODO: REMOVE WHEN TATERLIB VERSION IS BUMPED
+    public static CommentedConfigurationNode getRoot(HoconConfigurationLoader loader) {
+        try {
+            return loader.load();
+        } catch (ConfigurateException e) {
+            TaterLib.logger()
+                    .error("An error occurred while loading this configuration: " + e.getMessage());
+            if (e.getCause() != null) {
+                e.getCause().printStackTrace();
+            }
+            return null;
+        }
+    }
+
+    // TODO: REMOVE WHEN TATERLIB VERSION IS BUMPED
+    public static <T> T get(
+            CommentedConfigurationNode root,
+            TypeToken<T> typeToken,
+            String path,
+            AbstractLogger logger) {
+        try {
+            return root.node(path).get(typeToken);
+        } catch (SerializationException e) {
+            logger.error(
+                    "An error occurred while loading the modules configuration: " + e.getMessage());
+            if (e.getCause() != null) {
+                e.getCause().printStackTrace();
+            }
+            return null;
+        }
+    }
+
+    // TODO: REMOVE WHEN TATERLIB VERSION IS BUMPED
+    public static <T> void set(
+            CommentedConfigurationNode root,
+            TypeToken<T> typeToken,
+            String path,
+            T value,
+            AbstractLogger logger) {
+        try {
+            root.node(path).set(typeToken, value);
+        } catch (SerializationException e) {
+            logger.error(
+                    "An error occurred while saving the modules configuration: " + e.getMessage());
+            if (e.getCause() != null) {
+                e.getCause().printStackTrace();
+            }
+        }
+    }
+
+    // TODO: REMOVE WHEN TATERLIB VERSION IS BUMPED
+    public static <T> void copyDefaults(
+            Class<T> clazz, Path configPath, String defaultConfigPath, AbstractLogger logger) {
         if (configPath.toFile().exists()) {
             return;
         }
@@ -61,15 +116,11 @@ public class TaterUtilsConfigLoader {
             Files.createDirectories(configPath.getParent());
             Files.copy(
                     Objects.requireNonNull(
-                            TaterUtilsConfigLoader.class
-                                    .getClassLoader()
-                                    .getResourceAsStream(defaultConfigPath)),
+                            clazz.getClassLoader().getResourceAsStream(defaultConfigPath)),
                     configPath);
         } catch (IOException e) {
-            TaterUtils.logger()
-                    .error(
-                            "An error occurred while copying the default configuration: "
-                                    + e.getMessage());
+            logger.error(
+                    "An error occurred while copying the default configuration: " + e.getMessage());
             if (e.getCause() != null) {
                 e.getCause().printStackTrace();
             }
@@ -78,80 +129,30 @@ public class TaterUtilsConfigLoader {
 
     /** Load the configuration from the file. */
     public static void load() {
-        copyDefaults();
+        copyDefaults(TaterUtils.class, configPath, defaultConfigPath, TaterUtils.logger());
 
         final HoconConfigurationLoader loader =
                 HoconConfigurationLoader.builder().path(configPath).build();
-        CommentedConfigurationNode root;
-        try {
-            root = loader.load();
-        } catch (ConfigurateException e) {
-            TaterUtils.logger()
-                    .error("An error occurred while loading this configuration: " + e.getMessage());
-            if (e.getCause() != null) {
-                e.getCause().printStackTrace();
-            }
+        CommentedConfigurationNode root = getRoot(loader);
+        if (root == null) {
             return;
         }
 
         ConfigurationNode versionNode = root.node("version");
         int version = versionNode.getInt(1);
 
-        List<ModuleConfig> modules = null;
-        try {
-            modules = root.node("modules").get(moduleType);
-        } catch (SerializationException e) {
-            TaterUtils.logger()
-                    .error(
-                            "An error occurred while loading the modules configuration: "
-                                    + e.getMessage());
-            if (e.getCause() != null) {
-                e.getCause().printStackTrace();
-            }
-        }
-
-        BadSpawnsConfig badSpawns = null;
-        try {
-            badSpawns = root.node("badSpawns").get(badSpawnsType);
-        } catch (SerializationException e) {
-            TaterUtils.logger()
-                    .error(
-                            "An error occurred while loading the discord configuration: "
-                                    + e.getMessage());
-            if (e.getCause() != null) {
-                e.getCause().printStackTrace();
-            }
-        }
-
-        ChatFormatterConfig chatFormatter = null;
-        try {
-            chatFormatter = root.node("chatFormatter").get(chatFormatterType);
-        } catch (SerializationException e) {
-            TaterUtils.logger()
-                    .error(
-                            "An error occurred while loading the chat configuration: "
-                                    + e.getMessage());
-            if (e.getCause() != null) {
-                e.getCause().printStackTrace();
-            }
-        }
-
-        GameModeConfig gameMode = null;
-        try {
-            gameMode = root.node("gameMode").get(gameModeType);
-        } catch (SerializationException e) {
-            TaterUtils.logger()
-                    .error(
-                            "An error occurred while loading the gameMode configuration: "
-                                    + e.getMessage());
-            if (e.getCause() != null) {
-                e.getCause().printStackTrace();
-            }
-        }
+        List<ModuleConfig> modules = get(root, moduleType, "modules", TaterUtils.logger());
+        BadSpawnsConfig badSpawns = get(root, badSpawnsType, "badSpawns", TaterUtils.logger());
+        ChatFormatterConfig chatFormatter =
+                get(root, chatFormatterType, "chatFormatter", TaterUtils.logger());
+        GameModeConfig gameMode = get(root, gameModeType, "gameMode", TaterUtils.logger());
+        GodModeConfig godMode = get(root, godModeType, "godMode", TaterUtils.logger());
 
         switch (version) {
             case 1:
-                config = new TaterUtilsConfig_V1(modules, badSpawns, chatFormatter, gameMode);
+                config =
+                        new TaterUtilsConfig_V1(
+                                modules, badSpawns, chatFormatter, gameMode, godMode);
                 break;
             default:
                 TaterUtils.logger().error("Unknown configuration version: " + version);
@@ -170,67 +171,17 @@ public class TaterUtilsConfigLoader {
         }
         final HoconConfigurationLoader loader =
                 HoconConfigurationLoader.builder().path(configPath).build();
-        CommentedConfigurationNode root;
-        try {
-            root = loader.load();
-        } catch (ConfigurateException e) {
-            TaterLib.logger()
-                    .error("An error occurred while loading this configuration: " + e.getMessage());
-            if (e.getCause() != null) {
-                e.getCause().printStackTrace();
-            }
+        CommentedConfigurationNode root = getRoot(loader);
+        if (root == null) {
             return;
         }
 
-        try {
-            root.node("version").set(config.version());
-        } catch (SerializationException e) {
-            TaterLib.logger()
-                    .error("An error occurred while saving this configuration: " + e.getMessage());
-            if (e.getCause() != null) {
-                e.getCause().printStackTrace();
-            }
-        }
-
-        try {
-            root.node("modules").set(moduleType, config.modules());
-        } catch (SerializationException e) {
-            TaterLib.logger()
-                    .error("An error occurred while saving this configuration: " + e.getMessage());
-            if (e.getCause() != null) {
-                e.getCause().printStackTrace();
-            }
-        }
-
-        try {
-            root.node("badSpawns").set(badSpawnsType, config.badSpawns());
-        } catch (SerializationException e) {
-            TaterLib.logger()
-                    .error("An error occurred while saving this configuration: " + e.getMessage());
-            if (e.getCause() != null) {
-                e.getCause().printStackTrace();
-            }
-        }
-
-        try {
-            root.node("chatFormatter").set(chatFormatterType, config.chatFormatter());
-        } catch (SerializationException e) {
-            TaterLib.logger()
-                    .error("An error occurred while saving this configuration: " + e.getMessage());
-            if (e.getCause() != null) {
-                e.getCause().printStackTrace();
-            }
-        }
-
-        try {
-            root.node("gameMode").set(gameModeType, config.gameMode());
-        } catch (SerializationException e) {
-            TaterLib.logger()
-                    .error("An error occurred while saving this configuration: " + e.getMessage());
-            if (e.getCause() != null) {
-                e.getCause().printStackTrace();
-            }
-        }
+        set(root, versionType, "version", config.version(), TaterUtils.logger());
+        set(root, moduleType, "modules", config.modules(), TaterUtils.logger());
+        set(root, badSpawnsType, "badSpawns", config.badSpawns(), TaterUtils.logger());
+        set(root, chatFormatterType, "chatFormatter", config.chatFormatter(), TaterUtils.logger());
+        set(root, gameModeType, "gameMode", config.gameMode(), TaterUtils.logger());
+        set(root, godModeType, "godMode", config.godMode(), TaterUtils.logger());
 
         try {
             loader.save(root);

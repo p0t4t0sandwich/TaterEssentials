@@ -6,13 +6,26 @@ import org.spongepowered.configurate.objectmapping.meta.Setting;
 /** Game mode configuration. */
 @ConfigSerializable
 public class GameModeConfig {
-    @Setting private String noPermission;
-    @Setting private String changedSelf;
-    @Setting private String notPlayer;
-    @Setting private String changedOther;
-    @Setting private String playerNotFound;
-    @Setting private String invalidGameMode;
-    @Setting private String noPermissionGamemode;
+    @Setting("noPermission")
+    private String noPermission;
+
+    @Setting("changedSelf")
+    private String changedSelf;
+
+    @Setting("notPlayer")
+    private String notPlayer;
+
+    @Setting("changedOther")
+    private String changedOther;
+
+    @Setting("playerNotFound")
+    private String playerNotFound;
+
+    @Setting("invalidGameMode")
+    private String invalidGameMode;
+
+    @Setting("noPermissionGamemode")
+    private String noPermissionGamemode;
 
     public String noPermission() {
         return noPermission;

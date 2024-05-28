@@ -9,30 +9,6 @@ version: 1
 #   %suffix% - Player suffix
 
 modules:
-  alert:
-    enabled: true
-
-  badSpawns:
-    enabled: false
-    bannedMobs:
-      - "modid:entityid"
-
-    regions:
-      - name: "ExampleRegion"
-        type: "blacklist"
-        minX: "-100"
-        maxX: "*"
-        minY: "0"
-        maxY: "*"
-        minZ: "-100"
-        maxZ: "*"
-        worlds:
-          - "minecraft:overworld"
-        biomes:
-          - "minecraft:plains"
-        mobs:
-          - "modid:entityid"
-
   chatFormatter:
     enabled: true
     messages:

@@ -60,6 +60,7 @@ public class TaterUtilsConfigLoader {
     private static final TypeToken<PingConfig> pingType = new TypeToken<PingConfig>() {};
     private static final TypeToken<SlashLobbyConfig> slashLobbyType =
             new TypeToken<SlashLobbyConfig>() {};
+    private static final TypeToken<SpawnConfig> spawnType = new TypeToken<SpawnConfig>() {};
     private static TaterUtilsConfig config;
 
     // TODO: REMOVE WHEN TATERLIB VERSION IS BUMPED
@@ -160,6 +161,7 @@ public class TaterUtilsConfigLoader {
         OreWatcherConfig oreWatcher = get(root, oreWatcherType, "oreWatcher", TaterUtils.logger());
         PingConfig ping = get(root, pingType, "ping", TaterUtils.logger());
         SlashLobbyConfig slashLobby = get(root, slashLobbyType, "slashLobby", TaterUtils.logger());
+        SpawnConfig spawn = get(root, spawnType, "spawn", TaterUtils.logger());
 
         switch (version) {
             case 1:
@@ -175,7 +177,8 @@ public class TaterUtilsConfigLoader {
                                 motd,
                                 oreWatcher,
                                 ping,
-                                slashLobby);
+                                slashLobby,
+                                spawn);
                 break;
             default:
                 TaterUtils.logger().error("Unknown configuration version: " + version);
@@ -211,6 +214,7 @@ public class TaterUtilsConfigLoader {
         set(root, oreWatcherType, "oreWatcher", config.oreWatcher(), TaterUtils.logger());
         set(root, pingType, "ping", config.ping(), TaterUtils.logger());
         set(root, slashLobbyType, "slashLobby", config.slashLobby(), TaterUtils.logger());
+        set(root, spawnType, "spawn", config.spawn(), TaterUtils.logger());
 
         try {
             loader.save(root);

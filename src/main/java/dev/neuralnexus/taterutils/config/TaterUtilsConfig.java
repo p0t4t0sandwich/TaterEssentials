@@ -110,4 +110,11 @@ public interface TaterUtilsConfig {
      * @return The configuration for the slash lobby.
      */
     SlashLobbyConfig slashLobby();
+
+    /**
+     * Get the configuration for the spawn.
+     *
+     * @return The configuration for the spawn.
+     */
+    SpawnConfig spawn();
 }

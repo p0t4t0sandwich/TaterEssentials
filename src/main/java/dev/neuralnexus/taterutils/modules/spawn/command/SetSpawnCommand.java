@@ -5,6 +5,7 @@ import dev.neuralnexus.taterlib.command.CommandSender;
 import dev.neuralnexus.taterlib.player.Player;
 import dev.neuralnexus.taterutils.api.CommandUtils;
 import dev.neuralnexus.taterutils.api.TaterUtilsAPIProvider;
+import dev.neuralnexus.taterutils.config.TaterUtilsConfigLoader;
 import dev.neuralnexus.taterutils.modules.spawn.api.SpawnAPI;
 
 /** SetSpawn Command. */
@@ -44,8 +45,7 @@ public class SetSpawnCommand implements Command {
         Player player = (Player) sender;
         SpawnAPI api = TaterUtilsAPIProvider.get().spawnAPI();
         api.setSpawn(player.location());
-        CommandUtils.sendMessage(
-                player, TaterUtilsConfigOld.SpawnConfig.getMessage("setSpawn.success"));
+        CommandUtils.sendMessage(player, TaterUtilsConfigLoader.config().spawn().setSpawn());
         return true;
     }
 }

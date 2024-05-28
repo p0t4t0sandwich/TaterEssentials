@@ -18,6 +18,7 @@ public class TaterUtilsConfig_V1 implements TaterUtilsConfig {
     private final OreWatcherConfig oreWatcher;
     private final PingConfig ping;
     private final SlashLobbyConfig slashLobby;
+    private final SpawnConfig spawn;
 
     public TaterUtilsConfig_V1(
             List<ModuleConfig> modules,
@@ -30,7 +31,8 @@ public class TaterUtilsConfig_V1 implements TaterUtilsConfig {
             MOTDConfig motd,
             OreWatcherConfig oreWatcher,
             PingConfig ping,
-            SlashLobbyConfig slashLobby) {
+            SlashLobbyConfig slashLobby,
+            SpawnConfig spawn) {
         this.modules = modules;
         this.badSpawns = badSpawns;
         this.chatFormatter = chatFormatter;
@@ -42,6 +44,7 @@ public class TaterUtilsConfig_V1 implements TaterUtilsConfig {
         this.oreWatcher = oreWatcher;
         this.ping = ping;
         this.slashLobby = slashLobby;
+        this.spawn = spawn;
     }
 
     @Override
@@ -102,5 +105,10 @@ public class TaterUtilsConfig_V1 implements TaterUtilsConfig {
     @Override
     public SlashLobbyConfig slashLobby() {
         return slashLobby;
+    }
+
+    @Override
+    public SpawnConfig spawn() {
+        return spawn;
     }
 }

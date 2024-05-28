@@ -45,7 +45,7 @@ public class SlashLobbyCommand implements Command {
         player.sendMessage(
                 Utils.substituteSectionSign(
                         TaterUtilsConfigLoader.config().slashLobby().connectedToLobby()));
-        player.connect(TaterUtilsConfigLoader.config().slashLobby().lobbyNames().get(0));
+        player.connect(TaterUtilsConfigLoader.config().slashLobby().lobbyNames()[0]);
         return true;
     }
 }

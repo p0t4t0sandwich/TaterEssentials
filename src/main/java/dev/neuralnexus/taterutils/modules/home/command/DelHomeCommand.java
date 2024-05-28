@@ -4,7 +4,7 @@ import dev.neuralnexus.taterlib.command.Command;
 import dev.neuralnexus.taterlib.command.CommandSender;
 import dev.neuralnexus.taterlib.placeholder.PlaceholderParser;
 import dev.neuralnexus.taterlib.player.Player;
-import dev.neuralnexus.taterutils.TaterUtilsConfig;
+import dev.neuralnexus.taterutils.TaterUtilsConfigOld;
 import dev.neuralnexus.taterutils.api.CommandUtils;
 import dev.neuralnexus.taterutils.api.TaterUtilsAPIProvider;
 import dev.neuralnexus.taterutils.modules.home.api.HomeAPI;
@@ -48,11 +48,12 @@ public class DelHomeCommand implements Command {
 
         String message;
         if (args.length == 0) {
-            message = TaterUtilsConfig.HomeConfig.getMessage("home.noName");
+            message = TaterUtilsConfigOld.HomeConfig.getMessage("home.noName");
         } else {
             api.setHome(player, args[0], player.location());
             message =
-                    new PlaceholderParser(TaterUtilsConfig.HomeConfig.getMessage("delhome.success"))
+                    new PlaceholderParser(
+                                    TaterUtilsConfigOld.HomeConfig.getMessage("delhome.success"))
                             .parseString("home", args[0])
                             .getResult();
         }

@@ -1,13 +1,10 @@
 plugins {
     id('java')
+    id('com.diffplug.spotless') version('6.25.0')
     id('com.github.johnrengelman.shadow') version('8.1.1')
 }
 
 sourceCompatibility = targetCompatibility = 1.8
-
-tasks.withType(JavaCompile) {
-    options.encoding = 'UTF-8'
-}
 
 repositories {
     mavenCentral()
@@ -23,8 +20,8 @@ repositories {
 }
 
 dependencies {
-    implementation('dev.dejvokep:boosted-yaml:1.3.1')
     compileOnly("dev.neuralnexus:taterlib-api:${taterlib_version}")
+    compileOnly("dev.neuralnexus:entrypoint-spoof:0.1.4")
 
     compileOnly('org.spongepowered:configurate-hocon:4.1.2')
     compileOnly('com.google.code.gson:gson:2.10.1')
@@ -44,6 +41,30 @@ tasks.withType(ProcessResources).configureEach {
     }
 }
 
+spotless {
+    format 'misc', {
+        target '*.gradle', '.gitattributes', '.gitignore'
+
+        trimTrailingWhitespace()
+        indentWithSpaces()
+        endWithNewline()
+    }
+    java {
+        importOrder()
+        removeUnusedImports()
+        cleanthat()
+        googleJavaFormat('1.17.0').aosp().formatJavadoc(true).reorderImports(true)
+        formatAnnotations()
+        licenseHeader """/**
+ * Copyright (c) \$YEAR Dylan Sperrer - dylan@sperrer.ca
+ * The project is Licensed under <a href="https://github.com/p0t4t0sandwich/TaterUtils/blob/dev/LICENSE">GPL-3</a>
+ * The API is Licensed under <a href="https://github.com/p0t4t0sandwich/TaterUtils/blob/dev/LICENSE-API">MIT</a>
+ */
+
+"""
+    }
+}
+
 shadowJar {
     // TaterLib bundled dependencies
     relocate('org.spongepowered.configurate', 'dev.neuralnexus.taterlib.lib.configurate')
@@ -52,6 +73,10 @@ shadowJar {
     relocate('com.google.gson', 'dev.neuralnexus.taterlib.lib.gson')
     relocate('com.google.common', 'dev.neuralnexus.taterlib.lib.guava')
     relocate('com.google.thirdparty', 'dev.neuralnexus.taterlib.lib.google.thirdparty')
+
+    minimize() {
+        exclude(dependency("${group_id}:${project_id}:${version}"))
+    }
 
     archiveFileName = "${project_id}-${version}.jar"
 
@@ -68,6 +93,13 @@ shadowJar {
         into("META-INF")
     }
 }
+
+tasks.withType(JavaCompile) {
+    options.encoding = 'UTF-8'
+}
+
+
+tasks.build.dependsOn(spotlessApply)
 
 artifacts {
     archives(shadowJar)

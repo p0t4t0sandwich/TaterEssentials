@@ -4,7 +4,7 @@ import dev.neuralnexus.taterlib.api.TaterAPIProvider;
 import dev.neuralnexus.taterlib.command.Command;
 import dev.neuralnexus.taterlib.command.CommandSender;
 import dev.neuralnexus.taterlib.player.Player;
-import dev.neuralnexus.taterutils.TaterUtilsConfig;
+import dev.neuralnexus.taterutils.TaterUtilsConfigOld;
 import dev.neuralnexus.taterutils.api.CommandUtils;
 import dev.neuralnexus.taterutils.api.TaterUtilsAPIProvider;
 import dev.neuralnexus.taterutils.modules.godmode.api.GodModeAPI;
@@ -56,12 +56,12 @@ public class GodModeCommand implements Command {
                         sender,
                         ((Player) sender)
                                 .parsePlaceholders(
-                                        TaterUtilsConfig.GodModeConfig.getMessage("toggleSelf"))
+                                        TaterUtilsConfigOld.GodModeConfig.getMessage("toggleSelf"))
                                 .parseString("state", godMode ? "Enabled" : "Disabled")
                                 .getResult());
             } else {
                 CommandUtils.sendMessage(
-                        sender, TaterUtilsConfig.GodModeConfig.getMessage("specifyPlayer"));
+                        sender, TaterUtilsConfigOld.GodModeConfig.getMessage("specifyPlayer"));
             }
         } else {
             if (sender.hasPermission(permission() + ".others")) {
@@ -79,17 +79,17 @@ public class GodModeCommand implements Command {
                             sender,
                             ((Player) sender)
                                     .parsePlaceholders(
-                                            TaterUtilsConfig.GodModeConfig.getMessage(
+                                            TaterUtilsConfigOld.GodModeConfig.getMessage(
                                                     "toggleOther"))
                                     .parseString("state", godMode ? "Enabled" : "Disabled")
                                     .getResult());
                 } else {
                     CommandUtils.sendMessage(
-                            sender, TaterUtilsConfig.PingConfig.getMessage("playerNotFound"));
+                            sender, TaterUtilsConfigOld.PingConfig.getMessage("playerNotFound"));
                 }
             } else {
                 CommandUtils.sendMessage(
-                        sender, TaterUtilsConfig.PingConfig.getMessage("godmodeOtherDenied"));
+                        sender, TaterUtilsConfigOld.PingConfig.getMessage("godmodeOtherDenied"));
             }
         }
         return true;

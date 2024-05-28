@@ -5,10 +5,14 @@ import com.google.common.collect.ImmutableMap;
 import dev.neuralnexus.taterlib.api.TaterAPIProvider;
 import dev.neuralnexus.taterlib.api.info.ServerType;
 import dev.neuralnexus.taterlib.bstats.MetricsAdapter;
+import dev.neuralnexus.taterlib.event.api.PluginEvents;
 import dev.neuralnexus.taterlib.logger.AbstractLogger;
 import dev.neuralnexus.taterlib.plugin.ModuleLoader;
+import dev.neuralnexus.taterlib.plugin.Plugin;
 import dev.neuralnexus.taterutils.api.TaterUtilsAPI;
 import dev.neuralnexus.taterutils.api.TaterUtilsAPIProvider;
+import dev.neuralnexus.taterutils.config.TaterUtilsConfig;
+import dev.neuralnexus.taterutils.config.TaterUtilsConfigLoader;
 import dev.neuralnexus.taterutils.modules.alert.AlertModule;
 import dev.neuralnexus.taterutils.modules.badspawns.BadSpawnsModule;
 import dev.neuralnexus.taterutils.modules.chatformatter.ChatFormatterModule;
@@ -26,7 +30,15 @@ import dev.neuralnexus.taterutils.modules.tpa.TpaModule;
 import dev.neuralnexus.taterutils.modules.warp.WarpModule;
 
 /** Main class for the plugin. */
-public class TaterUtils {
+public class TaterUtils implements Plugin {
+    public static final String PROJECT_NAME = "TaterUtils";
+    public static final String PROJECT_ID = "taterutils";
+    public static final String PROJECT_VERSION = "0.1.0-SNAPSHOT";
+    public static final String PROJECT_AUTHORS = "p0t4t0sandwich, DJjewl";
+    public static final String PROJECT_DESCRIPTION =
+            "An essential, cross API server utility plugin that doubles as a staging ground for new plugin ideas.";
+    public static final String PROJECT_URL = "https://github.com/p0t4t0sandwich/TaterUtils";
+
     private static final TaterUtils instance = new TaterUtils();
     private static boolean STARTED = false;
     private static boolean RELOADED = false;
@@ -108,16 +120,51 @@ public class TaterUtils {
         instance.logger = logger;
     }
 
-    /**
-     * Start
-     *
-     * @param plugin The plugin
-     * @param pluginServer The plugin server
-     * @param pluginLogger The plugin logger
-     * @param logger The logger
-     */
-    public static void start(
+    /** Reload */
+    public void reload() {
+        if (!STARTED) {
+            logger().info(PROJECT_NAME + " has not been started!");
+            return;
+        }
+        RELOADED = true;
+
+        // Stop
+        pluginStop();
+
+        // Unregister API
+        TaterUtilsAPIProvider.unregister();
+
+        // Unload config
+        TaterUtilsConfigLoader.unload();
+
+        // Start
+        pluginStart(plugin, pluginServer, pluginLogger, logger);
+
+        logger().info(PROJECT_NAME + " has been reloaded!");
+    }
+
+    @Override
+    public String name() {
+        return TaterUtils.PROJECT_NAME;
+    }
+
+    @Override
+    public String id() {
+        return TaterUtils.PROJECT_ID;
+    }
+
+    @Override
+    public void pluginStart(
             Object plugin, Object pluginServer, Object pluginLogger, AbstractLogger logger) {
+        logger.info(
+                TaterUtils.PROJECT_NAME
+                        + " is running on "
+                        + TaterAPIProvider.serverType()
+                        + " "
+                        + TaterAPIProvider.minecraftVersion()
+                        + "!");
+        PluginEvents.DISABLED.register(event -> pluginStop());
+
         if (pluginServer != null) {
             setPluginServer(pluginServer);
         }
@@ -140,10 +187,11 @@ public class TaterUtils {
                         .build());
 
         // Config
-        TaterUtilsConfig.loadConfig(TaterAPIProvider.serverType().dataFolders().configFolder());
+        TaterUtilsConfigLoader.load();
+        TaterUtilsConfigOld.loadConfig(TaterAPIProvider.serverType().dataFolders().configFolder());
 
         if (STARTED) {
-            logger().info(Constants.PROJECT_NAME + " has already started!");
+            logger().info(PROJECT_NAME + " has already started!");
             return;
         }
         STARTED = true;
@@ -154,49 +202,51 @@ public class TaterUtils {
         if (!RELOADED) {
             // Register modules
             moduleLoader = new TaterUtilsModuleLoader();
-            if (TaterUtilsConfig.isModuleEnabled("alert")) {
+            TaterUtilsConfig config = TaterUtilsConfigLoader.config();
+
+            if (config.checkModule("alert")) {
                 moduleLoader.registerModule(new AlertModule());
             }
-            if (TaterUtilsConfig.isModuleEnabled("badSpawns")) {
+            if (config.checkModule("badSpawns")) {
                 moduleLoader.registerModule(new BadSpawnsModule());
             }
-            if (TaterUtilsConfig.isModuleEnabled("chatFormatter")) {
+            if (config.checkModule("chatFormatter")) {
                 moduleLoader.registerModule(new ChatFormatterModule());
             }
-            if (TaterUtilsConfig.isModuleEnabled("gameMode")) {
+            if (config.checkModule("gameMode")) {
                 moduleLoader.registerModule(new GameModeModule());
             }
-            if (TaterUtilsConfig.isModuleEnabled("godMode")) {
+            if (config.checkModule("godMode")) {
                 moduleLoader.registerModule(new GodModeModule());
             }
-            if (TaterUtilsConfig.isModuleEnabled("home")) {
+            if (config.checkModule("home")) {
                 moduleLoader.registerModule(new HomeModule());
             }
-            if (TaterUtilsConfig.isModuleEnabled("joinAndQuit")) {
+            if (config.checkModule("joinAndQuit")) {
                 moduleLoader.registerModule(new JoinAndQuitModule());
             }
-            if (TaterUtilsConfig.isModuleEnabled("motd")) {
+            if (config.checkModule("motd")) {
                 moduleLoader.registerModule(new MotdModule());
             }
-            if (TaterUtilsConfig.isModuleEnabled("oreWatcher")) {
+            if (config.checkModule("oreWatcher")) {
                 moduleLoader.registerModule(new OreWatcherModule());
             }
-            if (TaterUtilsConfig.isModuleEnabled("ping")) {
+            if (config.checkModule("ping")) {
                 moduleLoader.registerModule(new PingModule());
             }
-            if (TaterUtilsConfig.isModuleEnabled("send")) {
+            if (config.checkModule("send")) {
                 moduleLoader.registerModule(new SendModule());
             }
-            if (TaterUtilsConfig.isModuleEnabled("slashLobby")) {
+            if (config.checkModule("slashLobby")) {
                 moduleLoader.registerModule(new SlashLobbyModule());
             }
-            if (TaterUtilsConfig.isModuleEnabled("spawn")) {
+            if (config.checkModule("spawn")) {
                 moduleLoader.registerModule(new SpawnModule());
             }
-            if (TaterUtilsConfig.isModuleEnabled("tpa")) {
+            if (config.checkModule("tpa")) {
                 moduleLoader.registerModule(new TpaModule());
             }
-            if (TaterUtilsConfig.isModuleEnabled("warp")) {
+            if (config.checkModule("warp")) {
                 moduleLoader.registerModule(new WarpModule());
             }
         }
@@ -205,18 +255,13 @@ public class TaterUtils {
         logger().info("Starting modules: " + moduleLoader.moduleNames());
         moduleLoader.startModules();
 
-        logger().info(Constants.PROJECT_NAME + " has been started!");
+        logger().info(PROJECT_NAME + " has been started!");
     }
 
-    /** Start */
-    public static void start() {
-        start(instance.plugin, instance.pluginServer, instance.pluginLogger, instance.logger);
-    }
-
-    /** Stop */
-    public static void stop() {
+    @Override
+    public void pluginStop() {
         if (!STARTED) {
-            logger().info(Constants.PROJECT_NAME + " has already stopped!");
+            logger().info(PROJECT_NAME + " has already stopped!");
             return;
         }
         STARTED = false;
@@ -227,39 +272,8 @@ public class TaterUtils {
         moduleLoader.stopModules();
 
         // Remove references to objects
-        TaterUtilsConfig.unloadConfig();
+        TaterUtilsConfigOld.unloadConfig();
 
-        logger().info(Constants.PROJECT_NAME + " has been stopped!");
-    }
-
-    /** Reload */
-    public static void reload() {
-        if (!STARTED) {
-            logger().info(Constants.PROJECT_NAME + " has not been started!");
-            return;
-        }
-        RELOADED = true;
-
-        // Stop
-        stop();
-
-        // Unregister API
-        TaterUtilsAPIProvider.unregister();
-
-        // Start
-        start();
-
-        logger().info(Constants.PROJECT_NAME + " has been reloaded!");
-    }
-
-    /** Constants used throughout the plugin. */
-    public static class Constants {
-        public static final String PROJECT_NAME = "TaterUtils";
-        public static final String PROJECT_ID = "taterutils";
-        public static final String PROJECT_VERSION = "0.1.0-R0.2-SNAPSHOT";
-        public static final String PROJECT_AUTHORS = "p0t4t0sandwich, DJjewl";
-        public static final String PROJECT_DESCRIPTION =
-                "An essential, cross API server utility plugin that doubles as a staging ground for new plugin ideas.";
-        public static final String PROJECT_URL = "https://github.com/p0t4t0sandwich/TaterUtils";
+        logger().info(PROJECT_NAME + " has been stopped!");
     }
 }

@@ -8,6 +8,7 @@ package dev.neuralnexus.taterutils.config;
 
 import dev.neuralnexus.taterlib.config.sections.ModuleConfig;
 import dev.neuralnexus.taterutils.config.sections.BadSpawnsConfig;
+import dev.neuralnexus.taterutils.config.sections.ChatFormatterConfig;
 
 import java.util.List;
 
@@ -33,4 +34,25 @@ public interface TaterUtilsConfig {
      * @return The configuration for bad spawns.
      */
     BadSpawnsConfig badSpawns();
+
+    /**
+     * Get the configuration for chat formatting.
+     *
+     * @return The configuration for chat formatting.
+     */
+    ChatFormatterConfig chatFormatter();
+
+    /**
+     * Check if a module is enabled in the configuration.
+     *
+     * @param moduleName The name of the module.
+     * @return Whether the module should be applied.
+     */
+    default boolean checkModule(String moduleName) {
+        return modules().stream()
+                .anyMatch(
+                        moduleConfig ->
+                                moduleConfig.name().equalsIgnoreCase(moduleName)
+                                        && moduleConfig.enabled());
+    }
 }

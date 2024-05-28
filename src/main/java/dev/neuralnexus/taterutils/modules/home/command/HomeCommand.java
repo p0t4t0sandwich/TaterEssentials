@@ -4,7 +4,7 @@ import dev.neuralnexus.taterlib.command.Command;
 import dev.neuralnexus.taterlib.command.CommandSender;
 import dev.neuralnexus.taterlib.placeholder.PlaceholderParser;
 import dev.neuralnexus.taterlib.player.Player;
-import dev.neuralnexus.taterutils.TaterUtilsConfig;
+import dev.neuralnexus.taterutils.TaterUtilsConfigOld;
 import dev.neuralnexus.taterutils.api.CommandUtils;
 import dev.neuralnexus.taterutils.api.TaterUtilsAPIProvider;
 import dev.neuralnexus.taterutils.modules.home.api.HomeAPI;
@@ -51,13 +51,14 @@ public class HomeCommand implements Command {
             if (!api.teleportHome(player, "home")) {
                 message =
                         new PlaceholderParser(
-                                        TaterUtilsConfig.HomeConfig.getMessage("home.homeNotSet"))
+                                        TaterUtilsConfigOld.HomeConfig.getMessage(
+                                                "home.homeNotSet"))
                                 .parseString("home", "home")
                                 .getResult();
             } else {
                 message =
                         new PlaceholderParser(
-                                        TaterUtilsConfig.HomeConfig.getMessage(
+                                        TaterUtilsConfigOld.HomeConfig.getMessage(
                                                 "home.teleportedToHome"))
                                 .parseString("home", "home")
                                 .getResult();
@@ -71,17 +72,18 @@ public class HomeCommand implements Command {
                         break;
                     }
                     if (args.length == 1) {
-                        message = TaterUtilsConfig.HomeConfig.getMessage("home.invalidArguments");
+                        message =
+                                TaterUtilsConfigOld.HomeConfig.getMessage("home.invalidArguments");
                         break;
                     }
                     if (api.getInvalidHomeNames().contains(args[1])) {
-                        message = TaterUtilsConfig.HomeConfig.getMessage("home.invalidHomeName");
+                        message = TaterUtilsConfigOld.HomeConfig.getMessage("home.invalidHomeName");
                         break;
                     }
                     api.setHome(player, args[1], player.location());
                     message =
                             new PlaceholderParser(
-                                            TaterUtilsConfig.HomeConfig.getMessage(
+                                            TaterUtilsConfigOld.HomeConfig.getMessage(
                                                     "setHome.success"))
                                     .parseString("home", args[1])
                                     .getResult();
@@ -94,13 +96,13 @@ public class HomeCommand implements Command {
                         break;
                     }
                     if (args.length == 1) {
-                        message = TaterUtilsConfig.HomeConfig.getMessage("home.noName");
+                        message = TaterUtilsConfigOld.HomeConfig.getMessage("home.noName");
                         break;
                     }
                     api.deleteHome(player, args[1]);
                     message =
                             new PlaceholderParser(
-                                            TaterUtilsConfig.HomeConfig.getMessage(
+                                            TaterUtilsConfigOld.HomeConfig.getMessage(
                                                     "delhome.success"))
                                     .parseString("home", args[1])
                                     .getResult();
@@ -111,7 +113,7 @@ public class HomeCommand implements Command {
                     }
                     message =
                             new PlaceholderParser(
-                                            TaterUtilsConfig.HomeConfig.getMessage(
+                                            TaterUtilsConfigOld.HomeConfig.getMessage(
                                                     "home.availableHomes"))
                                     .parseString("homes", api.getHomes(player).toString())
                                     .getResult();
@@ -120,7 +122,7 @@ public class HomeCommand implements Command {
                     if (!api.teleportHome(player, args[0])) {
                         message =
                                 new PlaceholderParser(
-                                                TaterUtilsConfig.HomeConfig.getMessage(
+                                                TaterUtilsConfigOld.HomeConfig.getMessage(
                                                         "home.homeNotSet"))
                                         .parseString("home", "home")
                                         .getResult();
@@ -128,7 +130,7 @@ public class HomeCommand implements Command {
                     }
                     message =
                             new PlaceholderParser(
-                                            TaterUtilsConfig.HomeConfig.getMessage(
+                                            TaterUtilsConfigOld.HomeConfig.getMessage(
                                                     "home.teleportedToHome"))
                                     .parseString("home", args[0])
                                     .getResult();

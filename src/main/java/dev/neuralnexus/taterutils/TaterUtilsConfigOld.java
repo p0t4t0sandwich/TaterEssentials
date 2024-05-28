@@ -9,7 +9,7 @@ import java.util.Map;
 import java.util.Objects;
 
 /** Config handler. */
-public class TaterUtilsConfig {
+public class TaterUtilsConfigOld {
     private static YamlDocument config;
 
     /**
@@ -26,20 +26,19 @@ public class TaterUtilsConfig {
                                             + File.separator
                                             + configFolder
                                             + File.separator
-                                            + TaterUtils.Constants.PROJECT_NAME,
-                                    TaterUtils.Constants.PROJECT_ID + ".config.yml"),
+                                            + TaterUtils.PROJECT_NAME,
+                                    TaterUtils.PROJECT_ID + ".config.yml"),
                             Objects.requireNonNull(
                                     TaterUtils.class
                                             .getClassLoader()
                                             .getResourceAsStream(
-                                                    TaterUtils.Constants.PROJECT_ID
-                                                            + ".config.yml")));
+                                                    TaterUtils.PROJECT_ID + ".config.yml")));
             config.reload();
         } catch (IOException | NullPointerException e) {
             TaterUtils.logger()
                     .info(
                             "Failed to load "
-                                    + TaterUtils.Constants.PROJECT_ID
+                                    + TaterUtils.PROJECT_ID
                                     + ".config.yml!\n"
                                     + e.getMessage());
             e.printStackTrace();
@@ -59,7 +58,7 @@ public class TaterUtilsConfig {
             TaterUtils.logger()
                     .info(
                             "Failed to save "
-                                    + TaterUtils.Constants.PROJECT_ID
+                                    + TaterUtils.PROJECT_ID
                                     + ".config.ymll!\n"
                                     + e.getMessage());
         }

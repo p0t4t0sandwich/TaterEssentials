@@ -4,7 +4,7 @@ import dev.neuralnexus.taterlib.Utils;
 import dev.neuralnexus.taterlib.event.api.PlayerEvents;
 import dev.neuralnexus.taterlib.plugin.PluginModule;
 import dev.neuralnexus.taterutils.TaterUtils;
-import dev.neuralnexus.taterutils.TaterUtilsConfig;
+import dev.neuralnexus.taterutils.TaterUtilsConfigOld;
 
 /** JoinAndQuit module. */
 public class JoinAndQuitModule implements PluginModule {
@@ -32,7 +32,7 @@ public class JoinAndQuitModule implements PluginModule {
                                     Utils.substituteSectionSign(
                                             event.player()
                                                     .parsePlaceholders(
-                                                            TaterUtilsConfig.JoinAndQuitConfig
+                                                            TaterUtilsConfigOld.JoinAndQuitConfig
                                                                     .getMessage("join"))
                                                     .getResult())));
             PlayerEvents.LOGOUT.register(
@@ -41,7 +41,7 @@ public class JoinAndQuitModule implements PluginModule {
                                     Utils.substituteSectionSign(
                                             event.player()
                                                     .parsePlaceholders(
-                                                            TaterUtilsConfig.JoinAndQuitConfig
+                                                            TaterUtilsConfigOld.JoinAndQuitConfig
                                                                     .getMessage("quit"))
                                                     .getResult())));
         }

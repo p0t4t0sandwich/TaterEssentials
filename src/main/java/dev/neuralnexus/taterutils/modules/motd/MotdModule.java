@@ -4,7 +4,7 @@ import dev.neuralnexus.taterlib.Utils;
 import dev.neuralnexus.taterlib.event.api.PlayerEvents;
 import dev.neuralnexus.taterlib.plugin.PluginModule;
 import dev.neuralnexus.taterutils.TaterUtils;
-import dev.neuralnexus.taterutils.TaterUtilsConfig;
+import dev.neuralnexus.taterutils.TaterUtilsConfigOld;
 
 /** Motd module. */
 public class MotdModule implements PluginModule {
@@ -31,7 +31,7 @@ public class MotdModule implements PluginModule {
                             event.player()
                                     .sendMessage(
                                             Utils.substituteSectionSign(
-                                                    TaterUtilsConfig.MotdConfig.getMessage(
+                                                    TaterUtilsConfigOld.MotdConfig.getMessage(
                                                             "motd"))));
         }
 

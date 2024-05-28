@@ -5,7 +5,7 @@ import dev.neuralnexus.taterlib.api.TaterAPIProvider;
 import dev.neuralnexus.taterlib.event.block.PlayerBlockBreakEvent;
 import dev.neuralnexus.taterlib.placeholder.PlaceholderParser;
 import dev.neuralnexus.taterutils.TaterUtils;
-import dev.neuralnexus.taterutils.TaterUtilsConfig;
+import dev.neuralnexus.taterutils.TaterUtilsConfigOld;
 import dev.neuralnexus.taterutils.api.TaterUtilsAPIProvider;
 import dev.neuralnexus.taterutils.modules.orewatcher.api.OreWatcherAPI;
 
@@ -26,9 +26,10 @@ public class OreWatcherBlockListener {
 
                                 // Check if the player is mining at a rate over the threshold
                                 if (oreMined.getAveragePerMinute()
-                                        >= TaterUtilsConfig.OreWatcherConfig.getAlertThreshold()) {
+                                        >= TaterUtilsConfigOld.OreWatcherConfig
+                                                .getAlertThreshold()) {
                                     // Cancel the event
-                                    if (TaterUtilsConfig.OreWatcherConfig
+                                    if (TaterUtilsConfigOld.OreWatcherConfig
                                             .getCancelMinedOverThreshold()) {
                                         event.setCancelled(true);
                                     }
@@ -40,7 +41,7 @@ public class OreWatcherBlockListener {
                                                                     + TaterUtils.Constants
                                                                             .PROJECT_NAME
                                                                     + "->OreWatcher]"
-                                                                    + TaterUtilsConfig
+                                                                    + TaterUtilsConfigOld
                                                                             .OreWatcherConfig
                                                                             .getMessage(
                                                                                     "adminAlertMessage"))
@@ -56,7 +57,8 @@ public class OreWatcherBlockListener {
                                     TaterUtils.logger().info(Utils.ansiParser(adminAlertMessage));
 
                                     // Send the message to all players with the permission
-                                    if (TaterUtilsConfig.OreWatcherConfig.getAdminAlertEnabled()) {
+                                    if (TaterUtilsConfigOld.OreWatcherConfig
+                                            .getAdminAlertEnabled()) {
                                         TaterAPIProvider.get().getServer().onlinePlayers().stream()
                                                 .filter(
                                                         player ->
@@ -69,14 +71,15 @@ public class OreWatcherBlockListener {
                                     }
 
                                     // Send the message to the player
-                                    if (TaterUtilsConfig.OreWatcherConfig.getPlayerAlertEnabled()) {
+                                    if (TaterUtilsConfigOld.OreWatcherConfig
+                                            .getPlayerAlertEnabled()) {
                                         String playerAlertMessage =
                                                 new PlaceholderParser(
                                                                 "["
                                                                         + TaterUtils.Constants
                                                                                 .PROJECT_NAME
                                                                         + "->OreWatcher]"
-                                                                        + TaterUtilsConfig
+                                                                        + TaterUtilsConfigOld
                                                                                 .OreWatcherConfig
                                                                                 .getMessage(
                                                                                         "playerAlertMessage"))

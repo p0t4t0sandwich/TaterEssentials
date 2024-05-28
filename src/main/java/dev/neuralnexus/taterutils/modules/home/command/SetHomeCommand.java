@@ -4,7 +4,7 @@ import dev.neuralnexus.taterlib.command.Command;
 import dev.neuralnexus.taterlib.command.CommandSender;
 import dev.neuralnexus.taterlib.placeholder.PlaceholderParser;
 import dev.neuralnexus.taterlib.player.Player;
-import dev.neuralnexus.taterutils.TaterUtilsConfig;
+import dev.neuralnexus.taterutils.TaterUtilsConfigOld;
 import dev.neuralnexus.taterutils.api.CommandUtils;
 import dev.neuralnexus.taterutils.api.TaterUtilsAPIProvider;
 import dev.neuralnexus.taterutils.modules.home.api.HomeAPI;
@@ -48,15 +48,16 @@ public class SetHomeCommand implements Command {
 
         String message;
         if (args.length == 0) {
-            message = TaterUtilsConfig.HomeConfig.getMessage("home.noName");
+            message = TaterUtilsConfigOld.HomeConfig.getMessage("home.noName");
         } else {
             if (api.getInvalidHomeNames().contains(args[0])) {
-                message = TaterUtilsConfig.HomeConfig.getMessage("home.invalidName");
+                message = TaterUtilsConfigOld.HomeConfig.getMessage("home.invalidName");
             } else {
                 api.setHome(player, args[0], player.location());
                 message =
                         new PlaceholderParser(
-                                        TaterUtilsConfig.HomeConfig.getMessage("setHome.success"))
+                                        TaterUtilsConfigOld.HomeConfig.getMessage(
+                                                "setHome.success"))
                                 .parseString("home", args[0])
                                 .getResult();
             }

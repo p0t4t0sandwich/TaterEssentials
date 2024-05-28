@@ -3,7 +3,7 @@ package dev.neuralnexus.taterutils.modules.slashlobby.command;
 import dev.neuralnexus.taterlib.command.Command;
 import dev.neuralnexus.taterlib.command.CommandSender;
 import dev.neuralnexus.taterlib.player.ProxyPlayer;
-import dev.neuralnexus.taterutils.TaterUtilsConfig;
+import dev.neuralnexus.taterutils.TaterUtilsConfigOld;
 import dev.neuralnexus.taterutils.api.CommandUtils;
 
 /** SlashLobby Command. */
@@ -41,7 +41,7 @@ public class SlashLobbyCommand implements Command {
             return true;
         }
         ProxyPlayer player = (ProxyPlayer) sender;
-        player.connect(TaterUtilsConfig.SlashLobbyConfig.getLobbyNames()[0]);
+        player.connect(TaterUtilsConfigOld.SlashLobbyConfig.getLobbyNames()[0]);
         return true;
     }
 }

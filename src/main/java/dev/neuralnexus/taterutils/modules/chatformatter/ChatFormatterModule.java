@@ -5,7 +5,7 @@ import dev.neuralnexus.taterlib.api.TaterAPIProvider;
 import dev.neuralnexus.taterlib.event.api.PlayerEvents;
 import dev.neuralnexus.taterlib.plugin.PluginModule;
 import dev.neuralnexus.taterutils.TaterUtils;
-import dev.neuralnexus.taterutils.TaterUtilsConfig;
+import dev.neuralnexus.taterutils.config.TaterUtilsConfigLoader;
 
 /** ChatFormatter module. */
 public class ChatFormatterModule implements PluginModule {
@@ -36,9 +36,9 @@ public class ChatFormatterModule implements PluginModule {
                                         Utils.substituteSectionSign(
                                                 event.player()
                                                         .parsePlaceholders(
-                                                                TaterUtilsConfig.ChatFormatterConfig
-                                                                        .getMessage(
-                                                                                "playerMessage"))
+                                                                TaterUtilsConfigLoader.config()
+                                                                        .chatFormatter()
+                                                                        .format())
                                                         .parseString("message", event.message())
                                                         .getResult()));
                     });
@@ -54,8 +54,6 @@ public class ChatFormatterModule implements PluginModule {
             return;
         }
         STARTED = false;
-
-        // Remove references to objects
 
         TaterUtils.logger().info("Submodule " + name() + " has been stopped!");
     }

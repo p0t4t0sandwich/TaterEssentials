@@ -19,7 +19,7 @@ public class WarpAPI {
         this.database =
                 new FSWarpStorage(
                         new Database.DatabaseConfig(
-                                TaterUtils.Constants.PROJECT_NAME, 0, "warpData", "", ""));
+                                TaterUtils.PROJECT_NAME, 0, "warpData", "", ""));
     }
 
     /**

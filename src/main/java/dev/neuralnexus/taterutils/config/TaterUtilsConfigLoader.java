@@ -11,6 +11,7 @@ import dev.neuralnexus.taterlib.api.TaterAPIProvider;
 import dev.neuralnexus.taterlib.config.sections.ModuleConfig;
 import dev.neuralnexus.taterutils.TaterUtils;
 import dev.neuralnexus.taterutils.config.sections.BadSpawnsConfig;
+import dev.neuralnexus.taterutils.config.sections.ChatFormatterConfig;
 import dev.neuralnexus.taterutils.config.versions.TaterUtilsConfig_V1;
 
 import io.leangen.geantyref.TypeToken;
@@ -35,16 +36,17 @@ public class TaterUtilsConfigLoader {
             Paths.get(
                     TaterAPIProvider.serverType().dataFolders().configFolder()
                             + File.separator
-                            + TaterUtils.Constants.PROJECT_NAME
+                            + TaterUtils.PROJECT_NAME
                             + File.separator
-                            + TaterUtils.Constants.PROJECT_ID
+                            + TaterUtils.PROJECT_ID
                             + ".conf");
-    private static final String defaultConfigPath =
-            "source." + TaterUtils.Constants.PROJECT_ID + ".conf";
+    private static final String defaultConfigPath = "source." + TaterUtils.PROJECT_ID + ".conf";
     private static final TypeToken<List<ModuleConfig>> moduleType =
             new TypeToken<List<ModuleConfig>>() {};
-    private static final TypeToken<BadSpawnsConfig> discordType =
+    private static final TypeToken<BadSpawnsConfig> badSpawnsType =
             new TypeToken<BadSpawnsConfig>() {};
+    private static final TypeToken<ChatFormatterConfig> chatFormatterType =
+            new TypeToken<ChatFormatterConfig>() {};
     private static TaterUtilsConfig config;
 
     /** Copy the default configuration to the config folder. */
@@ -107,7 +109,7 @@ public class TaterUtilsConfigLoader {
 
         BadSpawnsConfig badSpawns = null;
         try {
-            badSpawns = root.node("badSpawns").get(discordType);
+            badSpawns = root.node("badSpawns").get(badSpawnsType);
         } catch (SerializationException e) {
             TaterUtils.logger()
                     .error(
@@ -118,9 +120,22 @@ public class TaterUtilsConfigLoader {
             }
         }
 
+        ChatFormatterConfig chatFormatter = null;
+        try {
+            chatFormatter = root.node("chat").get(chatFormatterType);
+        } catch (SerializationException e) {
+            TaterUtils.logger()
+                    .error(
+                            "An error occurred while loading the chat configuration: "
+                                    + e.getMessage());
+            if (e.getCause() != null) {
+                e.getCause().printStackTrace();
+            }
+        }
+
         switch (version) {
             case 1:
-                config = new TaterUtilsConfig_V1(modules, badSpawns);
+                config = new TaterUtilsConfig_V1(modules, badSpawns, chatFormatter);
                 break;
             default:
                 TaterUtils.logger().error("Unknown configuration version: " + version);
@@ -172,7 +187,17 @@ public class TaterUtilsConfigLoader {
         }
 
         try {
-            root.node("badSpawns").set(discordType, config.badSpawns());
+            root.node("badSpawns").set(badSpawnsType, config.badSpawns());
+        } catch (SerializationException e) {
+            TaterLib.logger()
+                    .error("An error occurred while saving this configuration: " + e.getMessage());
+            if (e.getCause() != null) {
+                e.getCause().printStackTrace();
+            }
+        }
+
+        try {
+            root.node("chat").set(chatFormatterType, config.chatFormatter());
         } catch (SerializationException e) {
             TaterLib.logger()
                     .error("An error occurred while saving this configuration: " + e.getMessage());

@@ -5,7 +5,7 @@ import dev.neuralnexus.taterlib.command.Command;
 import dev.neuralnexus.taterlib.command.CommandSender;
 import dev.neuralnexus.taterlib.player.Player;
 import dev.neuralnexus.taterlib.player.SimplePlayer;
-import dev.neuralnexus.taterutils.TaterUtilsConfig;
+import dev.neuralnexus.taterutils.TaterUtilsConfigOld;
 import dev.neuralnexus.taterutils.api.CommandUtils;
 
 import java.util.Optional;
@@ -51,12 +51,12 @@ public class PingCommand implements Command {
                         sender,
                         ((Player) sender)
                                 .parsePlaceholders(
-                                        TaterUtilsConfig.PingConfig.getMessage("pingSelf"))
+                                        TaterUtilsConfigOld.PingConfig.getMessage("pingSelf"))
                                 .parseString("ping", String.valueOf(((Player) sender).ping()))
                                 .getResult());
             } else {
                 CommandUtils.sendMessage(
-                        sender, TaterUtilsConfig.PingConfig.getMessage("specifyPlayer"));
+                        sender, TaterUtilsConfigOld.PingConfig.getMessage("specifyPlayer"));
             }
         } else {
             if (sender.hasPermission(permission() + ".others")) {
@@ -69,16 +69,16 @@ public class PingCommand implements Command {
                             sender,
                             target.get()
                                     .parsePlaceholders(
-                                            TaterUtilsConfig.PingConfig.getMessage("pingOther"))
+                                            TaterUtilsConfigOld.PingConfig.getMessage("pingOther"))
                                     .parseString("ping", String.valueOf(target.get().ping()))
                                     .getResult());
                 } else {
                     CommandUtils.sendMessage(
-                            sender, TaterUtilsConfig.PingConfig.getMessage("playerNotFound"));
+                            sender, TaterUtilsConfigOld.PingConfig.getMessage("playerNotFound"));
                 }
             } else {
                 CommandUtils.sendMessage(
-                        sender, TaterUtilsConfig.PingConfig.getMessage("pingOtherDenied"));
+                        sender, TaterUtilsConfigOld.PingConfig.getMessage("pingOtherDenied"));
             }
         }
         return true;

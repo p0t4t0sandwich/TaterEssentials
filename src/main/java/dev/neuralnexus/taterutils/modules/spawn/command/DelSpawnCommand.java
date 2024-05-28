@@ -3,7 +3,7 @@ package dev.neuralnexus.taterutils.modules.spawn.command;
 import dev.neuralnexus.taterlib.command.Command;
 import dev.neuralnexus.taterlib.command.CommandSender;
 import dev.neuralnexus.taterlib.player.Player;
-import dev.neuralnexus.taterutils.TaterUtilsConfig;
+import dev.neuralnexus.taterutils.TaterUtilsConfigOld;
 import dev.neuralnexus.taterutils.api.CommandUtils;
 import dev.neuralnexus.taterutils.api.TaterUtilsAPIProvider;
 import dev.neuralnexus.taterutils.modules.spawn.api.SpawnAPI;
@@ -46,7 +46,7 @@ public class DelSpawnCommand implements Command {
         SpawnAPI api = TaterUtilsAPIProvider.get().spawnAPI();
         api.deleteSpawn();
         CommandUtils.sendMessage(
-                player, TaterUtilsConfig.SpawnConfig.getMessage("delSpawn.success"));
+                player, TaterUtilsConfigOld.SpawnConfig.getMessage("delSpawn.success"));
         return true;
     }
 }

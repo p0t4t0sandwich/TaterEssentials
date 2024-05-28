@@ -17,7 +17,7 @@ public class SpawnAPI {
         this.database =
                 new FSSpawnStorage(
                         new Database.DatabaseConfig(
-                                TaterUtils.Constants.PROJECT_NAME, 0, "spawnData", "", ""));
+                                TaterUtils.PROJECT_NAME, 0, "spawnData", "", ""));
     }
 
     /**

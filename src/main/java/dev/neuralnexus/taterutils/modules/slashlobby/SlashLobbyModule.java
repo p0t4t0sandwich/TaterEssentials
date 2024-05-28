@@ -4,6 +4,7 @@ import dev.neuralnexus.taterlib.api.TaterAPIProvider;
 import dev.neuralnexus.taterlib.event.api.CommandEvents;
 import dev.neuralnexus.taterlib.plugin.PluginModule;
 import dev.neuralnexus.taterutils.TaterUtils;
+import dev.neuralnexus.taterutils.config.TaterUtilsConfigLoader;
 import dev.neuralnexus.taterutils.modules.slashlobby.command.SlashLobbyCommand;
 
 /** SlashLobby module. */
@@ -32,7 +33,7 @@ public class SlashLobbyModule implements PluginModule {
                             event.registerCommand(
                                     TaterUtils.plugin(),
                                     new SlashLobbyCommand(),
-                                    TaterUtilsConfigOld.SlashLobbyConfig.getLobbyNames());
+                                    TaterUtilsConfigLoader.config().slashLobby().lobbyNames());
                         }
                     }));
         }

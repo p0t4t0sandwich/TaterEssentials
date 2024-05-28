@@ -103,4 +103,11 @@ public interface TaterUtilsConfig {
      * @return The configuration for the ping.
      */
     PingConfig ping();
+
+    /**
+     * Get the configuration for the slash lobby.
+     *
+     * @return The configuration for the slash lobby.
+     */
+    SlashLobbyConfig slashLobby();
 }

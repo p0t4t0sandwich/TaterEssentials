@@ -1,16 +1,4 @@
 modules:
-  slashLobby:
-    enabled: true
-
-    # The name of the lobby/hub server to send players to
-    lobbyNames: [ "lobby", "hub" ]
-
-    messages:
-      lobby:
-        # Available message placeholders:
-        #   %lobby% - The name of the lobby
-        connectedToLobby: "&aConnected to &e%lobby%&a!"
-
   spawn:
     enabled: true
     messages:

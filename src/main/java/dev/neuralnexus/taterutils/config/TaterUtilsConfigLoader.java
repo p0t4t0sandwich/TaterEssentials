@@ -52,6 +52,8 @@ public class TaterUtilsConfigLoader {
             new TypeToken<GameModeConfig>() {};
     private static final TypeToken<GodModeConfig> godModeType = new TypeToken<GodModeConfig>() {};
     private static final TypeToken<HomeConfig> homeType = new TypeToken<HomeConfig>() {};
+    private static final TypeToken<JoinAndQuitConfig> joinAndQuitType =
+            new TypeToken<JoinAndQuitConfig>() {};
     private static TaterUtilsConfig config;
 
     // TODO: REMOVE WHEN TATERLIB VERSION IS BUMPED
@@ -146,12 +148,20 @@ public class TaterUtilsConfigLoader {
         GameModeConfig gameMode = get(root, gameModeType, "gameMode", TaterUtils.logger());
         GodModeConfig godMode = get(root, godModeType, "godMode", TaterUtils.logger());
         HomeConfig home = get(root, homeType, "home", TaterUtils.logger());
+        JoinAndQuitConfig joinAndQuit =
+                get(root, joinAndQuitType, "joinAndQuit", TaterUtils.logger());
 
         switch (version) {
             case 1:
                 config =
                         new TaterUtilsConfig_V1(
-                                modules, badSpawns, chatFormatter, gameMode, godMode, home);
+                                modules,
+                                badSpawns,
+                                chatFormatter,
+                                gameMode,
+                                godMode,
+                                home,
+                                joinAndQuit);
                 break;
             default:
                 TaterUtils.logger().error("Unknown configuration version: " + version);
@@ -182,6 +192,7 @@ public class TaterUtilsConfigLoader {
         set(root, gameModeType, "gameMode", config.gameMode(), TaterUtils.logger());
         set(root, godModeType, "godMode", config.godMode(), TaterUtils.logger());
         set(root, homeType, "home", config.home(), TaterUtils.logger());
+        set(root, joinAndQuitType, "joinAndQuit", config.joinAndQuit(), TaterUtils.logger());
 
         try {
             loader.save(root);

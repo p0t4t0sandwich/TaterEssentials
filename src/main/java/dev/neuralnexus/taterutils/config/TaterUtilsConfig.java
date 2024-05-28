@@ -75,4 +75,11 @@ public interface TaterUtilsConfig {
      * @return The configuration for home.
      */
     HomeConfig home();
+
+    /**
+     * Get the configuration for join and quit.
+     *
+     * @return The configuration for join and quit.
+     */
+    JoinAndQuitConfig joinAndQuit();
 }

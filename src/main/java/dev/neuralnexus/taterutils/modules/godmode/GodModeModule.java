@@ -11,8 +11,8 @@ import dev.neuralnexus.taterutils.modules.godmode.command.GodModeCommand;
 
 /** GodMode module. */
 public class GodModeModule implements PluginModule {
-    private static boolean STARTED = false;
     private static final boolean RELOADED = false;
+    private static boolean STARTED = false;
 
     @Override
     public String name() {
@@ -59,9 +59,6 @@ public class GodModeModule implements PluginModule {
             return;
         }
         STARTED = false;
-
-        // Remove references to objects
-
         TaterUtils.logger().info("Submodule " + name() + " has been stopped!");
     }
 }

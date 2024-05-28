@@ -49,9 +49,6 @@ public class PingModule implements PluginModule {
             return;
         }
         STARTED = false;
-
-        // Remove references to objects
-
         TaterUtils.logger().info("Submodule " + name() + " has been stopped!");
     }
 }

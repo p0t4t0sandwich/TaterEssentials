@@ -4,6 +4,7 @@ import dev.neuralnexus.taterlib.Utils;
 import dev.neuralnexus.taterlib.event.api.PlayerEvents;
 import dev.neuralnexus.taterlib.plugin.PluginModule;
 import dev.neuralnexus.taterutils.TaterUtils;
+import dev.neuralnexus.taterutils.config.TaterUtilsConfigLoader;
 
 /** JoinAndQuit module. */
 public class JoinAndQuitModule implements PluginModule {
@@ -31,8 +32,9 @@ public class JoinAndQuitModule implements PluginModule {
                                     Utils.substituteSectionSign(
                                             event.player()
                                                     .parsePlaceholders(
-                                                            TaterUtilsConfigOld.JoinAndQuitConfig
-                                                                    .getMessage("join"))
+                                                            TaterUtilsConfigLoader.config()
+                                                                    .joinAndQuit()
+                                                                    .join())
                                                     .getResult())));
             PlayerEvents.LOGOUT.register(
                     event ->
@@ -40,8 +42,9 @@ public class JoinAndQuitModule implements PluginModule {
                                     Utils.substituteSectionSign(
                                             event.player()
                                                     .parsePlaceholders(
-                                                            TaterUtilsConfigOld.JoinAndQuitConfig
-                                                                    .getMessage("quit"))
+                                                            TaterUtilsConfigLoader.config()
+                                                                    .joinAndQuit()
+                                                                    .quit())
                                                     .getResult())));
         }
 
@@ -55,9 +58,6 @@ public class JoinAndQuitModule implements PluginModule {
             return;
         }
         STARTED = false;
-
-        // Remove references to objects
-
         TaterUtils.logger().info("Submodule " + name() + " has been stopped!");
     }
 }

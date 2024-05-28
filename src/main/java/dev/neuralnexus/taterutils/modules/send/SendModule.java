@@ -45,9 +45,6 @@ public class SendModule implements PluginModule {
         }
         STARTED = false;
         RELOADED = true;
-
-        // Remove references to objects
-
         TaterUtils.logger().info("Submodule " + name() + " has been stopped!");
     }
 }

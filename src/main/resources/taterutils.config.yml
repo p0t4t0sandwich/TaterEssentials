@@ -1,41 +1,4 @@
----
-version: 1
-
-# Common Player Placeholders:
-#   %player% - Player name
-#   %displayname% - Player display name
-#   %server% - Server name
-#   %prefix% - Player prefix
-#   %suffix% - Player suffix
-
 modules:
-  home:
-    enabled: true
-    messages:
-      # Available message placeholders:
-      #   %home% - The name of the home
-      #   %homes% - A list of the player's homes
-      home:
-        homeNotSet: "&cYou do not have home &e%home%&c set!"
-        teleportedToHome: "&aTeleporting to home &e%home%&a!"
-        invalidArguments: "&cInvalid arguments!"
-        invalidHomeName: "&cInvalid home name!"
-        noName: "&aPlease provide a home name!"
-        availableHomes: "&aAvailable homes: &e%homes%"
-      setHome:
-        success: "&aSet home &e%home%&a!"
-      deleteHome:
-        success: "&aDeleted home &e%home%&a!"
-
-  joinAndQuit:
-    enabled: true
-    messages:
-      # Available message placeholders:
-      #   %player% - Player name
-      #   %message% - Message
-      join: "&a%player% joined the game!"
-      quit: "&c%player% left the game!"
-
   motd:
     enabled: true
     messages:

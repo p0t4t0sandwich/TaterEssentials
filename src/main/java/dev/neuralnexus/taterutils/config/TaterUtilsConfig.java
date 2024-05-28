@@ -89,4 +89,11 @@ public interface TaterUtilsConfig {
      * @return The configuration for the message of the day.
      */
     MOTDConfig motd();
+
+    /**
+     * Get the configuration for the ore watcher.
+     *
+     * @return The configuration for the ore watcher.
+     */
+    OreWatcherConfig oreWatcher();
 }

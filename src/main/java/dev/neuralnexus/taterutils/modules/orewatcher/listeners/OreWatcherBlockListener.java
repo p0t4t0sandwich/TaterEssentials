@@ -6,11 +6,14 @@ import dev.neuralnexus.taterlib.event.block.PlayerBlockBreakEvent;
 import dev.neuralnexus.taterlib.placeholder.PlaceholderParser;
 import dev.neuralnexus.taterutils.TaterUtils;
 import dev.neuralnexus.taterutils.api.TaterUtilsAPIProvider;
+import dev.neuralnexus.taterutils.config.TaterUtilsConfigLoader;
+import dev.neuralnexus.taterutils.config.sections.OreWatcherConfig;
 import dev.neuralnexus.taterutils.modules.orewatcher.api.OreWatcherAPI;
 
 /** OreWatcher block listener. */
 public class OreWatcherBlockListener {
     public static void onBlockBreak(PlayerBlockBreakEvent event) {
+        OreWatcherConfig config = TaterUtilsConfigLoader.config().oreWatcher();
         OreWatcherAPI api = TaterUtilsAPIProvider.get().oreWatcherAPI();
         if (event.block().type().toLowerCase().contains("ore")) {
             api.addOreMined(event.player(), 1);
@@ -24,12 +27,9 @@ public class OreWatcherBlockListener {
                                 }
 
                                 // Check if the player is mining at a rate over the threshold
-                                if (oreMined.getAveragePerMinute()
-                                        >= TaterUtilsConfigOld.OreWatcherConfig
-                                                .getAlertThreshold()) {
+                                if (oreMined.getAveragePerMinute() >= config.alertThreshold()) {
                                     // Cancel the event
-                                    if (TaterUtilsConfigOld.OreWatcherConfig
-                                            .getCancelMinedOverThreshold()) {
+                                    if (config.cancelMinedOverThreshold()) {
                                         event.setCancelled(true);
                                     }
 
@@ -39,10 +39,7 @@ public class OreWatcherBlockListener {
                                                             "["
                                                                     + TaterUtils.PROJECT_NAME
                                                                     + "->OreWatcher]"
-                                                                    + TaterUtilsConfigOld
-                                                                            .OreWatcherConfig
-                                                                            .getMessage(
-                                                                                    "adminAlertMessage"))
+                                                                    + config.adminAlertMessage())
                                                     .parseString(
                                                             "playername", event.player().name())
                                                     .parseString("blockname", event.block().type())
@@ -55,8 +52,7 @@ public class OreWatcherBlockListener {
                                     TaterUtils.logger().info(Utils.ansiParser(adminAlertMessage));
 
                                     // Send the message to all players with the permission
-                                    if (TaterUtilsConfigOld.OreWatcherConfig
-                                            .getAdminAlertEnabled()) {
+                                    if (config.adminAlertEnabled()) {
                                         TaterAPIProvider.get().getServer().onlinePlayers().stream()
                                                 .filter(
                                                         player ->
@@ -69,17 +65,14 @@ public class OreWatcherBlockListener {
                                     }
 
                                     // Send the message to the player
-                                    if (TaterUtilsConfigOld.OreWatcherConfig
-                                            .getPlayerAlertEnabled()) {
+                                    if (config.playerAlertEnabled()) {
                                         String playerAlertMessage =
                                                 new PlaceholderParser(
                                                                 "["
                                                                         + TaterUtils.PROJECT_NAME
                                                                         + "->OreWatcher]"
-                                                                        + TaterUtilsConfigOld
-                                                                                .OreWatcherConfig
-                                                                                .getMessage(
-                                                                                        "playerAlertMessage"))
+                                                                        + config
+                                                                                .playerAlertMessage())
                                                         .parseString(
                                                                 "playername", event.player().name())
                                                         .parseString(

@@ -8,7 +8,7 @@ import dev.neuralnexus.taterutils.config.TaterUtilsConfigLoader;
 
 /** Motd module. */
 public class MotdModule implements PluginModule {
-    private static final boolean RELOADED = false;
+    private static boolean RELOADED = false;
     private static boolean STARTED = false;
 
     @Override
@@ -46,6 +46,7 @@ public class MotdModule implements PluginModule {
             return;
         }
         STARTED = false;
+        RELOADED = true;
         TaterUtils.logger().info("Submodule " + name() + " has been stopped!");
     }
 }

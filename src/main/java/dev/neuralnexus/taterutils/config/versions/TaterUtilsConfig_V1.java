@@ -15,6 +15,7 @@ public class TaterUtilsConfig_V1 implements TaterUtilsConfig {
     private final HomeConfig home;
     private final JoinAndQuitConfig joinAndQuit;
     private final MOTDConfig motd;
+    private final OreWatcherConfig oreWatcher;
 
     public TaterUtilsConfig_V1(
             List<ModuleConfig> modules,
@@ -24,7 +25,8 @@ public class TaterUtilsConfig_V1 implements TaterUtilsConfig {
             GodModeConfig godMode,
             HomeConfig home,
             JoinAndQuitConfig joinAndQuit,
-            MOTDConfig motd) {
+            MOTDConfig motd,
+            OreWatcherConfig oreWatcher) {
         this.modules = modules;
         this.badSpawns = badSpawns;
         this.chatFormatter = chatFormatter;
@@ -33,6 +35,7 @@ public class TaterUtilsConfig_V1 implements TaterUtilsConfig {
         this.home = home;
         this.joinAndQuit = joinAndQuit;
         this.motd = motd;
+        this.oreWatcher = oreWatcher;
     }
 
     @Override
@@ -78,5 +81,10 @@ public class TaterUtilsConfig_V1 implements TaterUtilsConfig {
     @Override
     public MOTDConfig motd() {
         return motd;
+    }
+
+    @Override
+    public OreWatcherConfig oreWatcher() {
+        return oreWatcher;
     }
 }

@@ -127,19 +127,8 @@ public class TaterUtils implements Plugin {
             return;
         }
         RELOADED = true;
-
-        // Stop
         pluginStop();
-
-        // Unregister API
-        TaterUtilsAPIProvider.unregister();
-
-        // Unload config
-        TaterUtilsConfigLoader.unload();
-
-        // Start
         pluginStart(plugin, pluginServer, pluginLogger, logger);
-
         logger().info(PROJECT_NAME + " has been reloaded!");
     }
 
@@ -271,8 +260,11 @@ public class TaterUtils implements Plugin {
         logger().info("Stopping modules: " + moduleLoader.moduleNames());
         moduleLoader.stopModules();
 
-        // Remove references to objects
-        TaterUtilsConfigOld.unloadConfig();
+        // Unregister API
+        TaterUtilsAPIProvider.unregister();
+
+        // Unload config
+        TaterUtilsConfigLoader.unload();
 
         logger().info(PROJECT_NAME + " has been stopped!");
     }

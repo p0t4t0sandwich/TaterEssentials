@@ -9,7 +9,7 @@ import dev.neuralnexus.taterutils.modules.gamemode.command.GameModeCommand;
 
 /** Ping module. */
 public class GameModeModule implements PluginModule {
-    private static final boolean RELOADED = false;
+    private static boolean RELOADED = false;
     private static boolean STARTED = false;
 
     @Override
@@ -62,6 +62,7 @@ public class GameModeModule implements PluginModule {
             return;
         }
         STARTED = false;
+        RELOADED = true;
         TaterUtils.logger().info("Submodule " + name() + " has been stopped!");
     }
 }

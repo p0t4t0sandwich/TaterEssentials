@@ -8,7 +8,7 @@ import dev.neuralnexus.taterutils.config.TaterUtilsConfigLoader;
 
 /** JoinAndQuit module. */
 public class JoinAndQuitModule implements PluginModule {
-    private static final boolean RELOADED = false;
+    private static boolean RELOADED = false;
     private static boolean STARTED = false;
 
     @Override
@@ -58,6 +58,7 @@ public class JoinAndQuitModule implements PluginModule {
             return;
         }
         STARTED = false;
+        RELOADED = true;
         TaterUtils.logger().info("Submodule " + name() + " has been stopped!");
     }
 }

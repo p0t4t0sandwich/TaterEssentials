@@ -1,9 +1,9 @@
 /**
- * Copyright (c) 2024 Dylan Sperrer - dylan@sperrer.ca
- * The project is Licensed under <a href="https://github.com/p0t4t0sandwich/TaterUtils/blob/dev/LICENSE">GPL-3</a>
- * The API is Licensed under <a href="https://github.com/p0t4t0sandwich/TaterUtils/blob/dev/LICENSE-API">MIT</a>
+ * Copyright (c) 2024 Dylan Sperrer - dylan@sperrer.ca The project is Licensed under <a
+ * href="https://github.com/p0t4t0sandwich/TaterUtils/blob/dev/LICENSE">GPL-3</a> The API is
+ * Licensed under <a
+ * href="https://github.com/p0t4t0sandwich/TaterUtils/blob/dev/LICENSE-API">MIT</a>
  */
-
 package dev.neuralnexus.taterutils.modules.badspawns.api;
 
 import dev.neuralnexus.taterlib.entity.Entity;
@@ -58,26 +58,74 @@ public class Region {
         return mobs;
     }
 
-    /** Check if the entity is banned in the region. */
-    public boolean canSpawn(Entity entity) {
-        boolean result = mobs.contains(entity.type());
-        if (worlds.contains(entity.world().dimension())) {
-            result = true;
+    /** Is the entity within the region? */
+    public boolean isWithin(Entity entity) {
+        if (!worlds.contains(entity.world().dimension()) && !worlds.isEmpty()) {
+            //
+            // System.out.println(entity.world().dimension() + " not within " + worlds);
+            //
+            return false;
         }
-        if (biomes.contains(entity.biome())) {
-            result = true;
+        if (!biomes.contains(entity.biome()) && !biomes.isEmpty()) {
+            //
+            // System.out.println(entity.biome() + " not within " + biomes);
+            //
+            return false;
         }
         BlockPos entityPos = entity.location().blockPosition();
         BlockPos minPos = min.toBlockPos();
         BlockPos maxPos = max.toBlockPos();
-        if ((entityPos.x() >= minPos.x() && entityPos.x() <= maxPos.x())
-                && (entityPos.y() >= minPos.y() && entityPos.y() <= maxPos.y())
-                && (entityPos.z() >= minPos.z() && entityPos.z() <= maxPos.z())) {
-            result = true;
+        if (entityPos.x() < minPos.x() || entityPos.x() > maxPos.x()) {
+            //
+            // System.out.println(
+            //        entityPos.x() + " x-pos not within " + minPos.x() + " and " + maxPos.x());
+            //
+            return false;
         }
-        if ((float) Math.random() <= chance && chance != 0) {
-            result = true;
+        if (entityPos.y() < minPos.y() || entityPos.y() > maxPos.y()) {
+            //
+            // System.out.println(
+            //        entityPos.y() + " y-pos not within " + minPos.y() + " and " + maxPos.y());
+            //
+            return false;
         }
+        //
+        // System.out.println(
+        //        entityPos.z() + " z-pos not within " + minPos.z() + " and " + maxPos.z());
+        //
+        return !(entityPos.z() < minPos.z()) && !(entityPos.z() > maxPos.z());
+        //
+        // System.out.println("Entity is within region");
+        //
+    }
+
+    /** Check if the entity is banned in the region. */
+    public boolean canSpawn(Entity entity) {
+        boolean isWithinResult = isWithin(entity);
+        //
+        // System.out.println("---------------------------------------------");
+        // System.out.println("Region: " + name);
+        // System.out.println("Entity: " + entity.type());
+        // System.out.println("Is within result: " + isWithinResult);
+        //
+
+        // TODO: Consider resolving Entity#type() to the modid:entityid format
+        boolean mobResult =
+                mobs.contains(entity.type().replace("entity.", "").replace(".", ":"))
+                        || mobs.isEmpty();
+        //
+        // System.out.println("Mob result: " + mobResult);
+        //
+        boolean chanceResult = !((float) Math.random() <= chance && chance != 0);
+        //
+        // System.out.println("Chance result: " + chanceResult);
+        //
+
+        boolean result = isWithinResult && mobResult && chanceResult;
+        //
+        // System.out.println("Final result: " + result);
+        // System.out.println("---------------------------------------------");
+        //
         if (type.equals("blacklist")) {
             return !result;
         }

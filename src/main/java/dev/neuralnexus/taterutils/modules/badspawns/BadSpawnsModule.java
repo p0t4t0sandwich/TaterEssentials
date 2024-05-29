@@ -39,7 +39,7 @@ public class BadSpawnsModule implements PluginModule {
                         event -> {
                             BadSpawnsAPI api = TaterUtilsAPIProvider.get().badSpawnsAPI();
                             Entity entity = event.entity();
-                            if (api.isBannedGlobally(entity) || api.canSpawn(entity)) {
+                            if (api.isBannedGlobally(entity) || !api.canSpawn(entity)) {
                                 event.setCancelled(true);
                             }
                         });

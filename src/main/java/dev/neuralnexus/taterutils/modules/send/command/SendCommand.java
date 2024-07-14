@@ -6,11 +6,11 @@
 
 package dev.neuralnexus.taterutils.modules.send.command;
 
-import dev.neuralnexus.taterlib.api.TaterAPIProvider;
-import dev.neuralnexus.taterlib.command.Command;
-import dev.neuralnexus.taterlib.command.CommandSender;
-import dev.neuralnexus.taterlib.player.ProxyPlayer;
-import dev.neuralnexus.taterlib.server.ProxyServer;
+import dev.neuralnexus.taterapi.TaterAPIProvider;
+import dev.neuralnexus.taterapi.command.Command;
+import dev.neuralnexus.taterapi.command.CommandSender;
+import dev.neuralnexus.taterapi.entity.player.ProxyPlayer;
+import dev.neuralnexus.taterapi.server.ProxyServer;
 import dev.neuralnexus.taterutils.api.CommandUtils;
 
 import java.util.Optional;
@@ -50,7 +50,7 @@ public class SendCommand implements Command {
             return true;
         }
 
-        ProxyServer server = (ProxyServer) TaterAPIProvider.get().getServer();
+        ProxyServer server = (ProxyServer) TaterAPIProvider.api().get().server();
 
         Optional<ProxyPlayer> player =
                 server.onlinePlayers().stream()

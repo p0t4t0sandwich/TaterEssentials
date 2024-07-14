@@ -6,39 +6,29 @@
 
 package dev.neuralnexus.taterutils.modules.gamemode;
 
-import dev.neuralnexus.taterlib.api.TaterAPIProvider;
-import dev.neuralnexus.taterlib.command.Command;
-import dev.neuralnexus.taterlib.event.api.CommandEvents;
-import dev.neuralnexus.taterlib.plugin.PluginModule;
+import dev.neuralnexus.taterapi.TaterAPIProvider;
+import dev.neuralnexus.taterapi.command.Command;
+import dev.neuralnexus.taterapi.event.api.CommandEvents;
+import dev.neuralnexus.taterloader.plugin.PluginModule;
 import dev.neuralnexus.taterutils.TaterUtils;
 import dev.neuralnexus.taterutils.modules.gamemode.command.GameModeCommand;
 
 /** Ping module. */
 public class GameModeModule implements PluginModule {
-    private static boolean RELOADED = false;
-    private static boolean STARTED = false;
-
     @Override
-    public String name() {
+    public String id() {
         return "GameMode";
     }
 
     @Override
-    public void start() {
-        if (STARTED) {
-            TaterUtils.logger().info("Submodule " + name() + " has already started!");
-            return;
-        }
-        STARTED = true;
-
-        if (!RELOADED) {
+    public void onEnable() {
+        if (!TaterUtils.hasReloaded()) {
             // Register commands
-            if (!TaterAPIProvider.serverType().isProxy()) {
+            if (!TaterAPIProvider.platform().isProxy()) {
                 CommandEvents.REGISTER_COMMAND.register(
                         event -> {
                             // TODO: Refactor to use aliases once Brig aliases are patched upstream
-                            // event.registerCommand(TaterUtils.plugin(), command, "gms", "gmc",
-                            // "gma", "gmsp");
+                            // event.registerCommand(command, "gms", "gmc", "gma", "gmsp");
                             Command gamemode = new GameModeCommand();
                             Command gms = new GameModeCommand();
                             gms.setName("gms");
@@ -49,26 +39,13 @@ public class GameModeModule implements PluginModule {
                             Command gmsp = new GameModeCommand();
                             gmsp.setName("gmsp");
 
-                            event.registerCommand(TaterUtils.plugin(), gamemode, "gamemode");
-                            event.registerCommand(TaterUtils.plugin(), gms);
-                            event.registerCommand(TaterUtils.plugin(), gmc);
-                            event.registerCommand(TaterUtils.plugin(), gma);
-                            event.registerCommand(TaterUtils.plugin(), gmsp);
+                            event.registerCommand(gamemode, "gamemode");
+                            event.registerCommand(gms);
+                            event.registerCommand(gmc);
+                            event.registerCommand(gma);
+                            event.registerCommand(gmsp);
                         });
             }
         }
-
-        TaterUtils.logger().info("Submodule " + name() + " has been started!");
-    }
-
-    @Override
-    public void stop() {
-        if (!STARTED) {
-            TaterUtils.logger().info("Submodule " + name() + " has already stopped!");
-            return;
-        }
-        STARTED = false;
-        RELOADED = true;
-        TaterUtils.logger().info("Submodule " + name() + " has been stopped!");
     }
 }

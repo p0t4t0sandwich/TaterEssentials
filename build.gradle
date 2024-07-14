@@ -20,8 +20,8 @@ repositories {
 }
 
 dependencies {
-    compileOnly("dev.neuralnexus:taterlib-api:${taterlib_version}")
-    compileOnly("dev.neuralnexus:entrypoint-spoof:0.1.5")
+    compileOnly("dev.neuralnexus:taterapi:${taterapi_version}")
+    compileOnly("dev.neuralnexus:entrypoint-spoof:0.1.11")
 
     compileOnly('org.spongepowered:configurate-hocon:4.1.2')
     compileOnly('com.google.code.gson:gson:2.10.1')

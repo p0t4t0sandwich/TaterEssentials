@@ -6,11 +6,11 @@
 
 package dev.neuralnexus.taterutils.api;
 
-import dev.neuralnexus.taterlib.api.TaterAPIProvider;
-import dev.neuralnexus.taterlib.server.Server;
-import dev.neuralnexus.taterlib.world.BlockPos;
-import dev.neuralnexus.taterlib.world.Location;
-import dev.neuralnexus.taterlib.world.World;
+import dev.neuralnexus.taterapi.TaterAPIProvider;
+import dev.neuralnexus.taterapi.server.Server;
+import dev.neuralnexus.taterapi.world.BlockPos;
+import dev.neuralnexus.taterapi.world.Location;
+import dev.neuralnexus.taterapi.world.World;
 
 /** Implementation of {@link Location}. */
 public class AbstractLocation implements Location {
@@ -31,7 +31,13 @@ public class AbstractLocation implements Location {
     }
 
     public AbstractLocation(String world, double x, double y, double z, float yaw, float pitch) {
-        this(((Server) TaterAPIProvider.get().getServer()).world(world).get(), x, y, z, yaw, pitch);
+        this(
+                ((Server) TaterAPIProvider.api().get().server()).world(world).get(),
+                x,
+                y,
+                z,
+                yaw,
+                pitch);
     }
 
     public AbstractLocation(Location location) {

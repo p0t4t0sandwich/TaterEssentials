@@ -6,9 +6,9 @@
 
 package dev.neuralnexus.taterutils.modules.spawn.api;
 
-import dev.neuralnexus.taterlib.player.Player;
-import dev.neuralnexus.taterlib.storage.databases.Database;
-import dev.neuralnexus.taterlib.world.Location;
+import dev.neuralnexus.taterapi.entity.player.Player;
+import dev.neuralnexus.taterapi.storage.databases.Database;
+import dev.neuralnexus.taterapi.world.Location;
 import dev.neuralnexus.taterutils.TaterUtils;
 import dev.neuralnexus.taterutils.modules.spawn.storage.FSSpawnStorage;
 import dev.neuralnexus.taterutils.modules.spawn.storage.SpawnStorage;

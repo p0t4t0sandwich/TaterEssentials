@@ -8,13 +8,14 @@ package dev.neuralnexus.taterutils;
 
 import com.google.common.collect.ImmutableMap;
 
-import dev.neuralnexus.taterlib.api.TaterAPIProvider;
-import dev.neuralnexus.taterlib.api.info.ServerType;
-import dev.neuralnexus.taterlib.bstats.MetricsAdapter;
-import dev.neuralnexus.taterlib.event.api.PluginEvents;
-import dev.neuralnexus.taterlib.logger.AbstractLogger;
-import dev.neuralnexus.taterlib.plugin.ModuleLoader;
-import dev.neuralnexus.taterlib.plugin.Plugin;
+import dev.neuralnexus.taterapi.MinecraftVersion;
+import dev.neuralnexus.taterapi.Platform;
+import dev.neuralnexus.taterapi.event.api.PluginEvents;
+import dev.neuralnexus.taterapi.logger.Logger;
+import dev.neuralnexus.taterapi.metrics.bstats.MetricsAdapter;
+import dev.neuralnexus.taterloader.Loader;
+import dev.neuralnexus.taterloader.plugin.ModuleLoader;
+import dev.neuralnexus.taterloader.plugin.Plugin;
 import dev.neuralnexus.taterutils.api.TaterUtilsAPI;
 import dev.neuralnexus.taterutils.api.TaterUtilsAPIProvider;
 import dev.neuralnexus.taterutils.config.TaterUtilsConfig;
@@ -46,13 +47,18 @@ public class TaterUtils implements Plugin {
     public static final String PROJECT_URL = "https://github.com/p0t4t0sandwich/TaterUtils";
 
     private static final TaterUtils instance = new TaterUtils();
-    private static boolean STARTED = false;
+    private static final Logger logger = Logger.create(PROJECT_ID);
     private static boolean RELOADED = false;
     private static ModuleLoader moduleLoader;
-    private Object plugin;
-    private Object pluginServer;
-    private Object pluginLogger;
-    private AbstractLogger logger;
+
+    /**
+     * Get the singleton instance of the class.
+     *
+     * @return The singleton instance
+     */
+    public static TaterUtils instance() {
+        return instance;
+    }
 
     /**
      * Get if the plugin has reloaded
@@ -64,78 +70,12 @@ public class TaterUtils implements Plugin {
     }
 
     /**
-     * Getter for the singleton instance of the class.
-     *
-     * @return The singleton instance
-     */
-    public static TaterUtils instance() {
-        return instance;
-    }
-
-    /**
-     * Get the plugin
-     *
-     * @return The plugin
-     */
-    public static Object plugin() {
-        return instance.plugin;
-    }
-
-    /**
-     * Set the plugin
-     *
-     * @param plugin The plugin
-     */
-    private static void setPlugin(Object plugin) {
-        instance.plugin = plugin;
-    }
-
-    /**
-     * Set the plugin server
-     *
-     * @param pluginServer The plugin server
-     */
-    private static void setPluginServer(Object pluginServer) {
-        instance.pluginServer = pluginServer;
-    }
-
-    /**
-     * Set the plugin logger
-     *
-     * @param pluginLogger The plugin logger
-     */
-    private static void setPluginLogger(Object pluginLogger) {
-        instance.pluginLogger = pluginLogger;
-    }
-
-    /**
      * Get the logger
      *
      * @return The logger
      */
-    public static AbstractLogger logger() {
-        return instance.logger;
-    }
-
-    /**
-     * Set the logger
-     *
-     * @param logger The logger
-     */
-    private static void setLogger(AbstractLogger logger) {
-        instance.logger = logger;
-    }
-
-    /** Reload */
-    public void reload() {
-        if (!STARTED) {
-            logger().info(PROJECT_NAME + " has not been started!");
-            return;
-        }
-        RELOADED = true;
-        pluginStop();
-        pluginStart(plugin, pluginServer, pluginLogger, logger);
-        logger().info(PROJECT_NAME + " has been reloaded!");
+    public static Logger logger() {
+        return logger;
     }
 
     @Override
@@ -149,46 +89,29 @@ public class TaterUtils implements Plugin {
     }
 
     @Override
-    public void pluginStart(
-            Object plugin, Object pluginServer, Object pluginLogger, AbstractLogger logger) {
+    public void start() {
         logger.info(
                 TaterUtils.PROJECT_NAME
                         + " is running on "
-                        + TaterAPIProvider.serverType()
+                        + Platform.get()
                         + " "
-                        + TaterAPIProvider.minecraftVersion()
-                        + "!");
-        PluginEvents.DISABLED.register(event -> pluginStop());
-
-        if (pluginServer != null) {
-            setPluginServer(pluginServer);
-        }
-        if (pluginLogger != null) {
-            setPluginLogger(pluginLogger);
-        }
-        setPlugin(plugin);
-        setLogger(logger);
+                        + MinecraftVersion.get());
+        PluginEvents.DISABLED.register(event -> stop());
 
         // Set up bStats
         MetricsAdapter.setupMetrics(
-                plugin,
-                pluginServer,
-                pluginLogger,
-                ImmutableMap.<ServerType, Integer>builder()
-                        .put(ServerType.BUKKIT, 21134)
-                        .put(ServerType.BUNGEECORD, 21135)
-                        .put(ServerType.SPONGE, 21136)
-                        .put(ServerType.VELOCITY, 21137)
+                Loader.instance().plugin(),
+                Loader.instance().server(),
+                logger.getLogger(),
+                ImmutableMap.<Platform, Integer>builder()
+                        .put(Platform.BUKKIT, 21134)
+                        .put(Platform.BUNGEECORD, 21135)
+                        .put(Platform.SPONGE, 21136)
+                        .put(Platform.VELOCITY, 21137)
                         .build());
 
         // Config
         TaterUtilsConfigLoader.load();
-
-        if (STARTED) {
-            logger().info(PROJECT_NAME + " has already started!");
-            return;
-        }
-        STARTED = true;
 
         // Register API
         TaterUtilsAPIProvider.register(new TaterUtilsAPI());
@@ -247,23 +170,16 @@ public class TaterUtils implements Plugin {
 
         // Start modules
         logger().info("Starting modules: " + moduleLoader.moduleNames());
-        moduleLoader.startModules();
+        moduleLoader.onEnable();
 
         logger().info(PROJECT_NAME + " has been started!");
     }
 
     @Override
-    public void pluginStop() {
-        if (!STARTED) {
-            logger().info(PROJECT_NAME + " has already stopped!");
-            return;
-        }
-        STARTED = false;
-        RELOADED = true;
-
+    public void stop() {
         // Stop modules
         logger().info("Stopping modules: " + moduleLoader.moduleNames());
-        moduleLoader.stopModules();
+        moduleLoader.onDisable();
 
         // Unregister API
         TaterUtilsAPIProvider.unregister();
@@ -272,5 +188,13 @@ public class TaterUtils implements Plugin {
         TaterUtilsConfigLoader.unload();
 
         logger().info(PROJECT_NAME + " has been stopped!");
+    }
+
+    /** Reload */
+    public void reload() {
+        RELOADED = true;
+        stop();
+        start();
+        logger().info(PROJECT_NAME + " has been reloaded!");
     }
 }

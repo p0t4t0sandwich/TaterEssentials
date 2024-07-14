@@ -6,8 +6,9 @@
 
 package dev.neuralnexus.taterutils.api;
 
-import dev.neuralnexus.taterlib.Utils;
-import dev.neuralnexus.taterlib.command.CommandSender;
+import static dev.neuralnexus.taterapi.placeholder.PlaceholderParser.substituteSectionSign;
+
+import dev.neuralnexus.taterapi.command.CommandSender;
 
 /** General command utilities. */
 public class CommandUtils {
@@ -18,7 +19,7 @@ public class CommandUtils {
      * @param message The message.
      */
     public static void sendMessage(CommandSender sender, String message) {
-        sender.sendMessage(Utils.substituteSectionSign(message));
+        sender.sendMessage(substituteSectionSign(message));
     }
 
     /**

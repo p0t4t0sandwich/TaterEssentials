@@ -9,13 +9,8 @@ package dev.neuralnexus.taterutils.platforms;
 import com.google.inject.Inject;
 import com.velocitypowered.api.plugin.Dependency;
 import com.velocitypowered.api.plugin.Plugin;
-import com.velocitypowered.api.plugin.PluginContainer;
-import com.velocitypowered.api.proxy.ProxyServer;
 
-import dev.neuralnexus.taterlib.logger.LoggerAdapter;
 import dev.neuralnexus.taterutils.TaterUtils;
-
-import org.slf4j.Logger;
 
 /** Velocity entry point. */
 @Plugin(
@@ -28,9 +23,7 @@ import org.slf4j.Logger;
         dependencies = {@Dependency(id = "taterlib")})
 public class VelocityPlugin {
     @Inject
-    public VelocityPlugin(PluginContainer plugin, ProxyServer server, Logger logger) {
-        TaterUtils.instance()
-                .pluginStart(
-                        plugin, server, logger, new LoggerAdapter(TaterUtils.PROJECT_ID, logger));
+    public VelocityPlugin() {
+        TaterUtils.instance().start();
     }
 }

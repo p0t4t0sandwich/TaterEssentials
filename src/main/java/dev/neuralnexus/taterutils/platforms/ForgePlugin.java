@@ -6,7 +6,6 @@
 
 package dev.neuralnexus.taterutils.platforms;
 
-import dev.neuralnexus.taterlib.logger.LoggerAdapter;
 import dev.neuralnexus.taterutils.TaterUtils;
 
 import net.minecraftforge.fml.common.Mod;
@@ -20,7 +19,6 @@ import net.minecraftforge.fml.common.Mod;
         acceptableRemoteVersions = "*")
 public class ForgePlugin {
     public ForgePlugin() {
-        TaterUtils.instance()
-                .pluginStart(this, null, null, new LoggerAdapter(TaterUtils.PROJECT_ID));
+        TaterUtils.instance().start();
     }
 }

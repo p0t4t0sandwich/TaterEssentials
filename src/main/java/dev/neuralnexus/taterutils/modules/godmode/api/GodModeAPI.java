@@ -6,7 +6,7 @@
 
 package dev.neuralnexus.taterutils.modules.godmode.api;
 
-import dev.neuralnexus.taterlib.player.Player;
+import dev.neuralnexus.taterapi.entity.player.Player;
 
 /** API for the GodMode module. */
 public class GodModeAPI {

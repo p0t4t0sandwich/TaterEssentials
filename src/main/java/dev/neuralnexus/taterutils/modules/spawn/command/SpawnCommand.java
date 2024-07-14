@@ -6,9 +6,9 @@
 
 package dev.neuralnexus.taterutils.modules.spawn.command;
 
-import dev.neuralnexus.taterlib.command.Command;
-import dev.neuralnexus.taterlib.command.CommandSender;
-import dev.neuralnexus.taterlib.player.Player;
+import dev.neuralnexus.taterapi.command.Command;
+import dev.neuralnexus.taterapi.command.CommandSender;
+import dev.neuralnexus.taterapi.entity.player.Player;
 import dev.neuralnexus.taterutils.api.CommandUtils;
 import dev.neuralnexus.taterutils.api.TaterUtilsAPIProvider;
 import dev.neuralnexus.taterutils.config.TaterUtilsConfigLoader;

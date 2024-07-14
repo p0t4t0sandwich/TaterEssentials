@@ -6,7 +6,7 @@
 
 package dev.neuralnexus.taterutils.modules.badspawns.api;
 
-import dev.neuralnexus.taterlib.entity.Entity;
+import dev.neuralnexus.taterapi.entity.Entity;
 import dev.neuralnexus.taterutils.config.TaterUtilsConfigLoader;
 
 /** API for the BadSpawns module. */

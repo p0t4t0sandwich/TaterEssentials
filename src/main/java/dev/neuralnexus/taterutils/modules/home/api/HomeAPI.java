@@ -8,8 +8,8 @@ package dev.neuralnexus.taterutils.modules.home.api;
 
 import com.google.gson.reflect.TypeToken;
 
-import dev.neuralnexus.taterlib.player.Player;
-import dev.neuralnexus.taterlib.world.Location;
+import dev.neuralnexus.taterapi.entity.player.Player;
+import dev.neuralnexus.taterapi.world.Location;
 import dev.neuralnexus.taterutils.api.AbstractLocation;
 import dev.neuralnexus.taterutils.api.NamedLocation;
 

@@ -6,8 +6,8 @@
 
 package dev.neuralnexus.taterutils.modules.spawn.storage;
 
-import dev.neuralnexus.taterlib.player.Player;
-import dev.neuralnexus.taterlib.world.Location;
+import dev.neuralnexus.taterapi.entity.player.Player;
+import dev.neuralnexus.taterapi.world.Location;
 
 import java.util.Optional;
 

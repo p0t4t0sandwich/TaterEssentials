@@ -6,7 +6,7 @@
 
 package dev.neuralnexus.taterutils.modules.orewatcher.api;
 
-import dev.neuralnexus.taterlib.player.SimplePlayer;
+import dev.neuralnexus.taterapi.entity.player.SimplePlayer;
 
 import java.util.HashSet;
 import java.util.Optional;

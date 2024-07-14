@@ -24,6 +24,6 @@
   "depends": {
     "fabricloader": ">=0.9.0",
     "minecraft": "*",
-    "taterlib": ">=${taterlib_version}"
+    "taterlib": ">=${taterapi_version}"
   }
 }

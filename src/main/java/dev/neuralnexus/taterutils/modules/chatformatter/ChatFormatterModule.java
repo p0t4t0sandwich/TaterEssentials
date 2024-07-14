@@ -6,40 +6,33 @@
 
 package dev.neuralnexus.taterutils.modules.chatformatter;
 
-import dev.neuralnexus.taterlib.Utils;
-import dev.neuralnexus.taterlib.api.TaterAPIProvider;
-import dev.neuralnexus.taterlib.event.api.PlayerEvents;
-import dev.neuralnexus.taterlib.plugin.PluginModule;
+import static dev.neuralnexus.taterapi.placeholder.PlaceholderParser.substituteSectionSign;
+
+import dev.neuralnexus.taterapi.TaterAPIProvider;
+import dev.neuralnexus.taterapi.event.api.PlayerEvents;
+import dev.neuralnexus.taterloader.plugin.PluginModule;
 import dev.neuralnexus.taterutils.TaterUtils;
 import dev.neuralnexus.taterutils.config.TaterUtilsConfigLoader;
 
 /** ChatFormatter module. */
 public class ChatFormatterModule implements PluginModule {
-    private static final boolean RELOADED = false;
-    private static boolean STARTED = false;
-
     @Override
-    public String name() {
+    public String id() {
         return "ChatFormatter";
     }
 
     @Override
-    public void start() {
-        if (STARTED) {
-            TaterUtils.logger().info("Submodule " + name() + " has already started!");
-            return;
-        }
-        STARTED = true;
-
-        if (!RELOADED) {
+    public void onEnable() {
+        if (!TaterUtils.hasReloaded()) {
             // Register listeners
             PlayerEvents.MESSAGE.register(
                     event -> {
                         event.setCancelled(true);
-                        TaterAPIProvider.get()
-                                .getServer()
+                        TaterAPIProvider.api()
+                                .get()
+                                .server()
                                 .broadcastMessage(
-                                        Utils.substituteSectionSign(
+                                        substituteSectionSign(
                                                 event.player()
                                                         .parsePlaceholders(
                                                                 TaterUtilsConfigLoader.config()
@@ -49,18 +42,5 @@ public class ChatFormatterModule implements PluginModule {
                                                         .getResult()));
                     });
         }
-
-        TaterUtils.logger().info("Submodule " + name() + " has been started!");
-    }
-
-    @Override
-    public void stop() {
-        if (!STARTED) {
-            TaterUtils.logger().info("Submodule " + name() + " has already stopped!");
-            return;
-        }
-        STARTED = false;
-
-        TaterUtils.logger().info("Submodule " + name() + " has been stopped!");
     }
 }

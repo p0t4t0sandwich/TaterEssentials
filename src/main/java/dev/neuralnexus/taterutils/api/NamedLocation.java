@@ -8,10 +8,10 @@ package dev.neuralnexus.taterutils.api;
 
 import com.google.gson.reflect.TypeToken;
 
-import dev.neuralnexus.taterlib.api.TaterAPIProvider;
-import dev.neuralnexus.taterlib.server.Server;
-import dev.neuralnexus.taterlib.world.Location;
-import dev.neuralnexus.taterlib.world.World;
+import dev.neuralnexus.taterapi.TaterAPIProvider;
+import dev.neuralnexus.taterapi.server.Server;
+import dev.neuralnexus.taterapi.world.Location;
+import dev.neuralnexus.taterapi.world.World;
 
 import java.lang.reflect.Type;
 import java.util.Set;
@@ -41,7 +41,7 @@ public class NamedLocation {
             String name, String world, double x, double y, double z, float yaw, float pitch) {
         this(
                 name,
-                ((Server) TaterAPIProvider.get().getServer()).world(world).get(),
+                ((Server) TaterAPIProvider.api().get().server()).world(world).get(),
                 x,
                 y,
                 z,

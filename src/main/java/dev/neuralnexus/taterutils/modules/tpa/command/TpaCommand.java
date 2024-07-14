@@ -6,10 +6,10 @@
 
 package dev.neuralnexus.taterutils.modules.tpa.command;
 
-import dev.neuralnexus.taterlib.api.TaterAPIProvider;
-import dev.neuralnexus.taterlib.command.Command;
-import dev.neuralnexus.taterlib.command.CommandSender;
-import dev.neuralnexus.taterlib.player.Player;
+import dev.neuralnexus.taterapi.TaterAPIProvider;
+import dev.neuralnexus.taterapi.command.Command;
+import dev.neuralnexus.taterapi.command.CommandSender;
+import dev.neuralnexus.taterapi.entity.player.Player;
 import dev.neuralnexus.taterutils.api.CommandUtils;
 import dev.neuralnexus.taterutils.api.TaterUtilsAPIProvider;
 import dev.neuralnexus.taterutils.modules.tpa.api.TpaAPI;
@@ -57,7 +57,7 @@ public class TpaCommand implements Command {
             CommandUtils.sendMessage(player, "&aPlease provide a player name!");
         } else {
             Optional<Player> target =
-                    TaterAPIProvider.get().getServer().onlinePlayers().stream()
+                    TaterAPIProvider.api().get().server().onlinePlayers().stream()
                             .filter(p -> p.name().equalsIgnoreCase(args[0]))
                             .findFirst()
                             .map(p -> (Player) p);

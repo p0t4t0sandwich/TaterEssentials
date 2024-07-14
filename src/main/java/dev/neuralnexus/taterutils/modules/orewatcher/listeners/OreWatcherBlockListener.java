@@ -6,10 +6,11 @@
 
 package dev.neuralnexus.taterutils.modules.orewatcher.listeners;
 
-import dev.neuralnexus.taterlib.Utils;
-import dev.neuralnexus.taterlib.api.TaterAPIProvider;
-import dev.neuralnexus.taterlib.event.block.PlayerBlockBreakEvent;
-import dev.neuralnexus.taterlib.placeholder.PlaceholderParser;
+import static dev.neuralnexus.taterapi.util.TextUtil.ansiParser;
+
+import dev.neuralnexus.taterapi.TaterAPIProvider;
+import dev.neuralnexus.taterapi.event.block.PlayerBlockBreakEvent;
+import dev.neuralnexus.taterapi.placeholder.PlaceholderParser;
 import dev.neuralnexus.taterutils.TaterUtils;
 import dev.neuralnexus.taterutils.api.TaterUtilsAPIProvider;
 import dev.neuralnexus.taterutils.config.TaterUtilsConfigLoader;
@@ -21,7 +22,7 @@ public class OreWatcherBlockListener {
     public static void onBlockBreak(PlayerBlockBreakEvent event) {
         OreWatcherConfig config = TaterUtilsConfigLoader.config().oreWatcher();
         OreWatcherAPI api = TaterUtilsAPIProvider.get().oreWatcherAPI();
-        if (event.block().type().toLowerCase().contains("ore")) {
+        if (event.block().type().asString().toLowerCase().contains("ore")) {
             api.addOreMined(event.player(), 1);
             api.getOreMined(event.player())
                     .ifPresent(
@@ -48,18 +49,24 @@ public class OreWatcherBlockListener {
                                                                     + config.adminAlertMessage())
                                                     .parseString(
                                                             "playername", event.player().name())
-                                                    .parseString("blockname", event.block().type())
+                                                    .parseString(
+                                                            "blockname",
+                                                            event.block().type().asString())
                                                     .parseString(
                                                             "oreperminute",
                                                             String.valueOf(
                                                                     oreMined.getAveragePerMinute()))
                                                     .parseSectionSign()
                                                     .getResult();
-                                    TaterUtils.logger().info(Utils.ansiParser(adminAlertMessage));
+                                    TaterUtils.logger().info(ansiParser(adminAlertMessage));
 
                                     // Send the message to all players with the permission
                                     if (config.adminAlertEnabled()) {
-                                        TaterAPIProvider.get().getServer().onlinePlayers().stream()
+                                        TaterAPIProvider.api()
+                                                .get()
+                                                .server()
+                                                .onlinePlayers()
+                                                .stream()
                                                 .filter(
                                                         player ->
                                                                 player.hasPermission(
@@ -82,7 +89,8 @@ public class OreWatcherBlockListener {
                                                         .parseString(
                                                                 "playername", event.player().name())
                                                         .parseString(
-                                                                "blockname", event.block().type())
+                                                                "blockname",
+                                                                event.block().type().asString())
                                                         .parseString(
                                                                 "oreperminute",
                                                                 String.valueOf(

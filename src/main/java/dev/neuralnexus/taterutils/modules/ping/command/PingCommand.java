@@ -6,11 +6,11 @@
 
 package dev.neuralnexus.taterutils.modules.ping.command;
 
-import dev.neuralnexus.taterlib.api.TaterAPIProvider;
-import dev.neuralnexus.taterlib.command.Command;
-import dev.neuralnexus.taterlib.command.CommandSender;
-import dev.neuralnexus.taterlib.player.Player;
-import dev.neuralnexus.taterlib.player.SimplePlayer;
+import dev.neuralnexus.taterapi.TaterAPIProvider;
+import dev.neuralnexus.taterapi.command.Command;
+import dev.neuralnexus.taterapi.command.CommandSender;
+import dev.neuralnexus.taterapi.entity.player.Player;
+import dev.neuralnexus.taterapi.entity.player.SimplePlayer;
 import dev.neuralnexus.taterutils.api.CommandUtils;
 import dev.neuralnexus.taterutils.config.TaterUtilsConfigLoader;
 import dev.neuralnexus.taterutils.config.sections.PingConfig;
@@ -67,7 +67,7 @@ public class PingCommand implements Command {
         } else {
             if (sender.hasPermission(permission() + ".others")) {
                 Optional<SimplePlayer> target =
-                        TaterAPIProvider.get().getServer().onlinePlayers().stream()
+                        TaterAPIProvider.api().get().server().onlinePlayers().stream()
                                 .filter(player -> player.name().equalsIgnoreCase(args[0]))
                                 .findFirst();
                 if (target.isPresent()) {

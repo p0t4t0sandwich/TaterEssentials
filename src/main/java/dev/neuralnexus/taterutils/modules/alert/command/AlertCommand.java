@@ -6,9 +6,9 @@
 
 package dev.neuralnexus.taterutils.modules.alert.command;
 
-import dev.neuralnexus.taterlib.api.TaterAPIProvider;
-import dev.neuralnexus.taterlib.command.Command;
-import dev.neuralnexus.taterlib.command.CommandSender;
+import dev.neuralnexus.taterapi.TaterAPIProvider;
+import dev.neuralnexus.taterapi.command.Command;
+import dev.neuralnexus.taterapi.command.CommandSender;
 import dev.neuralnexus.taterutils.api.CommandUtils;
 
 /** Alert Command. */
@@ -45,7 +45,7 @@ public class AlertCommand implements Command {
         if (!CommandUtils.senderHasPermission(sender, permission())) {
             return true;
         }
-        TaterAPIProvider.get().getServer().broadcastMessage("&4" + String.join(" ", args));
+        TaterAPIProvider.api().get().server().broadcastMessage("&4" + String.join(" ", args));
         return true;
     }
 }

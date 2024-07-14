@@ -6,39 +6,30 @@
 
 package dev.neuralnexus.taterutils.modules.godmode;
 
-import dev.neuralnexus.taterlib.api.TaterAPIProvider;
-import dev.neuralnexus.taterlib.event.api.CommandEvents;
-import dev.neuralnexus.taterlib.event.api.EntityEvents;
-import dev.neuralnexus.taterlib.player.Player;
-import dev.neuralnexus.taterlib.plugin.PluginModule;
+import dev.neuralnexus.taterapi.TaterAPIProvider;
+import dev.neuralnexus.taterapi.entity.player.Player;
+import dev.neuralnexus.taterapi.event.api.CommandEvents;
+import dev.neuralnexus.taterapi.event.api.EntityEvents;
+import dev.neuralnexus.taterloader.plugin.PluginModule;
 import dev.neuralnexus.taterutils.TaterUtils;
 import dev.neuralnexus.taterutils.api.TaterUtilsAPIProvider;
 import dev.neuralnexus.taterutils.modules.godmode.command.GodModeCommand;
 
 /** GodMode module. */
 public class GodModeModule implements PluginModule {
-    private static boolean RELOADED = false;
-    private static boolean STARTED = false;
-
     @Override
-    public String name() {
+    public String id() {
         return "GodMode";
     }
 
     @Override
-    public void start() {
-        if (STARTED) {
-            TaterUtils.logger().info("Submodule " + name() + " has already started!");
-            return;
-        }
-        STARTED = true;
-
-        if (!RELOADED) {
+    public void onEnable() {
+        if (!TaterUtils.hasReloaded()) {
             // Register commands
             CommandEvents.REGISTER_COMMAND.register(
                     event -> {
-                        if (!TaterAPIProvider.serverType().isProxy()) {
-                            event.registerCommand(TaterUtils.plugin(), new GodModeCommand());
+                        if (!TaterAPIProvider.platform().isProxy()) {
+                            event.registerCommand(new GodModeCommand());
                         }
                     });
 
@@ -54,18 +45,5 @@ public class GodModeModule implements PluginModule {
                         }
                     });
         }
-
-        TaterUtils.logger().info("Submodule " + name() + " has been started!");
-    }
-
-    @Override
-    public void stop() {
-        if (!STARTED) {
-            TaterUtils.logger().info("Submodule " + name() + " has already stopped!");
-            return;
-        }
-        STARTED = false;
-        RELOADED = true;
-        TaterUtils.logger().info("Submodule " + name() + " has been stopped!");
     }
 }

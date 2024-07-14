@@ -6,34 +6,25 @@
 
 package dev.neuralnexus.taterutils.modules.badspawns;
 
-import dev.neuralnexus.taterlib.api.TaterAPIProvider;
-import dev.neuralnexus.taterlib.entity.Entity;
-import dev.neuralnexus.taterlib.event.api.EntityEvents;
-import dev.neuralnexus.taterlib.plugin.PluginModule;
+import dev.neuralnexus.taterapi.TaterAPIProvider;
+import dev.neuralnexus.taterapi.entity.Entity;
+import dev.neuralnexus.taterapi.event.api.EntityEvents;
+import dev.neuralnexus.taterloader.plugin.PluginModule;
 import dev.neuralnexus.taterutils.TaterUtils;
 import dev.neuralnexus.taterutils.api.TaterUtilsAPIProvider;
 import dev.neuralnexus.taterutils.modules.badspawns.api.BadSpawnsAPI;
 
 /** BadSpawns module. */
 public class BadSpawnsModule implements PluginModule {
-    private static boolean STARTED = false;
-    private static boolean RELOADED = false;
-
     @Override
-    public String name() {
+    public String id() {
         return "BadSpawns";
     }
 
     @Override
-    public void start() {
-        if (STARTED) {
-            TaterUtils.logger().info("Submodule " + name() + " has already started!");
-            return;
-        }
-        STARTED = true;
-
-        if (!RELOADED) {
-            if (!TaterAPIProvider.serverType().isProxy()) {
+    public void onEnable() {
+        if (!TaterUtils.hasReloaded()) {
+            if (!TaterAPIProvider.platform().isProxy()) {
                 // Register listeners
                 EntityEvents.SPAWN.register(
                         event -> {
@@ -45,19 +36,5 @@ public class BadSpawnsModule implements PluginModule {
                         });
             }
         }
-
-        TaterUtils.logger().info("Submodule " + name() + " has been started!");
-    }
-
-    @Override
-    public void stop() {
-        if (!STARTED) {
-            TaterUtils.logger().info("Submodule " + name() + " has already stopped!");
-            return;
-        }
-        STARTED = false;
-        RELOADED = true;
-
-        TaterUtils.logger().info("Submodule " + name() + " has been stopped!");
     }
 }

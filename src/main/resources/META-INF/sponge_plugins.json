@@ -20,7 +20,7 @@
       "dependencies": [
         {
           "id": "taterlib",
-          "version": "${taterlib_version}",
+          "version": "${taterapi_version}",
           "load-order": "after",
           "optional": false
         }

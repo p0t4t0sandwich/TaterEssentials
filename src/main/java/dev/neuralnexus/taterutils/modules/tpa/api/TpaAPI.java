@@ -6,8 +6,9 @@
 
 package dev.neuralnexus.taterutils.modules.tpa.api;
 
-import dev.neuralnexus.taterlib.Utils;
-import dev.neuralnexus.taterlib.player.Player;
+import static dev.neuralnexus.taterapi.placeholder.PlaceholderParser.substituteSectionSign;
+
+import dev.neuralnexus.taterapi.entity.player.Player;
 
 import java.util.HashSet;
 import java.util.Optional;
@@ -159,7 +160,7 @@ public class TpaAPI {
         /** Send expire message to the sender. */
         public void sendExpireMessage() {
             sender.sendMessage(
-                    Utils.substituteSectionSign(
+                    substituteSectionSign(
                             "&aYour teleport request to &e" + receiver.name() + " &ahas expired."));
         }
 
@@ -167,24 +168,24 @@ public class TpaAPI {
         public void accept() {
             sender.teleport(receiver);
             sender.sendMessage(
-                    Utils.substituteSectionSign(
+                    substituteSectionSign(
                             "&aYou have accepted the teleport request from &e"
                                     + receiver.name()
                                     + "&a."));
             receiver.sendMessage(
-                    Utils.substituteSectionSign(
+                    substituteSectionSign(
                             "&e" + sender.name() + " &ahas accepted your teleport request."));
         }
 
         /** Denies the request. */
         public void deny() {
             sender.sendMessage(
-                    Utils.substituteSectionSign(
+                    substituteSectionSign(
                             "&aYou have denied the teleport request from &e"
                                     + receiver.name()
                                     + "&a."));
             receiver.sendMessage(
-                    Utils.substituteSectionSign(
+                    substituteSectionSign(
                             "&e" + sender.name() + " &ahas denied your teleport request."));
         }
     }

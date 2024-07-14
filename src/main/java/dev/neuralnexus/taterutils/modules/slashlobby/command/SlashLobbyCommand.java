@@ -6,10 +6,11 @@
 
 package dev.neuralnexus.taterutils.modules.slashlobby.command;
 
-import dev.neuralnexus.taterlib.Utils;
-import dev.neuralnexus.taterlib.command.Command;
-import dev.neuralnexus.taterlib.command.CommandSender;
-import dev.neuralnexus.taterlib.player.ProxyPlayer;
+import static dev.neuralnexus.taterapi.placeholder.PlaceholderParser.substituteSectionSign;
+
+import dev.neuralnexus.taterapi.command.Command;
+import dev.neuralnexus.taterapi.command.CommandSender;
+import dev.neuralnexus.taterapi.entity.player.ProxyPlayer;
 import dev.neuralnexus.taterutils.api.CommandUtils;
 import dev.neuralnexus.taterutils.config.TaterUtilsConfigLoader;
 
@@ -49,7 +50,7 @@ public class SlashLobbyCommand implements Command {
         }
         ProxyPlayer player = (ProxyPlayer) sender;
         player.sendMessage(
-                Utils.substituteSectionSign(
+                substituteSectionSign(
                         TaterUtilsConfigLoader.config().slashLobby().connectedToLobby()));
         player.connect(TaterUtilsConfigLoader.config().slashLobby().lobbyNames()[0]);
         return true;

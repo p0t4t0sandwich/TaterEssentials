@@ -6,8 +6,8 @@
 
 package dev.neuralnexus.taterutils.modules.badspawns.api;
 
-import dev.neuralnexus.taterlib.entity.Entity;
-import dev.neuralnexus.taterlib.world.BlockPos;
+import dev.neuralnexus.taterapi.entity.Entity;
+import dev.neuralnexus.taterapi.world.BlockPos;
 
 import org.spongepowered.configurate.objectmapping.ConfigSerializable;
 import org.spongepowered.configurate.objectmapping.meta.Setting;
@@ -109,10 +109,7 @@ public class Region {
         // System.out.println("Is within result: " + isWithinResult);
         //
 
-        // TODO: Consider resolving Entity#type() to the modid:entityid format
-        boolean mobResult =
-                mobs.contains(entity.type().replace("entity.", "").replace(".", ":"))
-                        || mobs.isEmpty();
+        boolean mobResult = mobs.contains(entity.type().asString()) || mobs.isEmpty();
         //
         // System.out.println("Mob result: " + mobResult);
         //

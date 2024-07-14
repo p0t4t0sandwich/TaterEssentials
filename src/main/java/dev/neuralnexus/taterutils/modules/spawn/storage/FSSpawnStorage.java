@@ -9,9 +9,9 @@ package dev.neuralnexus.taterutils.modules.spawn.storage;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 
-import dev.neuralnexus.taterlib.player.Player;
-import dev.neuralnexus.taterlib.storage.databases.Filesystem;
-import dev.neuralnexus.taterlib.world.Location;
+import dev.neuralnexus.taterapi.entity.player.Player;
+import dev.neuralnexus.taterapi.storage.databases.Filesystem;
+import dev.neuralnexus.taterapi.world.Location;
 import dev.neuralnexus.taterutils.api.AbstractLocation;
 
 import java.io.File;

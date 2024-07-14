@@ -6,10 +6,11 @@
 
 package dev.neuralnexus.taterutils.modules.tpa;
 
-import dev.neuralnexus.taterlib.Utils;
-import dev.neuralnexus.taterlib.api.TaterAPIProvider;
-import dev.neuralnexus.taterlib.event.api.CommandEvents;
-import dev.neuralnexus.taterlib.plugin.PluginModule;
+import static dev.neuralnexus.taterapi.util.ScheduleUtil.repeatTaskAsync;
+
+import dev.neuralnexus.taterapi.TaterAPIProvider;
+import dev.neuralnexus.taterapi.event.api.CommandEvents;
+import dev.neuralnexus.taterloader.plugin.PluginModule;
 import dev.neuralnexus.taterutils.TaterUtils;
 import dev.neuralnexus.taterutils.api.TaterUtilsAPIProvider;
 import dev.neuralnexus.taterutils.modules.tpa.command.TpAcceptCommand;
@@ -19,51 +20,27 @@ import dev.neuralnexus.taterutils.modules.tpa.command.TpaCommand;
 
 /** TPA module. */
 public class TpaModule implements PluginModule {
-    private static boolean STARTED = false;
-    private static boolean RELOADED = false;
-
     @Override
-    public String name() {
+    public String id() {
         return "TPA";
     }
 
     @Override
-    public void start() {
-        if (STARTED) {
-            TaterUtils.logger().info("Submodule " + name() + " has already started!");
-            return;
-        }
-        STARTED = true;
-
-        if (!RELOADED) {
+    public void onEnable() {
+        if (!TaterUtils.hasReloaded()) {
             // Register commands
             CommandEvents.REGISTER_COMMAND.register(
                     (event -> {
-                        if (!TaterAPIProvider.serverType().isProxy()) {
-                            event.registerCommand(TaterUtils.plugin(), new TpaCommand());
-                            event.registerCommand(
-                                    TaterUtils.plugin(), new TpHereCommand(), "tpahere");
-                            event.registerCommand(TaterUtils.plugin(), new TpAcceptCommand());
-                            event.registerCommand(TaterUtils.plugin(), new TpDenyCommand());
+                        if (!TaterAPIProvider.platform().isProxy()) {
+                            event.registerCommand(new TpaCommand());
+                            event.registerCommand(new TpHereCommand(), "tpahere");
+                            event.registerCommand(new TpAcceptCommand());
+                            event.registerCommand(new TpDenyCommand());
                         }
                     }));
 
             // Set repeating task that clears stale TPA requests every minute
-            Utils.repeatTaskAsync(
-                    () -> TaterUtilsAPIProvider.get().tpaAPI().checkExpired(), 0L, 1200L);
+            repeatTaskAsync(() -> TaterUtilsAPIProvider.get().tpaAPI().checkExpired(), 0L, 1200L);
         }
-
-        TaterUtils.logger().info("Submodule " + name() + " has been started!");
-    }
-
-    @Override
-    public void stop() {
-        if (!STARTED) {
-            TaterUtils.logger().info("Submodule " + name() + " has already stopped!");
-            return;
-        }
-        STARTED = false;
-        RELOADED = true;
-        TaterUtils.logger().info("Submodule " + name() + " has been stopped!");
     }
 }

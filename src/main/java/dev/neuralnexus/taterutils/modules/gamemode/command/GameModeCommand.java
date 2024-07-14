@@ -6,12 +6,12 @@
 
 package dev.neuralnexus.taterutils.modules.gamemode.command;
 
-import dev.neuralnexus.taterlib.api.TaterAPIProvider;
-import dev.neuralnexus.taterlib.command.Command;
-import dev.neuralnexus.taterlib.command.CommandSender;
-import dev.neuralnexus.taterlib.placeholder.PlaceholderParser;
-import dev.neuralnexus.taterlib.player.GameMode;
-import dev.neuralnexus.taterlib.player.Player;
+import dev.neuralnexus.taterapi.TaterAPIProvider;
+import dev.neuralnexus.taterapi.command.Command;
+import dev.neuralnexus.taterapi.command.CommandSender;
+import dev.neuralnexus.taterapi.entity.player.GameMode;
+import dev.neuralnexus.taterapi.entity.player.Player;
+import dev.neuralnexus.taterapi.placeholder.PlaceholderParser;
 import dev.neuralnexus.taterutils.api.CommandUtils;
 import dev.neuralnexus.taterutils.config.TaterUtilsConfigLoader;
 import dev.neuralnexus.taterutils.config.sections.GameModeConfig;
@@ -75,7 +75,7 @@ public class GameModeCommand implements Command {
                     return true;
                 }
                 Optional<Player> optionalPlayer =
-                        TaterAPIProvider.get().getServer().onlinePlayers().stream()
+                        TaterAPIProvider.api().get().server().onlinePlayers().stream()
                                 .filter(p -> p.name().equalsIgnoreCase(args[1]))
                                 .findFirst()
                                 .map(p -> (Player) p);
@@ -111,7 +111,7 @@ public class GameModeCommand implements Command {
                     return true;
                 }
                 Optional<Player> optionalPlayer =
-                        TaterAPIProvider.get().getServer().onlinePlayers().stream()
+                        TaterAPIProvider.api().get().server().onlinePlayers().stream()
                                 .filter(p -> p.name().equalsIgnoreCase(args[0]))
                                 .findFirst()
                                 .map(p -> (Player) p);

@@ -6,8 +6,8 @@
 
 package dev.neuralnexus.taterutils;
 
-import dev.neuralnexus.taterlib.plugin.ModuleLoader;
-import dev.neuralnexus.taterlib.plugin.PluginModule;
+import dev.neuralnexus.taterloader.plugin.ModuleLoader;
+import dev.neuralnexus.taterloader.plugin.PluginModule;
 
 import java.util.ArrayList;
 import java.util.List;

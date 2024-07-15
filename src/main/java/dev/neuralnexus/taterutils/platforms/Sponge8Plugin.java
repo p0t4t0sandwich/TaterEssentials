@@ -17,6 +17,6 @@ import org.spongepowered.plugin.builtin.jvm.Plugin;
 public class Sponge8Plugin {
     @Inject
     public Sponge8Plugin() {
-        TaterUtils.instance().start();
+        TaterUtils.instance().onEnable();
     }
 }

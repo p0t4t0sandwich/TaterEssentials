@@ -24,6 +24,6 @@ import dev.neuralnexus.taterutils.TaterUtils;
 public class VelocityPlugin {
     @Inject
     public VelocityPlugin() {
-        TaterUtils.instance().start();
+        TaterUtils.instance().onEnable();
     }
 }

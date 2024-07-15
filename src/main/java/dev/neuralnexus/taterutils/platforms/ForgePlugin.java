@@ -19,6 +19,6 @@ import net.minecraftforge.fml.common.Mod;
         acceptableRemoteVersions = "*")
 public class ForgePlugin {
     public ForgePlugin() {
-        TaterUtils.instance().start();
+        TaterUtils.instance().onEnable();
     }
 }

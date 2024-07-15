@@ -14,6 +14,6 @@ import net.neoforged.fml.common.Mod;
 @Mod(TaterUtils.PROJECT_ID)
 public class NeoForgePlugin {
     public NeoForgePlugin() {
-        TaterUtils.instance().start();
+        TaterUtils.instance().onEnable();
     }
 }

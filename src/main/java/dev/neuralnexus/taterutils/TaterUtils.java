@@ -6,8 +6,6 @@
 
 package dev.neuralnexus.taterutils;
 
-import com.google.common.collect.ImmutableMap;
-
 import dev.neuralnexus.taterapi.MinecraftVersion;
 import dev.neuralnexus.taterapi.Platform;
 import dev.neuralnexus.taterapi.event.api.PluginEvents;
@@ -16,6 +14,7 @@ import dev.neuralnexus.taterapi.metrics.bstats.MetricsAdapter;
 import dev.neuralnexus.taterloader.Loader;
 import dev.neuralnexus.taterloader.plugin.ModuleLoader;
 import dev.neuralnexus.taterloader.plugin.Plugin;
+import dev.neuralnexus.taterloader.plugin.impl.ModuleLoaderImpl;
 import dev.neuralnexus.taterutils.api.TaterUtilsAPI;
 import dev.neuralnexus.taterutils.api.TaterUtilsAPIProvider;
 import dev.neuralnexus.taterutils.config.TaterUtilsConfig;
@@ -36,6 +35,8 @@ import dev.neuralnexus.taterutils.modules.spawn.SpawnModule;
 import dev.neuralnexus.taterutils.modules.tpa.TpaModule;
 import dev.neuralnexus.taterutils.modules.warp.WarpModule;
 
+import java.util.HashMap;
+
 /** Main class for the plugin. */
 public class TaterUtils implements Plugin {
     public static final String PROJECT_NAME = "TaterUtils";
@@ -48,8 +49,8 @@ public class TaterUtils implements Plugin {
 
     private static final TaterUtils instance = new TaterUtils();
     private static final Logger logger = Logger.create(PROJECT_ID);
+    private static final ModuleLoader moduleLoader = new ModuleLoaderImpl();
     private static boolean RELOADED = false;
-    private static ModuleLoader moduleLoader;
 
     /**
      * Get the singleton instance of the class.
@@ -89,26 +90,26 @@ public class TaterUtils implements Plugin {
     }
 
     @Override
-    public void start() {
+    public void onEnable() {
         logger.info(
                 TaterUtils.PROJECT_NAME
                         + " is running on "
                         + Platform.get()
                         + " "
                         + MinecraftVersion.get());
-        PluginEvents.DISABLED.register(event -> stop());
+        PluginEvents.DISABLED.register(event -> onDisable());
 
         // Set up bStats
+        HashMap<Platform, Integer> statsMap = new HashMap<>();
+        statsMap.put(Platform.BUKKIT, 21134);
+        statsMap.put(Platform.BUNGEECORD, 21135);
+        statsMap.put(Platform.SPONGE, 21136);
+        statsMap.put(Platform.VELOCITY, 21137);
         MetricsAdapter.setupMetrics(
                 Loader.instance().plugin(),
                 Loader.instance().server(),
-                logger.getLogger(),
-                ImmutableMap.<Platform, Integer>builder()
-                        .put(Platform.BUKKIT, 21134)
-                        .put(Platform.BUNGEECORD, 21135)
-                        .put(Platform.SPONGE, 21136)
-                        .put(Platform.VELOCITY, 21137)
-                        .build());
+                logger().getLogger(),
+                statsMap);
 
         // Config
         TaterUtilsConfigLoader.load();
@@ -118,9 +119,7 @@ public class TaterUtils implements Plugin {
 
         if (!RELOADED) {
             // Register modules
-            moduleLoader = new TaterUtilsModuleLoader();
             TaterUtilsConfig config = TaterUtilsConfigLoader.config();
-
             if (config.checkModule("alert")) {
                 moduleLoader.registerModule(new AlertModule());
             }
@@ -176,7 +175,7 @@ public class TaterUtils implements Plugin {
     }
 
     @Override
-    public void stop() {
+    public void onDisable() {
         // Stop modules
         logger().info("Stopping modules: " + moduleLoader.moduleNames());
         moduleLoader.onDisable();
@@ -193,8 +192,8 @@ public class TaterUtils implements Plugin {
     /** Reload */
     public void reload() {
         RELOADED = true;
-        stop();
-        start();
+        onDisable();
+        onEnable();
         logger().info(PROJECT_NAME + " has been reloaded!");
     }
 }

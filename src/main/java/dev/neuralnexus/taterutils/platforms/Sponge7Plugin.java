@@ -21,6 +21,6 @@ import org.spongepowered.api.plugin.Plugin;
 public class Sponge7Plugin {
     @Inject
     public Sponge7Plugin() {
-        TaterUtils.instance().start();
+        TaterUtils.instance().onEnable();
     }
 }

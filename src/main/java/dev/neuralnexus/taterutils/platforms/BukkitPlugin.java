@@ -13,7 +13,7 @@ import org.bukkit.plugin.java.JavaPlugin;
 /** Bukkit entry point. */
 public class BukkitPlugin extends JavaPlugin {
     public BukkitPlugin() {
-        TaterUtils.instance().start();
+        TaterUtils.instance().onEnable();
     }
 
     @Override

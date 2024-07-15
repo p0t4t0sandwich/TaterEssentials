@@ -19,6 +19,6 @@ import dev.neuralnexus.taterutils.TaterUtils;
         bukkitPlugin = TaterUtils.PROJECT_NAME)
 public class LegacyForgePlugin {
     public LegacyForgePlugin() {
-        TaterUtils.instance().start();
+        TaterUtils.instance().onEnable();
     }
 }

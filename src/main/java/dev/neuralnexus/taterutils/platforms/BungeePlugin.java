@@ -13,6 +13,6 @@ import net.md_5.bungee.api.plugin.Plugin;
 /** Bungee entry point. */
 public class BungeePlugin extends Plugin {
     public BungeePlugin() {
-        TaterUtils.instance().start();
+        TaterUtils.instance().onEnable();
     }
 }

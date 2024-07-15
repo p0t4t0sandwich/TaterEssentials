@@ -13,7 +13,7 @@ import net.fabricmc.api.ModInitializer;
 /** Fabric entry point. */
 public class FabricPlugin implements ModInitializer {
     public FabricPlugin() {
-        TaterUtils.instance().start();
+        TaterUtils.instance().onEnable();
     }
 
     @Override
